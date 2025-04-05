@@ -1,11 +1,9 @@
-# Quarkus.io Website Based on Jekyll
+# Quarkus.io Website 
 
-## Getting Started
-
-These instructions will get you a copy of the Quarkus.io website up and running on your local machine for development and testing purposes.
+* -- based on -- Jekyll
 
 ### Installation
-
+* TODO:
 #### Using Docker
 
 1. Install [Docker Desktop](https://docs.docker.com/install/).
@@ -68,8 +66,8 @@ These instructions will get you a copy of the Quarkus.io website up and running 
 
 **For more regarding the use of Jekyll, please refer to the [Jekyll Step by Step Tutorial](https://jekyllrb.com/docs/step-by-step/01-setup/).**
 
-### Deploying to GitHub Pages
-
+### How to deploy | GitHub Pages?
+* TODO:
 The website deployment is automatically performed by GitHub Actions (when commits are pushed to the `main` branch).
 If for some reason you need to deploy from your local machine, follow these instructions:
 
@@ -131,13 +129,3 @@ The CNAME record for XX.quarkus.io should point to "quarkusio.github.io.".
 
 See Step 5 on https://docs.github.com/en/github/working-with-github-pages/managing-a-custom-domain-for-your-github-pages-site for more information.
 
-## Contributing
-
-Please read [CONTRIBUTING.md](https://github.com/quarkusio/quarkusio.github.io/tree/main/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
-
-**Important:** the guides are maintained in the main Quarkus repository and pull requests should be submitted there:
-https://github.com/quarkusio/quarkus/tree/main/docs/src/main/asciidoc.
-
-## License
-
-This website is licensed under the [Creative Commons Attribution 3.0](https://creativecommons.org/licenses/by/3.0/).
