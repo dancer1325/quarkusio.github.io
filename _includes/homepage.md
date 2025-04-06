@@ -5,14 +5,7 @@
     * GraalVM
   * designed -- from -- the best Java libraries & standards
 # Benefits
-* Developer Joy
-  * == cohesive platform -- for -- optimized developer joy / 
-    * unified configuration
-    * NO hassle NATIVE executable generation 
-  * Zero config
-    * == applications can run WITHOUT configuration
-  * live reload
-  * streamlined code / 80% common usages + flexible / remainder 20%
+* [Developer Joy](developer-joy.md)
 * Performance
   * | startup JVM & | NATIVE binary deployments -- via -- 
     * cutting down on memory usage
