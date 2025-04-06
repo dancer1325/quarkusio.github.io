@@ -1,0 +1,5 @@
+* [Lufthansa](../_posts/2020-02-17-aviatar-experiences-significant-savings.adoc)
+* [Logicdrop](../_posts/2021-09-20-logicdrop-customer-story.adoc)
+* [Banco do Brasil](../_posts/2022-05-31-banco-do-brasil-open-banking-user-story.adoc)
+* [Adoptium](../_posts/2021-09-15-adoptium-customer-story.adoc)
+* [OTHERS](../_posts)

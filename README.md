@@ -2,6 +2,9 @@
 
 * -- based on -- Jekyll
 
+## Documentation
+* [index](_layouts/index.md)
+
 ### Installation
 * TODO:
 #### Using Docker
@@ -99,8 +102,6 @@ To write a blog:
 - it's in asciidoc format, there is an example as shown with [2019-06-05-quarkus-and-web-ui-development-mode.adoc](https://github.com/quarkusio/quarkusio.github.io/blob/main/_posts/2019-06-05-quarkus-and-web-ui-development-mode.adoc)
   - Be aware that the `date` attribute in the asciidoc preamble defines when the article will be published. Add a `--future` flag when testing locally to ensure the article is included in the generated site. 
 - send a pull request against the main branch and voilà
-
-
 
 ## Translations/Localization (l10n)
 
