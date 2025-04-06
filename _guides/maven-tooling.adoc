@@ -181,36 +181,30 @@ and any options you put in that file will be picked up by Maven, without having 
 [[dev-mode]]
 == Development mode
 
-Quarkus comes with a built-in development mode.
-Run your application with:
-
+* built-in Quarkus
+* 👀if you update code / resources / configurations -> AUTOMATICALLY reflected | your running application👀
+    ** code -> refresh browser -> repeat
+    ** -> make easier development [database, UI]
+* enables
+    ** ⭐️hot deployment + background compilation ⭐️
+        *** == if you modify your ".java" OR resource files & refresh your browser -> these changes -- will AUTOMATICALLY -- deployed
+        *** if there are issues with compilation OR deployment -> error page -- will -- let you know
+* refresh the browser
+    ** -- triggers a -- scan of the workspace
 include::{includes}/devtools/dev.adoc[]
 
-You can then update the application sources, resources and configurations.
-The changes are automatically reflected in your running application.
-This is great to do development spanning UI and database as you see changes reflected immediately.
-
-Dev mode enables hot deployment with background compilation, which means
-that when you modify your Java files or your resource files and refresh your browser these changes will automatically take effect.
-This works too for resource files like the configuration property file.
-The act of
-refreshing the browser triggers a scan of the workspace, and if any changes are detected the Java files are compiled,
-and the application is redeployed, then your request is serviced by the redeployed application. If there are any issues
-with compilation or deployment an error page will let you know.
-
-Hit `CTRL+C` to stop the application.
-
-[NOTE]
-====
-By default, `quarkus:dev` sets the debug host to `localhost` (for security reasons). If you need to change this, for example to enable debugging on all hosts, you can use the `-DdebugHost` option like so:
+* debug host
+    ** by default, `localhost`
+    ** if you need to change it -> specify `-DdebugHost`
+        *** _Example:_ debugging | ALL hosts
 
 :dev-additional-parameters: -DdebugHost=0.0.0.0
 include::{includes}/devtools/dev-parameters.adoc[]
 :!dev-additional-parameters:
-====
+
 
 === Remote Development Mode
-
+* TODO:
 It is possible to use development mode remotely, so that you can run Quarkus in a container environment (such as OpenShift)
 and have changes made to your local files become immediately visible.
 
