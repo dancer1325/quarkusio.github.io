@@ -10,17 +10,12 @@ include::_attributes.adoc[]
 :topics: rest,json,resteasy-reactive
 :extensions: io.quarkus:quarkus-rest-jackson,io.quarkus:quarkus-rest-jsonb,io.quarkus:quarkus-rest
 
-JSON is now the _lingua franca_ between microservices.
+* goal
+    ** REST services / consume & produce JSON payloads
 
-In this guide, we see how you can get your REST services to consume and produce JSON payloads.
-
-TIP: there is another guide if you need a xref:rest-client.adoc[REST client] (including support for JSON).
-
-[TIP]
-====
-This is an introduction to writing JSON REST services with Quarkus.
-A more detailed guide about Quarkus REST (formerly RESTEasy Reactive) is available xref:rest.adoc[here].
-====
+* see ALSO
+    ** xref:rest-client.adoc[guide: REST client / support JSON]
+    ** xref:rest.adoc[guide: MORE detailed -- about -- Quarkus REST]
 
 == Prerequisites
 
@@ -28,27 +23,19 @@ include::{includes}/prerequisites.adoc[]
 
 == Architecture
 
-The application built in this guide is quite simple: the user can add elements in a list using a form and the list is updated.
-
-All the information between the browser and the server are formatted as JSON.
+* user can -- via a form -- add elements | list
 
 == Solution
 
-We recommend that you follow the instructions in the next sections and create the application step by step.
-However, you can go right to the completed example.
-
-Clone the Git repository: `git clone {quickstarts-clone-url}`, or download an {quickstarts-archive-url}[archive].
-
-The solution is located in the `rest-json-quickstart` link:{quickstarts-tree-url}/rest-json-quickstart[directory].
+* link:{quickstarts-tree-url}/rest-json-quickstart[`rest-json-quickstart/`]
 
 == Creating the Maven project
-
-First, we need a new project. Create a new project with the following command:
 
 :create-app-artifact-id: rest-json-quickstart
 :create-app-extensions: rest-jackson
 include::{includes}/devtools/create-app.adoc[]
 
+* TODO:
 This command generates a new project importing the Quarkus REST/Jakarta REST and https://github.com/FasterXML/jackson[Jackson] extensions,
 and in particular adds the following dependency:
 
