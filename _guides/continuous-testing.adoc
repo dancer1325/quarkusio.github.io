@@ -12,36 +12,40 @@ include::_attributes.adoc[]
 :sectnumlevels: 4
 :topics: testing,dev-ui,tooling,dev-mode
 
-Learn how to use continuous testing in your Quarkus Application.
+* goal
+    ** how to use continuous testing | your Quarkus Application
 
 == Prerequisites
 
 include::{includes}/prerequisites.adoc[]
-* The completed greeter application from the xref:getting-started.adoc[Getting Started Guide]
+* xref:getting-started.adoc[Getting Started Guide]
 
 == Introduction
 
-Quarkus supports continuous testing, where tests run immediately after code changes have been saved. This allows you to
-get instant feedback on your code changes. Quarkus detects which tests cover which code, and uses this information to
-only run the relevant tests when code is changed.
+* continuous testing
+    ** allows
+        *** 👀if code changes ->
+            **** run ONLY RELATED tests👀
+                ***** Reason: 🧠Quarkus -- detects -- code / EACH test🧠
+            **** get instant feedback 👀
 
 == Solution
 
-Start the xref:getting-started.adoc[Getting Started] application (or any other application) using:
+* xref:getting-started.adoc[Getting Started]
 
 include::{includes}/devtools/dev.adoc[]
 
-Quarkus will start in development mode as normal, but down the bottom of the screen you should see the following:
-
+* | bottom of the screen,
+    ** you see
++
 [source]
 ----
 --
 Tests paused, press [r] to resume, [h] for more options>
 ----
 
-Press `r` and the tests will start running. You should see the status change down the bottom of the screen as they
-are running, and it should finish with:
-
+    ** if you press `r` -> tests -- will -- start running -> bottom of the screen changes
++
 [source]
 ----
 --
@@ -49,11 +53,9 @@ Tests all passed, 2 tests were run, 0 were skipped. Tests took 1470ms.
 Press [r] to re-run, [v] to view full results, [p] to pause, [h] for more options>
 ----
 
+* if you want continuous testing to start automatically -> set `quarkus.test.continuous-testing=enabled` | `application.properties`
 
-NOTE: If you want continuous testing to start automatically you can set `quarkus.test.continuous-testing=enabled` in
-`application.properties`. If you don't want it at all you can change this to `disabled`.
-
-
+* TODO:
 Now you can start making changes to your application. Go into the `GreetingResource` and change the hello endpoint to
 return `"hello world"`, and save the file. Quarkus should immediately re-run the test, and you should get output similar
 to the following:
