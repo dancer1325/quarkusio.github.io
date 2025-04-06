@@ -11,12 +11,19 @@ include::_attributes.adoc[]
 :devtools-no-gradle:
 :topics: maven,tooling
 
-Use Maven to create a new project, add or remove extensions, launch development mode, debug your application, and build your application into a jar, native executable, or container-friendly executable. Import your project into your favorite IDE using Maven project metadata.
+* Maven
+    ** allows you
+        *** create a NEW project,
+        *** add or remove extensions,
+        *** launch development mode,
+        *** debug your application,
+        *** build your application -- into -- jar / native executable / container-friendly executable
+        *** import your project -- via Maven project metadata -- | your favorite IDE
 
 [[project-creation]]
 == Creating a new project
 
-You can scaffold a new Maven project with:
+* ways
 
 :create-app-group-id: my-groupId
 :create-app-artifact-id: my-artifactId
@@ -24,14 +31,7 @@ You can scaffold a new Maven project with:
 :create-app-post-command:
 include::{includes}/devtools/create-app.adoc[]
 
-If you are using the CLI, you can get the list of available options with:
-
-[source,bash]
-----
-quarkus create app --help
-----
-
-If you are using the Maven command, the following table lists the attributes you can pass to the `create` command:
+* 👀ALLOWED attributes | `create` command👀
 
 [cols=3*,options="header"]
 |===
@@ -85,8 +85,10 @@ If you are using the Maven command, the following table lists the attributes you
 
 |===
 
-By default, the command will target the `{quarkus-platform-groupid}:quarkus-bom:{quarkus-version}` platform release (unless the coordinates of the desired platform release have been specified).
+* `{quarkus-platform-groupid}:quarkus-bom:{quarkus-version}`
+    ** == default target
 
+* TODO:
 The project is generated in a directory named after the passed artifactId.
 If the directory already exists, the generation fails.
 
