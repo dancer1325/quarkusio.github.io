@@ -9,36 +9,31 @@ include::_attributes.adoc[]
 :summary: Learn how to get your extension to contribute features to the Dev UI (v2).
 :topics: dev-ui,testing
 
-[NOTE]
-.Dev UI v2
-====
-This guide covers the Dev UI v2, which is the default from Quarkus 3 onwards.
-====
+:imagesdir: ./images
 
-This guide covers the Quarkus Dev UI for xref:building-my-first-extension.adoc[extension authors].
+* goal
+    ** Dev UI v2
+    ** how to make your extension / visible | Dev UI
 
-Quarkus ships with a Developer UI, which is available in dev mode (when you start
-quarkus with `mvn quarkus:dev`) at http://localhost:8080/q/dev-ui[/q/dev-ui] by default. It will show you something like
-this:
-
-image::dev-ui-overview-v2.png[alt=Dev UI overview,role="center"]
-
-It allows you to:
-
-- quickly visualize all the extensions currently loaded
-- view extension statuses and go directly to extension documentation
-- view and change `Configuration`
-- manage and visualize `Continuous Testing`
-- view `Dev Services` information
-- view the Build information
-- view and stream various logs
-
-Each extension used in the application will be listed. There, you can find the guides, additional information, and the applicable configuration for each extension:
-
-image::dev-ui-extension-card-v2.png[alt=Dev UI extension card,role="center"]
+* Dev UI
+    ** ships with Quarkus
+    ** 👀AVAILABLE | dev mode (== `mvn quarkus:dev`) | http://localhost:8080/q/dev-ui[/q/dev-ui] 👀
++
+image::dev-ui-overview-v2.png[]
+    ** allows you
+        *** view
+            **** ALL extensions (status & documentation) CURRENTLY loaded
+            **** `Dev Services` information
+            **** Build information
+        *** change `Configuration`
+        *** manage `Continuous Testing`
+        *** stream various logs
+* Dev UI v2
+    ** == default one | Quarkus v3+
 
 == Make my extension extend the Dev UI
 
+* TODO:
 To make your extension listed in the Dev UI, you don't need to do anything!
 
 So you can always start with that :)
