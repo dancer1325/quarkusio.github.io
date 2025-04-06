@@ -19,11 +19,15 @@ ifdef::prerequisites-docker-compose[]
 * Docker and Docker Compose or xref:podman.adoc[Podman], and Docker Compose
 endif::[]
 ifndef::prerequisites-no-cli[]
-* Optionally the xref:cli-tooling.adoc[Quarkus CLI] if you want to use it
+* xref:cli-tooling.adoc[Quarkus CLI]
+** OPTIONAL
 endif::[]
 ifndef::prerequisites-no-graalvm[]
 ifndef::prerequisites-graalvm-mandatory[]
-* Optionally Mandrel or GraalVM installed and xref:building-native-image.adoc#configuring-graalvm[configured appropriately] if you want to build a native executable (or Docker if you use a native container build)
+* Mandrel or GraalVM
+    ** installed & xref:building-native-image.adoc#configuring-graalvm[configured appropriately]
+    ** OPTIONAL
+        *** Reason: 🧠 if you want to build a NATIVE executable OR Docker
 endif::[]
 ifdef::prerequisites-graalvm-mandatory[]
 * Mandrel or GraalVM installed and xref:building-native-image.adoc#configuring-graalvm[configured appropriately]
