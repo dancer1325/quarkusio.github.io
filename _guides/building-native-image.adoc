@@ -9,29 +9,25 @@ include::_attributes.adoc[]
 :summary: Build native executables with GraalVM or Mandrel.
 :topics: native,graalvm,mandrel
 
-This guide covers:
-
-* Compiling the application to a native executable
-* Packaging the native executable in a container
-* Debugging native executable
-
-This guide takes as input the application developed in the xref:getting-started.adoc[Getting Started Guide].
+* goal
+    ** compile the application -- to a -- NATIVE executable
+    ** Packaging the native executable | container
+    ** Debugging NATIVE executable
 
 == Prerequisites
 
 :prerequisites-docker:
 :prerequisites-graalvm-mandatory:
 include::{includes}/prerequisites.adoc[]
-* A xref:configuring-c-development[working C development environment]
-* The code of the application developed in the xref:getting-started.adoc[Getting Started Guide].
+* application / developed | xref:getting-started.adoc[Done Getting Started Guide]
+* xref:configuring-c-development[working C development environment]
 
-.Supporting native compilation in C
+.Supporting native compilation | C
 [[configuring-c-development]]
 [NOTE]
 ====
-What does having a working C developer environment mean?
-
-* On Linux, you will need GCC, and the glibc and zlib headers. Examples for common distributions:
+* | Linux, you need GCC & glibc & zlib headers
+    ** _Examples:_ | COMMON distributions
 +
 [source,bash]
 ----
@@ -40,97 +36,73 @@ sudo dnf install gcc glibc-devel zlib-devel libstdc++-static
 # Debian-based distributions:
 sudo apt-get install build-essential libz-dev zlib1g-dev
 ----
-* XCode provides the required dependencies on macOS:
+* | macOS, you need XCode CL
 +
 [source,bash]
 ----
 xcode-select --install
 ----
-* On Windows, you will need to install the https://aka.ms/vs/15/release/vs_buildtools.exe[Visual Studio 2017 Visual C++ Build Tools]
+* | Windows, install the https://aka.ms/vs/15/release/vs_buildtools.exe[Visual Studio 2017 Visual C++ Build Tools]
 ====
 
 === Background
 
-Building a native executable requires using a distribution of GraalVM.
-There are three distributions:
-Oracle GraalVM Community Edition (CE), Oracle GraalVM Enterprise Edition (EE) and Mandrel.
-The differences between the Oracle and Mandrel distributions are as follows:
-
-* Mandrel is a downstream distribution of the Oracle GraalVM CE.
-Mandrel's main goal is to provide a way to build native executables specifically designed to support Quarkus.
-
-* Mandrel releases are built from a code base derived from the upstream Oracle GraalVM CE code base,
-with only minor changes but some significant exclusions that are not necessary for Quarkus native apps.
-They support the same capabilities to build native executables as Oracle GraalVM CE,
-with no significant changes to functionality.
-Notably, they do not include support for polyglot programming.
-The reason for these exclusions is to provide a better level of support for the majority of Quarkus users.
-These exclusions also mean Mandrel offers a considerable reduction in its distribution size
-when compared with Oracle GraalVM CE/EE.
-
-* Mandrel is built slightly differently to Oracle GraalVM CE, using the standard OpenJDK project.
-This means that it does not profit from a few small enhancements that Oracle have added to the version of OpenJDK used to build their own GraalVM downloads.
-These enhancements are omitted because upstream OpenJDK does not manage them, and cannot vouch for.
-This is particularly important when it comes to conformance and security.
-
-* Mandrel is recommended for building native executables that target Linux containerized environments.
-This means that Mandrel users are encouraged to use containers to build their native executables.
-If you are building native executables for macOS,
-you should consider using Oracle GraalVM instead,
-because Mandrel does not currently target this platform.
-Building native executables directly on bare metal Linux or Windows is possible,
-with details available in the https://github.com/graalvm/mandrel/blob/default/README.md[Mandrel README]
-and https://github.com/graalvm/mandrel/releases[Mandrel releases].
-
+* requirements to build a NATIVE executable
+    ** distribution of GraalVM / EXIST
+        *** Oracle GraalVM Community Edition (CE),
+        *** Oracle GraalVM Enterprise Edition (EE)
+        *** Mandrel
+            **** == Oracle GraalVM CE's downstream distribution /
+                ***** exclude UNNECESSARY -- for -- Quarkus native apps
+                    ****** -> REDUCED 's size
+                ***** ❌NOT support for polyglot programming ❌
+                ***** use the standard OpenJDK project -> NOT include FEW small enhancements
+            **** 's main goal
+                ***** build NATIVE executables / -- designed to support -- Quarkus
+            **** use cases
+                ***** building NATIVE executables / -- target -- Linux containerized environments
+                    ****** ❌== NOT support MacOs -- as -- target ❌
+            **** if you want to build NATIVE executables DIRECTLY | bare metal Linux OR Windows -> see https://github.com/graalvm/mandrel/blob/default/README.md[Mandrel README]
 
 [[configuring-graalvm]]
 === Configuring GraalVM
 
-[TIP]
-====
-This step is only required for generating native executables targeting non-Linux operating systems.
-For generating native executables targeting Linux, you can optionally skip this section and <<#container-runtime,use a builder image>> instead.
-====
+* requirements
+    ** generate NATIVE executables /
+        *** target NON-Linux OS
+        *** target Linux /
+            **** OPTIONALLY, skip this section
+            **** <<#container-runtime,use a builder image>>
+* if you can NOT install GraalVM -> use a MULTI-stage Docker build / run Maven | Docker container / embeds GraalVM
+    ** see <<#multistage-docker, here>>
 
-[TIP]
-====
-If you cannot install GraalVM, you can use a multi-stage Docker build to run Maven inside a Docker container that embeds GraalVM.
-There is an explanation of how to do this at <<#multistage-docker,the end of this guide>>.
-====
+GraalVM {graalvm-version} is required
 
-GraalVM {graalvm-version} is required.
-
-1. Install GraalVM if you haven't already. You have a few options for this:
-** Download the appropriate archive from <https://github.com/graalvm/mandrel/releases> or <https://github.com/graalvm/graalvm-ce-builds/releases>, and unpack it like you would any other JDK.
-** Use platform-specific installer tools like https://sdkman.io/jdks#graalce[sdkman], https://github.com/graalvm/homebrew-tap[homebrew], or https://github.com/ScoopInstaller/Java[scoop].
-We recommend the _community edition_ of GraalVM. For example, install it with `sdk install java 21-graalce`.
-2. Configure the runtime environment. Set `GRAALVM_HOME` environment variable to the GraalVM installation directory, for example:
+1. if you have NOT already -> install GraalVM
+    ** OPTIONS
+        *** | <https://github.com/graalvm/mandrel/releases> OR <https://github.com/graalvm/graalvm-ce-builds/releases> & unpack it -- as -- ANY other JDK
+        *** platform-specific installer tools
+            **** https://sdkman.io/jdks#graalce[sdkman],
+            **** https://github.com/graalvm/homebrew-tap[homebrew],
+            **** https://github.com/ScoopInstaller/Java[scoop]
+2. configure the runtime environment
+    ** == set `GRAALVM_HOME` environment variable -- to the -- GraalVM installation directory
 +
 [source,bash]
 ----
 export GRAALVM_HOME=$HOME/Development/mandrel/
-----
-+
-On macOS (not supported by Mandrel), point the variable to the `Home` sub-directory:
-+
-[source,bash]
-----
+
+## | macOS (NOT supported by Mandrel), -- point to the -- `Home/`
 export GRAALVM_HOME=$HOME/Development/graalvm/Contents/Home/
+## | Windows, go through the Control Panel / set your environment
 ----
-+
-On Windows, you will have to go through the Control Panel to set your environment variables.
-+
-[TIP]
-====
-Installing via scoop will do this for you.
-====
-3. (Optional) Set the `JAVA_HOME` environment variable to the GraalVM installation directory.
+3. (OPTIONAL) set `JAVA_HOME` environment variable
 +
 [source,bash]
 ----
 export JAVA_HOME=${GRAALVM_HOME}
 ----
-4. (Optional) Add the GraalVM `bin` directory to the path
+4. (OPTIONAL) set GraalVM `bin` directory | `$PATH`
 +
 [source,bash]
 ----
@@ -138,18 +110,19 @@ export PATH=${GRAALVM_HOME}/bin:$PATH
 ----
 
 [[graal-and-macos]]
-.Issues using GraalVM with macOS
+.Issues using GraalVM -- via -- macOS
 [NOTE]
 ====
-GraalVM binaries are not (yet) notarized for macOS as reported in this https://github.com/oracle/graal/issues/1724[GraalVM issue]. This means that you may see the following error when using `native-image`:
-
+* https://github.com/oracle/graal/issues/1724[GraalVM binaries -- are NOT notarized for -- macOS]
+* `native-image`
++
 [source,bash]
 ----
 “native-image” cannot be opened because the developer cannot be verified
 ----
 
-Use the following command to recursively delete the `com.apple.quarantine` extended attribute on the GraalVM install directory as a workaround:
-
+* recursively delete the `com.apple.quarantine` extended attribute | GraalVM install directory
++
 [source,bash]
 -----
 xattr -r -d com.apple.quarantine ${GRAALVM_HOME}/../..
@@ -158,15 +131,13 @@ xattr -r -d com.apple.quarantine ${GRAALVM_HOME}/../..
 
 == Solution
 
-We recommend that you follow the instructions in the next sections and package the application step by step. However, you can go right to the completed example.
+* link:{quickstarts-tree-url}/getting-started[`getting-started/`]
 
-Clone the Git repository: `git clone {quickstarts-clone-url}`, or download an {quickstarts-archive-url}[archive].
+== Producing a NATIVE executable
 
-The solution is located in the `getting-started` directory.
-
-== Producing a native executable
-
-The native executable for our application will contain the application code, required libraries, Java APIs, and a reduced version of a VM. The smaller VM base improves the startup time of the application and produces a minimal disk footprint.
+* TODO:
+The native executable for our application will contain the application code, required libraries, Java APIs, and a reduced version of a VM.
+The smaller VM base improves the startup time of the application and produces a minimal disk footprint.
 
 image:native-executable-process.png[Creating a native executable]
 
@@ -976,8 +947,4 @@ include::{generated-dir}/config/quarkus-core_quarkus.native.adoc[opts=optional]
 
 == What's next?
 
-This guide covered the creation of a native (binary) executable for your application.
-It provides an application exhibiting a swift startup time and consuming less memory.
-However, there is much more.
-
-We recommend continuing the journey with the xref:deploying-to-kubernetes.adoc[deployment to Kubernetes and OpenShift].
+* see xref:deploying-to-kubernetes.adoc[deployment | Kubernetes & OpenShift]
