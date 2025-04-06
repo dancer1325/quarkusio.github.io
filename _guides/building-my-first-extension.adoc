@@ -9,19 +9,13 @@ include::_attributes.adoc[]
 :summary: Learn step by step how to build a simple extension.
 :topics: extensions
 
-Quarkus extensions enhance your application just as projects dependencies do.
-The role of the extensions is to leverage Quarkus paradigms to integrate seamlessly a library into Quarkus architecture - e.g. do more things at build time.
-This is how you can use your battle-tested ecosystem and take advantage of Quarkus performance and native compilation.
-Go to https://code.quarkus.io/[code.quarkus.io] to get the list of the supported extensions.
-
-In this guide we are going to develop the *Sample Greeting Extension*.
-The extension will expose a customizable HTTP endpoint which simply greets the visitor.
-
-[NOTE]
-.Disclaimer
-To be sure it's extra clear you don't need an extension to add a Servlet to your application.
-This guide is a simplified example to explain the concepts of extensions development, see the xref:writing-extensions.adoc[full documentation] if you need more information.
-Keep in mind it's not representative of the power of moving things to build time or simplifying the build of native images.
+* goal
+  ** how to build a Quarkus extension ("Sample Greeting Extension") /
+    *** expose a customizable HTTP endpoint / greets the visitor
+    *** makes you to comprehend
+      **** extensions development
+      **** move things | build time
+      **** simplify the build of NATIVE images
 
 == Prerequisites
 
@@ -29,68 +23,102 @@ Keep in mind it's not representative of the power of moving things to build time
 :prerequisites-no-graalvm:
 include::{includes}/prerequisites.adoc[]
 
-[CAUTION]
-====
-Writing extension with any other than Java and Maven has **not** been tested by the Quarkus team so your mileage may vary
-if you stray off this path
-====
+* ⚠️if you use != Java & Maven -> it could fail ⚠️
+  ** Reason: 🧠NOT tested -- by the -- Quarkus team 🧠
 
 == Basic Concepts
 
-First things first, we will need to start with some basic concepts.
-
 * JVM mode vs Native mode
-  ** Quarkus is first and foremost a Java framework, that means you can develop, package and run classic JAR applications, that's what we call *JVM mode*.
-  ** Thanks to https://graalvm.org/[GraalVM] you can compile your Java application into machine specific code (like you do in Go or C++) and that's what we call *Native mode*.
+  ** JVM mode
+    *** allows you,
+      **** develop,
+      **** package
+      **** run classic JAR applications
+    *** Reason: 🧠Quarkus == Java framework 🧠
+  ** https://graalvm.org/[GraalVM]
+    *** allows you,
+      **** compile your Java application -- into -- machine specific code (== Go or C++)
 
-The operation of compiling Java bytecode into a native system-specific machine code is named *Ahead of Time Compilation* (aka AoT).
+* AoT (Ahead of Time Compilation)
+  ** == compile Java bytecode -- into a -- NATIVE system-specific machine code
 
-* build time vs runtime in classic Java frameworks
-  ** The build time corresponds to all the actions you apply to your Java source files to convert them into something runnable (class files, jar/war, native images).
-  Usually this stage is composed by the compilation, annotation processing, bytecode generation, etc. At this point, everything is under the developer's scope and control.
-  ** The runtime is all the actions that happen when you execute your application.
-  It's obviously focused on starting your business-oriented actions, but it relies on a lot of technical actions like loading libraries and configuration files, scanning the application's classpath, configuring the dependency injection, setting up your Object-Relational Mapping, instantiating your REST controllers, etc.
+* | classic Java frameworks,
+  ** build time
+    *** == ALL actions /
+      **** applied | your Java source files -- to convert them into -- something runnable (class files, jar/war, native images)
+      **** | developer's scope & control
+    *** == compilation + annotation processing + bytecode generation + etc.
+  ** runtime
+    *** == ALL actions / happen | execute your application (== bootstrap)
+    *** -- relies on a -- lot of technical actions
+      **** _Examples:_
+        ***** loading libraries & configuration files,
+        ***** scanning the application's classpath -- to -- find
+          ****** configurations,
+          ****** entity definitions,
+          ****** dependency injection binding
+        ***** configuring the dependency injection,
+        ***** setting up your Object-Relational Mapping,
+        ***** instantiating your REST controllers
+          ****** -- through -- reflection
+  ** ⚠️MAIN problems ⚠️
+    *** delay the readiness of your application
+      **** == | serve a business request, need to wait a couple of seconds BEFORE
+    *** if you have a peak of resource consumption | bootstrap -> you will need to size the needed resources -- based on -- your technical bootstrap needs
 
-Usually, Java frameworks do their bootstrapping during the runtime before actually starting the application "Business oriented layer". During bootstrap, frameworks dynamically collect metadata by scanning the classpath to find configurations, entity definitions, dependency injection binding, etc. in order to instantiate proper objects through reflection. The main consequences are:
-
-* Delaying the readiness of your application: you need to wait a couple of seconds before actually serving a business request.
-* Having a peak of resource consumption at bootstrap: in a constrained environment, you will need to size the needed resources based on your technical bootstrap needs rather than your actual business needs.
-
-Quarkus' philosophy is to prevent as much as possible slow and memory intensive dynamic code execution by shifting left these actions and eventually do them during the build time.
-A Quarkus extension is a Java piece of code acting as an adapter layer for your favorite library or technology.
+* 💡Quarkus' goal
+  ** prevent slow & memory intensive dynamic code execution -- by -- doing them | build time 💡
 
 == Description of a Quarkus extension
 
-A Quarkus extension consists of two parts:
-
-* The *runtime module* which represents the capabilities the extension developer exposes to the application's developer (an authentication filter, an enhanced data layer API, etc).
-Runtime dependencies are the ones the users will add as their application dependencies (in Maven POMs or Gradle build scripts).
-* The *deployment module* which is used during the augmentation phase of the build, it describes how to "deploy" a library
-following the Quarkus philosophy.
-In other words, it applies all the Quarkus optimizations to your application during the build.
-The deployment module is also where we prepare things for GraalVM's native compilation.
-
-IMPORTANT: Users should not be adding the deployment modules of extension as application dependencies. The deployment dependencies are resolved by
-Quarkus during the augmentation phase from the runtime dependencies of the application.
-
-At this point, you should have understood that most of the magic will happen at the Augmentation build time thanks to the deployment module.
+* Quarkus extensions
+  ** == Java piece of code /
+    *** 👀== library or technology's adapter layer👀
+    *** -- enhance -- your application /
+      **** == projects dependencies
+      **** -- integrated seamlessly with -- Quarkus architecture
+    *** 💡== runtime module + deployment module 💡
+      **** runtime module
+        ***** == capabilities / exposed by extension -- to the -- application's developer
+          ****** _Example:_ authentication filter, an enhanced data layer API, ...
+        ***** runtime dependencies == ones / users -- will add as -- their application dependencies (| Maven POMs or Gradle build scripts)
+      **** deployment module
+        ****** uses
+          ******* | build's augmentation phase
+          ******* prepare things -- for -- GraalVM's NATIVE compilation
+        ****** == how to "deploy" a library / follows the Quarkus philosophy
+        ****** applies ALL Quarkus optimizations | your application, | build
+        ****** ❌of extensions -- should NOT be added as -- application dependencies ❌
+  ** https://code.quarkus.io/[list of ALL supported extensions]
+  ** ❌NOT use case ❌
+    *** add a Servlet | your application
+  ** deployment dependencies -- are resolved, | augmentation phase, by --
+Quarkus
+    *** -- from -- application's runtime dependencies
 
 == Quarkus Application Bootstrap
 
-There are three distinct bootstrap phases of a Quarkus application.
-
-* *Augmentation*. During the build time, the Quarkus extensions will load and scan your application's bytecode (including the dependencies) and configuration.
-At this stage, the extension can read configuration files, scan classes for specific annotations, etc.
-Once all the metadata has been collected, the extensions can pre-process the libraries bootstrap actions like your ORM, DI or REST controllers configurations.
-The result of the bootstrap is directly recorded into bytecode and will be part of your final application package.
-* *Static Init*. During the run time, Quarkus will execute first a static init method which contains some extensions actions/configurations.
-When you will do your native packaging, this static method will be pre-processed during the build time and the objects it has generated will be serialized into the final native executable, so the initialization code will not be executed in the native mode (imagine you execute a Fibonacci function during this phase, the result of the computation will be directly recorded in the native executable).
-When running the application in JVM mode, this static init phase is executed at the start of the application.
-
-* *Runtime Init*. Well nothing fancy here, we do classic run time code execution.
-So, the more code you run during the two phases above, the faster your application will start.
-
-Now that everything is explained, we can start coding!
+* == Augmentation + Static Init + Runtime Init
+  ** Augmentation
+    *** | build time
+    *** Quarkus extensions -- will -- load & scan your application's bytecode (+ dependencies) & configuration
+    *** extension -- can --
+      **** read configuration files,
+      **** scan classes / specific annotations
+      **** | ALL metadata has been collected, pre-process the libraries bootstrap actions
+        ***** _Example:_ your ORM, DI or REST controllers configurations
+    *** result of the bootstrap
+      **** -- is DIRECTLY -- recorded | bytecode
+      **** -- will be -- part of your final application package
+    *** IMPORTANT phase
+  ** Static Init
+    *** TODO: During the run time, Quarkus will execute first a static init method which contains some extensions actions/configurations.
+    *** When you will do your native packaging, this static method will be pre-processed during the build time and the objects it has generated will be serialized into the final native executable, so the initialization code will not be executed in the native mode (imagine you execute a Fibonacci function during this phase, the result of the computation will be directly recorded in the native executable).
+    *** When running the application in JVM mode, this static init phase is executed at the start of the application.
+  ** Runtime Init
+    *** Well nothing fancy here, we do classic run time code execution
+    *** the more code you run during the two phases above, the faster your application will start
+    *** Now that everything is explained, we can start coding!
 
 == Project setup
 
@@ -916,11 +944,15 @@ For more information, check link:https://github.com/quarkiverse/quarkiverse/wiki
 
 == Conclusion
 
-Creating new extensions may appear to be an intricate task at first but once you understood the Quarkus game-changer paradigm (build time vs runtime) the structure of an extension makes perfectly sense.
+* Quarkus extension structure
+  ** -- related to -- Quarkus paradigm (build time vs runtime)
 
-As usual, along the path Quarkus simplifies things under the hood (Maven Mojo, bytecode generation or testing) to make it pleasant to develop new features.
+* Quarkus simplifies things -- thanks to --
+  ** Maven Mojo,
+  ** bytecode generation
+  ** testing
 
 == Further reading
 
-- xref:writing-extensions.adoc[Writing your own extension] for the full documentation.
-- xref:dev-ui.adoc[Quarkus Dev UI] to learn how to support the Dev UI in your extension
+- xref:writing-extensions.adoc[Writing your OWN extension]
+- xref:dev-ui.adoc[Quarkus Dev UI / your extension]
