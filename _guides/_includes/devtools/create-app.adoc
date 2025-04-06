@@ -49,10 +49,12 @@ endif::[]
 ----
 
 ifndef::devtools-no-gradle[]
-To create a Gradle project, add the `--gradle` or `--gradle-kotlin-dsl` option.
+* if you want to create a Gradle project -> add
+    ** `--gradle` OR
+    ** `--gradle-kotlin-dsl`
 endif::[]
 
-For more information about how to install and use the Quarkus CLI, see the xref:cli-tooling.adoc[Quarkus CLI] guide.
+* see xref:cli-tooling.adoc[Quarkus CLI] guide
 ****
 
 [role="secondary asciidoc-tabs-sync-maven"]
@@ -96,11 +98,15 @@ endif::[]
 ----
 
 ifndef::devtools-no-gradle[]
-To create a Gradle project, add the `-DbuildTool=gradle` or `-DbuildTool=gradle-kotlin-dsl` option.
+* if you want to create a Gradle project -> add
+    ** `-DbuildTool=gradle` OR
+    ** `-DbuildTool=gradle-kotlin-dsl`
 endif::[]
 ****
 
-For Windows users:
-
-- If using cmd, (don't use backward slash `\` and put everything on the same line)
-- If using Powershell, wrap `-D` parameters in double quotes e.g. `"-DprojectArtifactId={create-app-artifact-id}"`
+* | Windows users
+    ** if you use cmd ->
+        *** NOT use backward slash `\`
+        *** put EVERYTHING | SAME line
+    ** if you use Powershell -> `"-D"` == wrap `-D` UNDER `""`
+        *** _Example:_ `"-DprojectArtifactId={create-app-artifact-id}"`
