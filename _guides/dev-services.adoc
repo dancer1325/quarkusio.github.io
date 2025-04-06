@@ -11,28 +11,31 @@ include::_attributes.adoc[]
 
 == What Are Dev Services?
 
-Quarkus supports the automatic provisioning of unconfigured services in development and test mode. We refer to this capability
-as Dev Services. If you include an extension and don't configure it then
-Quarkus will automatically start the relevant service (usually using https://www.testcontainers.org/[Testcontainers] behind the scenes) and wire up your
-application to use this service.
+* 👀unconfigured services / Quarkus -- can -- AUTOMATICALLY provision 👀
+    ** _Example:_ databases, identity servers, etc
+* ALLOWED |
+    ** development mode
+    ** test mode
 
-For a tutorial showing how to get started writing an application with persistence and Dev Services, see xref:getting-started-dev-services.adoc[Your Second Quarkus Application].
+* if you include an extension & NOT configure it -> Quarkus -- will AUTOMATICALLY --
+    ** start the relevant service -- NORMALLY, via -- https://www.testcontainers.org/[Testcontainers]
+    ** wire up your application -- to use -- this service
 
+* _Example:_ see xref:getting-started-dev-services.adoc[Your Second Quarkus Application]
 
 == Using Dev Services
 
-Dev Services are designed to be frictionless, so they will be automatically started any time you include an extension which supports
-Dev Services, as long as you don't configure a connection to an external service.
-
-NOTE: In order to use most Dev Services you will need a working container environment (remote environments are supported).
-If you don't have a container environment, such as Docker or Podman, installed you will need to configure your services normally.
-
-The default startup timeout for Dev Services is 60s, if this is not enough you can increase it with the `quarkus.devservices.timeout` property.
-
-To configure a production service but continue to use Dev Services in development and test modes, use xref:config-reference.adoc#default-profiles[configuration profiles].
-
-For example,
-
+* if you include an extension / supports Dev Services & NOT configure a connection | external service-> AUTOMATICALLY started
+    ** Reason: 🧠Dev Services' goal == be frictionless 🧠
+* requirements
+    ** NORMALLY, working container environment ( ALSO supports remote environments)
+        *** _Example:_ Docker or Podman
+* `quarkus.devservices.timeout`
+    ** == property -- about -- startup timeout for Dev Services
+        *** by default, 60s
+* if you want to use Dev Services | development & test modes + configure a production service -> see xref:config-reference.adoc#default-profiles[configuration profiles]
+    ** _Example:_
++
 [source, properties]
 ----
 # configure your datasource
@@ -44,18 +47,20 @@ For example,
 
 == Disabling Dev Services
 
-All this functionality is part of the Quarkus `deployment` modules, so does not affect the production application in any
-way. If you want to disable all Dev Services you can use the `quarkus.devservices.enabled=false` config property, although
-in most cases this is not necessary as simply configuring the service will result in the Dev Service being disabled automatically.
+* ❌NOT affect the production application ❌
+    ** Reason: 🧠this functionality -- is part of the -- Quarkus `deployment` modules🧠
 
-
+* if you want to disable ALL Dev Services -> use `quarkus.devservices.enabled=false` config property
+    ** ❌NORMALLY is NOT needed ❌
+        *** Reason: 🧠if you configure EXPLICITTlY a service -> AUTOMATICALLY, Dev Service is disabled 🧠
 
 == Platform Dev Services
 
-This section lists all the Dev Services available in the Quarkus Platform.
+* == ALL Dev Services / AVAILABLE | Quarkus Platform
 
 === AMQP
 
+* TODO:
 The AMQP Dev Service will be enabled when the `quarkus-messaging-amqp` extension is present in your application, and
 the broker address has not been explicitly configured. More information can be found in the
 xref:amqp-dev-services.adoc[AMQP Dev Services Guide].
