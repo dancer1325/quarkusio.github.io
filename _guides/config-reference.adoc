@@ -12,19 +12,19 @@ include::_attributes.adoc[]
 :sectnumlevels: 4
 :topics: configuration
 
-IMPORTANT: The content of this guide has been revised and split into additional topics. Please check the <<additional-information,Additional Information>> section.
-
-In this reference guide we're going to describe various aspects of Quarkus configuration. A Quarkus application and
-Quarkus itself (core and extensions) are both configured via the same mechanism that leverages
-the https://github.com/smallrye/smallrye-config[SmallRye Config] API an implementation of the
-https://microprofile.io/project/eclipse/microprofile-config[MicroProfile Config] specification.
-
-TIP: If you're looking for information how to make a Quarkus extension configurable then see the
-<<writing-extensions.adoc#configuration,Writing Your Own Extension>> guide.
+* goal
+    ** Quarkus configuration
+* 👀Quarkus itself (core & extensions) + Quarkus application
+** are configured -- via -- https://github.com/smallrye/smallrye-config[SmallRye Config] API 👀
+* if you want
+ ** MORE information -> <<additional-information,Additional Information>>
+ ** to make a Quarkus extension configurable -> see
+ <<writing-extensions.adoc#configuration,Writing Your Own Extension>> guide
 
 [[configuration-sources]]
 == Config Sources
 
+* TODO:
 By default, Quarkus reads configuration properties from multiple sources (by descending ordinal):
 
 1. (400) <<system-properties,System properties>>
@@ -835,18 +835,14 @@ public class MyBeanNoFailure {
 * xref:config-mappings.adoc[Mapping configuration to objects]
 * xref:config-extending-support.adoc[Extending configuration support]
 
-Quarkus relies on link:https://github.com/smallrye/smallrye-config/[SmallRye Config] and inherits its features:
-
-* link:https://smallrye.io/smallrye-config/Main/config-sources/custom/[Additional Config Sources]
-* link:https://smallrye.io/smallrye-config/Main/config-sources/factories/[Config Source Factories]
-* link:https://smallrye.io/smallrye-config/Main/converters/custom/[Additional Converters]
-* link:https://smallrye.io/smallrye-config/Main/extensions/interceptors/[Interceptors]
-* link:https://smallrye.io/smallrye-config/Main/extensions/relocate/[Relocate Configuration]
-* link:https://smallrye.io/smallrye-config/Main/extensions/fallback/[Fallback Configuration]
-* link:https://smallrye.io/smallrye-config/Main/config/secret-keys/[Secret Keys]
-
-For more information, please check the
-link:https://smallrye.io/smallrye-config/Main[SmallRye Config documentation].
+* Quarkus features / -- inherited by -- link:https://github.com/smallrye/smallrye-config/[SmallRye Config]
+    ** link:https://smallrye.io/smallrye-config/Main/config-sources/custom/[Additional Config Sources]
+    ** link:https://smallrye.io/smallrye-config/Main/config-sources/factories/[Config Source Factories]
+    ** link:https://smallrye.io/smallrye-config/Main/converters/custom/[Additional Converters]
+    ** link:https://smallrye.io/smallrye-config/Main/extensions/interceptors/[Interceptors]
+    ** link:https://smallrye.io/smallrye-config/Main/extensions/relocate/[Relocate Configuration]
+    ** link:https://smallrye.io/smallrye-config/Main/extensions/fallback/[Fallback Configuration]
+    ** link:https://smallrye.io/smallrye-config/Main/config/secret-keys/[Secret Keys]
 
 == Configuration Reference
 
