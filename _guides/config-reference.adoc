@@ -137,11 +137,14 @@ reside in `$PWD/config/application.properties`. The loading starts from the conf
 .`application.properties`
 [source,properties]
 ----
-greeting.message=hello <1>
-quarkus.http.port=9090 <2>
+# user-defined's configuration property
+greeting.message=hello
+
+# `quarkus-vertx-http` extension's configuration proprty
+quarkus.http.port=9090
 ----
-<1> This is a user-defined configuration property.
-<2> This is a configuration property consumed by the `quarkus-vertx-http` extension.
+
+
 
 NOTE: The `config/application.properties` is also available in `dev` mode. The file needs to be placed inside the build
 tool output directory (`target` for Maven and `build/classes/java/main` for Gradle). Keep in mind however that any
@@ -155,11 +158,12 @@ The MicroProfile Config configuration file in `src/main/resources/META-INF/micro
 .`microprofile-config.properties`
 [source,properties]
 ----
-greeting.message=hello <1>
-quarkus.http.port=9090 <2>
+# user-defined's configuration property
+greeting.message=hello
+
+# `quarkus-vertx-http` extension's configuration proprty
+quarkus.http.port=9090
 ----
-<1> This is a user-defined configuration property.
-<2> This is a configuration property consumed by the `quarkus-vertx-http` extension.
 
 TIP: It works in the exact same way as Quarkus Application configuration file `application.properties`. Recommendation
 is to use Quarkus `application.properties`.
