@@ -359,10 +359,15 @@ public class HelloServiceTest implements Greeter {
 ----
 
 == Trying out your services manually
-In the dev mode, you can try out your gRPC services in the Quarkus Dev UI.
-Just go to http://localhost:8080/q/dev-ui and click on _Services_ under the gRPC tile.
 
-Please note that your application needs to expose the "normal" HTTP port for the Dev UI to be accessible. If your application does not expose any HTTP endpoints, you can create a dedicated profile with a dependency on `quarkus-vertx-http`:
+* "http://localhost:8080/q/dev-ui" & _Services_ | gRPC tile
+    ** your gRPC services | Quarkus Dev UI
+
+* requirements
+    ** application -- MUST export -- "normal" HTTP port
+        *** Reason: 🧠Dev UI -- is -- accessible🧠
+    ** if your application does NOT expose HTTP endpoints -> create a dedicated profile -- using --
++
 [source,xml]
 ----
     <profiles>
@@ -377,16 +382,17 @@ Please note that your application needs to expose the "normal" HTTP port for the
         </profile>
     </profiles>
 ----
-Having it, you can run the dev mode with: `mvn quarkus:dev -Pdevelopment`.
-
-If you use Gradle, you can simply add a dependency for the `quarkusDev` task:
-
+or
++
 [source,groovy]
 ----
 dependencies {
     quarkusDev 'io.quarkus:quarkus-vertx-http'
 }
 ----
+
+* `mvn quarkus:dev -Pdevelopment`
+    ** run the dev mode
 
 == gRPC Server metrics
 
