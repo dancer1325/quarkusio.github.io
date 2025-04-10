@@ -13,22 +13,28 @@ include::_attributes.adoc[]
 :topics: http,web,webjars,mvnpm,vertx,servlet,undertow
 :extensions: io.quarkus:quarkus-vertx-http
 
-This document clarifies different HTTP functionalities available in Quarkus.
+* goal
+ ** EXISTING HTTP functionalities | Quarkus
 
-Eclipse Vert.x supplies the fundamental HTTP layer.
-For Servlet support, Quarkus employs a customized Undertow version that operates on top of Vert.x, while Jakarta REST support is delivered through RESTEasy.
-
-When Undertow is present, RESTEasy functions as a Servlet filter.
-In its absence, RESTEasy operates directly on Vert.x without involving Servlets.
+* Eclipse Vert
+ ** fundamental HTTP layer
+* on top layers
+ ** Servlet support -- via -- customized Undertow version
+ ** Jakarta REST support -- via -- RESTEasy
+  *** if Undertow is used -> RESTEasy -- is used as a -- Servlet filter
+  *** if Undertow is NOT used -> RESTEasy operates (directly) | Vert.x
+   **** / NO use Servlets
 
 == Serving static resources
 
-If you are looking to use Quarkus for a web application, look at the xref:web.adoc[Quarkus for the Web] guide.
+* if you want to use Quarkus | web application -> see xref:web.adoc[Quarkus for the Web]
 
-=== From the application jar
+=== -- From -- application jar
 
-To serve static resources from the application jar, you must place them in the `META-INF/resources` directory of your application. This location
-was chosen as it is the standard location for resources in `jar` files as defined by the Servlet spec. Even though
+* requirements
+ ** place static resources | `META-INF/resources`
+  *** Reason: 🧠standard location / resources in `jar` files -- defined by the -- Servlet spec🧠
+* TODO: Even though
 Quarkus can be used without Servlet, following this convention allows existing code that places its resources in this
 location to function correctly.
 
