@@ -15,23 +15,52 @@ include::_attributes.adoc[]
 [[custom-config-source]]
 == Custom `ConfigSource`
 
-It's possible to create a custom `ConfigSource` as specified in
-link:https://github.com/eclipse/microprofile-config/blob/master/spec/src/main/asciidoc/configsources.asciidoc#custom-configsources-via-configsourceprovider[MicroProfile Config].
+* link:https://github.com/eclipse/microprofile-config/blob/master/spec/src/main/asciidoc/configsources.asciidoc#custom-configsources-via-configsourceprovider[MicroProfile Config]
 
-With a Custom `ConfigSource` it is possible to read additional configuration values and add them to the `Config`
-instance in a defined ordinal. This allows overriding values from other sources or falling back to other values.
+* `ConfigSource`
+    ** requirements
+        *** implement
+            **** `org.eclipse.microprofile.config.spi.ConfigSource` OR
+            **** `org.eclipse.microprofile.config.spi.ConfigSourceProvider`
+        *** register the implementation -- via -- https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ServiceLoader.html[ServiceLoader] |
+            **** `META-INF/services/org.eclipse.microprofile.config.spi.ConfigSource` OR
+            **** `META-INF/services/org.eclipse.microprofile.config.spi.ConfigSourceProvider`
+    ** allows
+        *** reading ADDITIONAL configuration values
+        *** adding  ADDITIONAL configuration values | `Config` instance / ⚠️defined ordinal⚠️
+        *** overriding configuration values
 
-image::config-sources.png[align=center,width=90%]
+* 👀defined ordinal👀
++
+|===
+|ConfigSource |Ordinal
 
-A custom `ConfigSource` requires an implementation of `org.eclipse.microprofile.config.spi.ConfigSource` or
-`org.eclipse.microprofile.config.spi.ConfigSourceProvider`. Each implementation requires registration via
-the https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ServiceLoader.html[ServiceLoader] mechanism, either in
-`META-INF/services/org.eclipse.microprofile.config.spi.ConfigSource` or
-`META-INF/services/org.eclipse.microprofile.config.spi.ConfigSourceProvider` files.
+|xref:config-reference.adoc#system-properties[System Properties]
+|400
+
+|xref:config-reference.adoc#environment-variables[Environment Variables from System]
+|300
+
+|xref:config-reference.adoc#env-file[Environment Variables from .env file]
+|295
+
+|InMemoryConfigSource
+|275
+
+|`application.properties` from `/config`
+|260
+
+|`application.properties` from application
+|250
+
+|`microprofile-config.properties` from application
+|100
+|===
++
+image::/images/config-sources.png[align=center,width=90%]
 
 === Example
-
-Consider a simple in-memory `ConfigSource`:
+* TODO: create a project / use it
 
 .org.acme.config.InMemoryConfigSource
 [source,java]
@@ -54,6 +83,8 @@ public class InMemoryConfigSource implements ConfigSource {
     @Override
     public int getOrdinal() {
         return 275;
+        // ordered between `.env` -- & -- `application.properties`
+        // ==   if NOT find System Properties NOT Environment Variables from System NOT Environment Variables from .env file -> used
     }
 
     @Override
@@ -73,51 +104,15 @@ public class InMemoryConfigSource implements ConfigSource {
 }
 ----
 
-And registration in:
-
 .META-INF/services/org.eclipse.microprofile.config.spi.ConfigSource
 [source,properties]
 ----
 org.acme.config.InMemoryConfigSource
 ----
 
-The `InMemoryConfigSource` will be ordered between the `.env` source, and the `application.properties` source due to
-the `275` ordinal:
-
-
-|===
-|ConfigSource |Ordinal
-
-|System Properties
-|400
-
-|Environment Variables from System
-|300
-
-|Environment Variables from `.env` file
-|295
-
-|InMemoryConfigSource
-|275
-
-|`application.properties` from `/config`
-|260
-
-|`application.properties` from application
-|250
-
-|`microprofile-config.properties` from application
-|100
-|===
-
-In this case, `my.prop` from `InMemoryConfigSource` will only be used if the config engine is unable to find a value
-in xref:config-reference.adoc#system-properties[System Properties],
-xref:config-reference.adoc#environment-variables[Environment Variables from System] or
-xref:config-reference.adoc#env-file[Environment Variables from .env file] in this order.
-
 === ConfigSource Init
 
-When a Quarkus application starts, a `ConfigSource` can be initialized twice. One time for _STATIC INIT_ and a second
+* TODO: When a Quarkus application starts, a `ConfigSource` can be initialized twice. One time for _STATIC INIT_ and a second
 time for _RUNTIME INIT_:
 
 ==== STATIC INIT
