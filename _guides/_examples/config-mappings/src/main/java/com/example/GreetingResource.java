@@ -33,8 +33,17 @@ public class GreetingResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
-        String server = "server.host() " + this.server.host() + ", server.port() " + this.server.port() + ", + server.address() " + this.server.address();
-        String serverWithStaticInitSafe = "serverWithStaticInitSafe.host() " + this.serverWithStaticInitSafe.host() + ", serverWithStaticInitSafe.port() " + this.serverWithStaticInitSafe.port() + ", + serverWithStaticInitSafe.address() " + this.serverWithStaticInitSafe.address();
+        String server = "server.host() " + this.server.host() +
+                ", server.port() " +
+                this.server.port() +
+                ", + server.address() "
+                + this.server.address();
+        String serverWithStaticInitSafe = "serverWithStaticInitSafe.host() " +
+                this.serverWithStaticInitSafe.host() +
+                ", serverWithStaticInitSafe.port() " +
+                this.serverWithStaticInitSafe.port() +
+                ", + serverWithStaticInitSafe.address() " +
+                this.serverWithStaticInitSafe.address();
         return "Hello from Quarkus REST - " + server + serverWithStaticInitSafe;
     }
 
@@ -118,10 +127,18 @@ public class GreetingResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String overridepropertynameWithParentName() {
         String overridepropertynameWithParentName =
-                "overridePropertyNameWithParentName.hostAndPort() " +
+                " overridePropertyNameWithParentName.test() " +
+                        this.overridePropertyNameWithParentName.test() +
+                " , + overridePropertyNameWithParentName.hostAndPort() " +
                         this.overridePropertyNameWithParentName.hostAndPort() +
+                        ", + overridePropertyNameWithParentName.hostAndPort().host() " +
+                        this.overridePropertyNameWithParentName.hostAndPort().host() +
+                        ", + overridePropertyNameWithParentName.hostAndPort().port() " +
+                        this.overridePropertyNameWithParentName.hostAndPort().port() +
                         ", + overridePropertyNameWithParentName.info() " +
-                        this.overridePropertyNameWithParentName.info();
+                        this.overridePropertyNameWithParentName.info() +
+                        ", + overridePropertyNameWithParentName.info().name() " +
+                        this.overridePropertyNameWithParentName.info().name();
         return "overridepropertynameWithParentName - " + overridepropertynameWithParentName;
     }
 

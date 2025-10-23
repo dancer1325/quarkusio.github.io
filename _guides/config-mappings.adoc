@@ -72,40 +72,7 @@ Server server = config.getConfigMapping(Server.class);
 ==== `@WithParentName`
 
 * allows
-    ** inherit its container name / ❌NOT use the configuration property nam❌
-
-[source,java]
-----
-interface Server {
-    @WithParentName
-    ServerHostAndPort hostAndPort();
-
-    @WithParentName
-    ServerInfo info();
-}
-
-interface ServerHostAndPort {
-    String host();
-
-    int port();
-}
-
-interface ServerInfo {
-    String name();
-}
-----
-
-.application.properties
-[source,properties]
-----
-server.host=localhost
-server.port=8080
-server.name=konoha
-----
-
-Without the `@WithParentName` the method `name()` requires the configuration property `server.info.name`. Because we use
-`@WithParentName`, the `info()` mapping will inherit the parent name from `ConvertWithOptional` and `name()` maps to `server.name`
-instead.
+    ** inherit its container name / ❌NOT use the configuration property name❌
 
 ==== NamingStrategy
 
