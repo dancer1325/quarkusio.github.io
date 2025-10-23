@@ -64,31 +64,15 @@ Server server = config.getConfigMapping(Server.class);
 
 ==== `@WithName`
 
-If a method name, or a property name do not match with each other, the `@WithName` annotation can override the method
-name mapping and use the name supplied in the annotation:
-
-[source,java]
-----
-@ConfigMapping(prefix = "server")
-public interface Server {
-    @WithName("name")
-    String host();
-
-    int port();
-}
-----
-
-.application.properties
-[source,properties]
-----
-server.name=localhost
-server.port=8080
-----
+* allows
+    ** override the method name mapping
+* use cases
+    ** method name != property name
 
 ==== `@WithParentName`
 
-The `@WithParentName` annotation allows to configurations mapping to inherit its container name, simplifying the
-configuration property name required to match the mapping:
+* allows
+    ** inherit its container name / ❌NOT use the configuration property nam❌
 
 [source,java]
 ----

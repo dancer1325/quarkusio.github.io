@@ -7,6 +7,14 @@ GET http://localhost:8080/hello/nestedsubgroup
 Content-Type: */*
 
 ### GET
+GET http://localhost:8080/hello/overridepropertyname/withname
+Content-Type: */*
+
+### GET
+GET http://localhost:8080/hello/overridepropertyname/withparentname
+Content-Type: */*
+
+### GET
 GET http://localhost:8080/hello/conversions/automaticallyallmicroprofileconfig
 Content-Type: */*
 

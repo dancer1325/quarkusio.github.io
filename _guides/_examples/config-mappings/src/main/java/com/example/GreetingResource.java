@@ -24,6 +24,12 @@ public class GreetingResource {
     @Inject
     ConversionsMap conversionsMap;
 
+    @Inject
+    OverridePropertyNameWithName overridePropertyNameWithName;
+
+    @Inject
+    OverridePropertyNameWithParentName overridePropertyNameWithParentName;
+
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
@@ -93,6 +99,30 @@ public class GreetingResource {
                 ", + conversionsAutomaticallyAllMicroProfileConfig.optionalInt() " +
                 this.conversionsAutomaticallyAllMicroProfileConfig.optionalInt();
         return "conversionsAutomaticallyAllMicroProfileConfigOptional - " + conversionsAutomaticallyAllMicroProfileConfigOptional;
+    }
+
+    @GET
+    @Path("/overridepropertyname/withname")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String overridepropertynameWithName() {
+        String overridepropertynameWithName =
+                "overridePropertyNameWithName.host() " +
+                        this.overridePropertyNameWithName.host() +
+                        ", + overridePropertyNameWithName.port() " +
+                        this.overridePropertyNameWithName.port();
+        return "overridepropertynameWithName - " + overridepropertynameWithName;
+    }
+
+    @GET
+    @Path("/overridepropertyname/withparentname")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String overridepropertynameWithParentName() {
+        String overridepropertynameWithParentName =
+                "overridePropertyNameWithParentName.hostAndPort() " +
+                        this.overridePropertyNameWithParentName.hostAndPort() +
+                        ", + overridePropertyNameWithParentName.info() " +
+                        this.overridePropertyNameWithParentName.info();
+        return "overridepropertynameWithParentName - " + overridepropertynameWithParentName;
     }
 
     @GET
