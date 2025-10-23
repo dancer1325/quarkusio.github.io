@@ -695,39 +695,11 @@ quarkus.arc.selected-alternatives=org.acme.Foo,org.acme.*,Bar
 
 === Simplified Producer Method Declaration
 
-In CDI, a producer method must be always annotated with `@Produces`.
+* | CDI,
+    ** producer method ALWAYS needs to be annotated -- with -- `@Produces`
 
-[source,java]
-----
-class Producers {
-
-  @Inject
-  @ConfigProperty(name = "cool")
-  String coolProperty;
-
-  @Produces
-  @ApplicationScoped
-  MyService produceService() {
-    return new MyService(coolProperty);
-  }
-}
-----
-
-In Quarkus, you can skip the `@Produces` annotation completely if the producer method is annotated with a scope annotation, a stereotype or a qualifier.
-
-[source,java]
-----
-class Producers {
-
-  @ConfigProperty(name = "cool")
-  String coolProperty;
-
-  @ApplicationScoped
-  MyService produceService() {
-    return new MyService(coolProperty);
-  }
-}
-----
+* | Quarkus,
+    ** if the producer method is annotated with a scope annotation, a stereotype or a qualifier -> you can skip `@Produces`
 
 [[interception_of_static_methods]]
 === Interception of Static Methods
