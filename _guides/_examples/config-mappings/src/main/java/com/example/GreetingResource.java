@@ -25,6 +25,9 @@ public class GreetingResource {
     ConversionsMap conversionsMap;
 
     @Inject
+    ConversionsMapNestedSubgroups conversionsMapNestedSubgroups;
+
+    @Inject
     OverridePropertyNameWithName overridePropertyNameWithName;
 
     @Inject
@@ -143,16 +146,26 @@ public class GreetingResource {
     }
 
     @GET
-    @Path("/conversions/automaticallyallmicroprofileconfig/map")
+    @Path("/conversions/map")
     @Produces(MediaType.TEXT_PLAIN)
-    public String conversionsAutomaticallyMap() {
-        String conversionsAutomaticallyMap =
+    public String conversionsMap() {
+        String conversionsMap =
                 "conversionsMap.host() " +
                         this.conversionsMap.host() +
                         ", + conversionsMap.port() " +
                         this.conversionsMap.port() +
                         ", + conversionsMap.form() " +
                         this.conversionsMap.form();
-        return "conversionsAutomaticallyMap - " + conversionsAutomaticallyMap;
+        return "conversionsMap - " + conversionsMap;
+    }
+
+    @GET
+    @Path("/conversions/map/nestedsubgroups")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String conversionsMapNestedSubgroups() {
+        String conversionsMapNestedSubgroups =
+                "conversionsMapNestedSubgroups.allServers() " +
+                        this.conversionsMapNestedSubgroups.allServers();
+        return "conversionsMapNestedSubgroups - " + conversionsMapNestedSubgroups;
     }
 }

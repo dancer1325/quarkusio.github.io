@@ -201,40 +201,7 @@ NOTE: Only the `List` mapping can maintain element order. Hence, with `Set` mapp
 
 * ALLOWED |
     ** map
-    ** groups
-
-
-[source,java]
-----
-@ConfigMapping(prefix = "server")
-public interface Servers {
-    @WithParentName
-    Map<String, Server> allServers();
-}
-
-public interface Server {
-    String host();
-
-    int port();
-
-    String login();
-
-    String error();
-
-    String landing();
-}
-----
-.application.properties
-[source,properties]
-----
-server."my-server".host=localhost
-server."my-server".port=8080
-server."my-server".login=login.html
-server."my-server".error=error.html
-server."my-server".landing=index.html
-----
-In this case the `allServers()` `Map` will
-contain one `ConvertWithOptional` element with the key `my-server`.
+    ** nested groups
 
 === Defaults
 

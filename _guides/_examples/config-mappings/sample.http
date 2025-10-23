@@ -23,5 +23,9 @@ GET http://localhost:8080/hello/conversions/automaticallyallmicroprofileconfig/o
 Content-Type: */*
 
 ### GET
-GET http://localhost:8080/hello/conversions/automaticallyallmicroprofileconfig/map
+GET http://localhost:8080/hello/conversions/map
+Content-Type: */*
+
+### GET
+GET http://localhost:8080/hello/conversions/map/nestedsubgroups
 Content-Type: */*
