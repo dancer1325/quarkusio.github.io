@@ -12,81 +12,41 @@ include::_attributes.adoc[]
 :sectnumlevels: 4
 :topics: configuration
 
-With config mappings it is possible to group multiple configuration properties in a single interface that
-share the same prefix.
+* config mappings
+    ** allows
+        *** grouping MULTIPLE configuration properties | 1! interface / SAME prefix
 
 [[config-mappings]]
 == `@ConfigMapping`
 
-A config mapping requires a public interface with minimal metadata configuration and annotated with the
-`@io.smallrye.config.ConfigMapping` annotation.
+* requirements
+    ** 👀public interface / `@io.smallrye.config.ConfigMapping` annotated👀
 
-[source,java]
-----
-@ConfigMapping(prefix = "server")
-public interface Server {
-    String host();
-
-    int port();
-}
-----
-
-The `Server` interface is able to map configuration properties with the name `server.host` into the `Server.host()`
-method and `server.port` into `Server.port()` method. The configuration property name to look up is built from the
-prefix, and the method name with `.` (dot) as the separator.
-
-NOTE: If a mapping fails to match a configuration property a `NoSuchElementException` is thrown, unless the mapped
-element is an `Optional`.
+* if a mapping fails to match a configuration property -> throw `NoSuchElementException`
+    ** OTHERWISE, the mapped element is `Optional`
 
 === Registration
 
-When a Quarkus application starts, a config mapping can be registered twice. One time for _STATIC INIT_ and a second
-time for _RUNTIME INIT_:
+* times / config mapping can be registered twice
 
 ==== STATIC INIT
 
-Quarkus starts some of its services during static initialization, and `Config` is usually one of the first things that
-is created. In certain situations it may not be possible to correctly initialize a config mapping. For instance, if the
-mapping requires values from a custom `ConfigSource`. For this reason, any config mapping requires the annotation
-`@io.quarkus.runtime.configuration.StaticInitSafe` to mark the mapping as safe to be used at this stage. Learn more
-about xref:config-extending-support.adoc#custom-config-source[registration] of a custom `ConfigSource`.
-
-===== Example
-
-[source,java]
-----
-@StaticInitSafe
-@ConfigMapping(prefix = "server")
-public interface Server {
-    String host();
-
-    int port();
-}
-----
+* | Quarkus static initialization,
+    ** Quarkus starts some of its services + `Config`
+    ** cases / ❌NOT correctly initialize a config mapping❌
+        *** mapping requires `ConfigSource`'s values
+            **** Solution: | config mapping, add `@io.quarkus.runtime.configuration.StaticInitSafe`
 
 ==== RUNTIME INIT
 
-The _RUNTIME INIT_ stage happens after _STATIC INIT_. There are no restrictions at this stage, and any config mapping
-is added to the `Config` instance as expected.
+* happens AFTER _STATIC INIT_
+* ❌NO restrictions❌
 
 === Retrieval
 
-A config mapping interface can be injected into any CDI aware bean:
-
-[source,java]
-----
-class BusinessBean {
-    @Inject
-    Server server;
-
-    public void businessMethod() {
-        String host = server.host();
-    }
-}
-----
-
-In non-CDI contexts, use the API `io.smallrye.config.SmallRyeConfig#getConfigMapping` to retrieve the config mapping
-instance:
+* ways to inject config mapping
+    ** | CDI aware bean, -- via -- `@Inject`
+    ** | non-CDI contexts, -- via -- API `io.smallrye.config.SmallRyeConfig#getConfigMapping`
 
 [source,java]
 ----

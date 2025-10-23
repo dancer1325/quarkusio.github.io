@@ -10,9 +10,11 @@ include::_attributes.adoc[]
 :topics: data,mongodb,nosql
 :extensions: io.quarkus:quarkus-mongodb-client
 
-MongoDB is a well known NoSQL Database that is widely used.
+* MongoDB
+    ** NoSQL Database
 
-In this guide, we see how you can get your REST services to use the MongoDB database.
+* goal
+    ** use MongoDB database | your REST services
 
 == Prerequisites
 
@@ -21,20 +23,13 @@ include::{includes}/prerequisites.adoc[]
 
 == Architecture
 
-The application built in this guide is quite simple: the user can add elements in a list using a form and the list is updated.
-
-All the information between the browser and the server is formatted as JSON.
-
-The elements are stored in MongoDB.
+* application /
+    ** user can add elements | list -- via a -- form
+    ** browser's information is passed -- , as JSON, to -- the server
 
 == Solution
 
-We recommend that you follow the instructions in the next sections and create the application step by step.
-However, you can go right to the completed example.
-
-Clone the Git repository: `git clone {quickstarts-clone-url}`, or download an {quickstarts-archive-url}[archive].
-
-The solution is located in the `mongodb-quickstart` link:{quickstarts-tree-url}/mongodb-quickstart[directory].
+* `mongodb-quickstart` link:{quickstarts-tree-url}/mongodb-quickstart[directory]
 
 == Creating the Maven project
 
