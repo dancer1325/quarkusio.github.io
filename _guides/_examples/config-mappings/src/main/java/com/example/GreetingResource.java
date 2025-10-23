@@ -18,6 +18,9 @@ public class GreetingResource {
     @Inject
     ServerNestedSubgroups serverNestedSubgroups;
 
+    @Inject
+    ConversionsAutomaticallyAllMicroProfileConfig conversionsAutomaticallyAllMicroProfileConfig;
+
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
@@ -41,5 +44,51 @@ public class GreetingResource {
                 ", + serverNestedSubgroups.log().rotate() " +
                 this.serverNestedSubgroups.log().rotate();
         return "nestedsubgroup - " + serverNestedSubgroups;
+    }
+
+    @GET
+    @Path("/conversions/automaticallyallmicroprofileconfig")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String conversionsAutomaticallyallmicroprofileconfig() {
+        String conversionsAutomaticallyAllMicroProfileConfig = "conversionsAutomaticallyAllMicroProfileConfig.intPrimitive() " +
+                this.conversionsAutomaticallyAllMicroProfileConfig.intPrimitive() +
+                ", + conversionsAutomaticallyAllMicroProfileConfig.intWrapper() " +
+                this.conversionsAutomaticallyAllMicroProfileConfig.intWrapper() +
+                ", + conversionsAutomaticallyAllMicroProfileConfig.longPrimitive() " +
+                this.conversionsAutomaticallyAllMicroProfileConfig.longPrimitive() +
+                ", + conversionsAutomaticallyAllMicroProfileConfig.longWrapper() " +
+                this.conversionsAutomaticallyAllMicroProfileConfig.longWrapper() +
+                ", + conversionsAutomaticallyAllMicroProfileConfig.floatPrimitive() " +
+                this.conversionsAutomaticallyAllMicroProfileConfig.floatPrimitive() +
+                ", + conversionsAutomaticallyAllMicroProfileConfig.floatWrapper() " +
+                this.conversionsAutomaticallyAllMicroProfileConfig.floatWrapper() +
+                ", + conversionsAutomaticallyAllMicroProfileConfig.doublePrimitive() " +
+                this.conversionsAutomaticallyAllMicroProfileConfig.doublePrimitive() +
+                ", + conversionsAutomaticallyAllMicroProfileConfig.doubleWrapper() " +
+                this.conversionsAutomaticallyAllMicroProfileConfig.doubleWrapper() +
+                ", + conversionsAutomaticallyAllMicroProfileConfig.charPrimitive() " +
+                this.conversionsAutomaticallyAllMicroProfileConfig.charPrimitive() +
+                ", + conversionsAutomaticallyAllMicroProfileConfig.charWrapper() " +
+                this.conversionsAutomaticallyAllMicroProfileConfig.charWrapper() +
+                ", + conversionsAutomaticallyAllMicroProfileConfig.optionalValue() " +
+                ", + conversionsAutomaticallyAllMicroProfileConfig.booleanPrimitive() " +
+                this.conversionsAutomaticallyAllMicroProfileConfig.booleanPrimitive() +
+                ", + conversionsAutomaticallyAllMicroProfileConfig.booleanWrapper() " +
+                this.conversionsAutomaticallyAllMicroProfileConfig.booleanWrapper();
+        return "conversionsAutomaticallyAllMicroProfileConfig - " + conversionsAutomaticallyAllMicroProfileConfig;
+    }
+
+    @GET
+    @Path("/conversions/automaticallyallmicroprofileconfig/optional")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String conversionsAutomaticallyallmicroprofileconfigOptional() {
+        String conversionsAutomaticallyAllMicroProfileConfigOptional =
+                "conversionsAutomaticallyAllMicroProfileConfigOptional.optional() " +
+                this.conversionsAutomaticallyAllMicroProfileConfig.optional() +
+                ", + conversionsAutomaticallyAllMicroProfileConfig.convertWithOptional() " +
+                this.conversionsAutomaticallyAllMicroProfileConfig.convertWithOptional() +
+                ", + conversionsAutomaticallyAllMicroProfileConfig.optionalInt() " +
+                this.conversionsAutomaticallyAllMicroProfileConfig.optionalInt();
+        return "conversionsAutomaticallyAllMicroProfileConfigOptional - " + conversionsAutomaticallyAllMicroProfileConfigOptional;
     }
 }

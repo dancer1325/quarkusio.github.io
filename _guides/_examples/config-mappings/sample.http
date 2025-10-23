@@ -5,3 +5,11 @@ Content-Type: */*
 ### GET request to example server
 GET http://localhost:8080/hello/nestedsubgroup
 Content-Type: */*
+
+### GET request to example server
+GET http://localhost:8080/hello/conversions/automaticallyallmicroprofileconfig
+Content-Type: */*
+
+### GET request to example server
+GET http://localhost:8080/hello/conversions/automaticallyallmicroprofileconfig/optional
+Content-Type: */*

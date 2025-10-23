@@ -32,7 +32,7 @@ include::_attributes.adoc[]
 ==== STATIC INIT
 
 * | Quarkus static initialization,
-    ** Quarkus starts some of its services + `Config`
+    ** Quarkus starts some of its services + `MicroProfile .Config`
     ** cases / ❌NOT correctly initialize a config mapping❌
         *** mapping requires `ConfigSource`'s values
             **** Solution: | config mapping, add `@io.quarkus.runtime.configuration.StaticInitSafe`
@@ -120,7 +120,7 @@ server.name=konoha
 ----
 
 Without the `@WithParentName` the method `name()` requires the configuration property `server.info.name`. Because we use
-`@WithParentName`, the `info()` mapping will inherit the parent name from `Server` and `name()` maps to `server.name`
+`@WithParentName`, the `info()` mapping will inherit the parent name from `ConvertWithOptional` and `name()` maps to `server.name`
 instead.
 
 ==== NamingStrategy
@@ -171,84 +171,9 @@ The `@ConfigMapping` annotation support the following naming strategies with the
 
 === Conversions
 
-A config mapping class support automatic conversions of all types available for conversion in `Config`:
-
-[source,java]
-----
-@ConfigMapping
-public interface SomeTypes {
-    @WithName("int")
-    int intPrimitive();
-
-    @WithName("int")
-    Integer intWrapper();
-
-    @WithName("long")
-    long longPrimitive();
-
-    @WithName("long")
-    Long longWrapper();
-
-    @WithName("float")
-    float floatPrimitive();
-
-    @WithName("float")
-    Float floatWrapper();
-
-    @WithName("double")
-    double doublePrimitive();
-
-    @WithName("double")
-    Double doubleWrapper();
-
-    @WithName("char")
-    char charPrimitive();
-
-    @WithName("char")
-    Character charWrapper();
-
-    @WithName("boolean")
-    boolean booleanPrimitive();
-
-    @WithName("boolean")
-    Boolean booleanWrapper();
-}
-----
-
-.application.properties
-[source,properties]
-----
-int=9
-long=9999999999
-float=99.9
-double=99.99
-char=c
-boolean=true
-----
-
-This is also valid for `Optional` and friends:
-
-[source,java]
-----
-@ConfigMapping
-public interface Optionals {
-    Optional<Server> server();
-
-    Optional<String> optional();
-
-    @WithName("optional.int")
-    OptionalInt optionalInt();
-
-    interface Server {
-        String host();
-
-        int port();
-    }
-}
-----
-
-In this case, the mapping won't fail if there is no configuration property to match the mapping.
-
+* config mapping
+    ** convert AUTOMATICALLY ALL types / convert `MicroProfile.Config`
+        *** ALSO valid -- for -- `Optional`
 ==== `@WithConverter`
 
 The `@WithConverter` annotation provides a way to set a `Converter` to use in a specific mapping:
@@ -380,7 +305,7 @@ server."my-server".error=error.html
 server."my-server".landing=index.html
 ----
 In this case the `allServers()` `Map` will
-contain one `Server` element with the key `my-server`.
+contain one `ConvertWithOptional` element with the key `my-server`.
 
 === Defaults
 
@@ -441,7 +366,7 @@ public class ServerMockProducer {
 }
 ----
 
-The `Server` can be injected as a mock into a Quarkus test class with `@InjectMock`:
+The `ConvertWithOptional` can be injected as a mock into a Quarkus test class with `@InjectMock`:
 
 [source,java]
 ----
