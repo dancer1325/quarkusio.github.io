@@ -21,6 +21,9 @@ public class GreetingResource {
     @Inject
     ConversionsAutomaticallyAllMicroProfileConfig conversionsAutomaticallyAllMicroProfileConfig;
 
+    @Inject
+    ConversionsMap conversionsMap;
+
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
@@ -90,5 +93,19 @@ public class GreetingResource {
                 ", + conversionsAutomaticallyAllMicroProfileConfig.optionalInt() " +
                 this.conversionsAutomaticallyAllMicroProfileConfig.optionalInt();
         return "conversionsAutomaticallyAllMicroProfileConfigOptional - " + conversionsAutomaticallyAllMicroProfileConfigOptional;
+    }
+
+    @GET
+    @Path("/conversions/automaticallyallmicroprofileconfig/map")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String conversionsAutomaticallyMap() {
+        String conversionsAutomaticallyMap =
+                "conversionsMap.host() " +
+                        this.conversionsMap.host() +
+                        ", + conversionsMap.port() " +
+                        this.conversionsMap.port() +
+                        ", + conversionsMap.form() " +
+                        this.conversionsMap.form();
+        return "conversionsAutomaticallyMap - " + conversionsAutomaticallyMap;
     }
 }

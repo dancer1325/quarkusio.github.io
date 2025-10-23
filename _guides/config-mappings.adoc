@@ -174,6 +174,7 @@ The `@ConfigMapping` annotation support the following naming strategies with the
 * config mapping
     ** convert AUTOMATICALLY ALL types / convert `MicroProfile.Config`
         *** ALSO valid -- for -- `Optional`
+
 ==== `@WithConverter`
 
 The `@WithConverter` annotation provides a way to set a `Converter` to use in a specific mapping:
@@ -247,34 +248,11 @@ NOTE: Only the `List` mapping can maintain element order. Hence, with `Set` mapp
 
 ==== Maps ====
 
-A config mapping is also able to map a `Map`:
+* ALLOWED |
+    ** map
+    ** groups
 
-[source,java]
-----
-@ConfigMapping(prefix = "server")
-public interface Server {
-    String host();
 
-    int port();
-
-    Map<String, String> form();
-}
-----
-
-.application.properties
-[source,properties]
-----
-server.host=localhost
-server.port=8080
-server.form.login-page=login.html
-server.form.error-page=error.html
-server.form.landing-page=index.html
-----
-
-The configuration property needs to specify an additional name to act as the key. In this case the `form()` `Map` will
-contain three elements with the keys `login-page`, `error-page` and `landing-page`.
-
-It also works for groups:
 [source,java]
 ----
 @ConfigMapping(prefix = "server")
