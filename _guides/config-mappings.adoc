@@ -56,39 +56,9 @@ Server server = config.getConfigMapping(Server.class);
 
 === Nested groups
 
-A nested mapping provides a way to subgroup other config properties:
-
-[source,java]
-----
-@ConfigMapping(prefix = "server")
-public interface Server {
-    String host();
-
-    int port();
-
-    Log log();
-
-    interface Log {
-        boolean enabled();
-
-        String suffix();
-
-        boolean rotate();
-    }
-}
-----
-
-.application.properties
-[source,properties]
-----
-server.host=localhost
-server.port=8080
-server.log.enabled=true
-server.log.suffix=.log
-server.log.rotate=false
-----
-
-The method name of a mapping group acts as sub-namespace to the configurations properties.
+* nested mapping
+    ** allows
+        *** subgrouping OTHER config properties
 
 === Overriding property names
 

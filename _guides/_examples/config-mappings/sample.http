@@ -2,4 +2,6 @@
 GET http://localhost:8080/hello
 Content-Type: */*
 
-###
+### GET request to example server
+GET http://localhost:8080/hello/nestedsubgroup
+Content-Type: */*
