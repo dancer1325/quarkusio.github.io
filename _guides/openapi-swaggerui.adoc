@@ -26,22 +26,17 @@ include::{includes}/prerequisites.adoc[]
 
 * | `openapi-swaggerui-quickstart` link:{quickstarts-tree-url}/openapi-swaggerui-quickstart[directory]
 
-== Creating the Maven project
-
-:create-app-artifact-id: openapi-swaggerui-quickstart
-:create-app-extensions: rest-jackson
-include::{includes}/devtools/create-app.adoc[]
-
 == Expose OpenAPI Specifications
 
 * Quarkus
     ** provides
-        *** https://github.com/smallrye/smallrye-open-api/[SmallRye OpenAPI extension] generates -- , compliant with the https://github.com/eclipse/microprofile-open-api/[MicroProfile OpenAPI] specification, -- your API
-https://spec.openapis.org/oas/v3.1.0.html[OpenAPI v3 specification]
+        *** 💡 https://github.com/smallrye/smallrye-open-api/[SmallRye OpenAPI extension] generates -- , compliant with the https://github.com/eclipse/microprofile-open-api/[MicroProfile OpenAPI] specification, -- your API
+https://spec.openapis.org/oas/v3.1.0.html[OpenAPI v3 specification]💡
+            **** 👀default endpoint `/q/openapi` 👀
 
-* steps
-    ** add the `openapi` extension | your Quarkus application
-        *** ways
+=== steps
+==== add the `openapi` extension | your Quarkus application
+* ways
 
 :add-extension-extensions: quarkus-smallrye-openapi
 include::{includes}/devtools/extension-add.adoc[]
@@ -63,13 +58,13 @@ include::{includes}/devtools/extension-add.adoc[]
 implementation("io.quarkus:quarkus-smallrye-openapi")
 ----
 
-* run our application
+==== run our application
 
 include::{includes}/devtools/dev.adoc[]
 
 [source, properties, title=application.properties]
 ----
-# if you do NOT want to like -> default endpoint location `/q/openapi`
+# if you do NOT like the default endpoint location -> customize
 quarkus.smallrye-openapi.path=/swagger
 
 # if you want to request the OpenAPI | JSON format
@@ -86,15 +81,10 @@ quarkus.smallrye-openapi.path=/swagger
         *** Contact Information
         *** License
     ** uses
-        *** use appropriate OpenAPI annotations | Jakarta REST `Application` class
-* empty class /
-    ** extends `jakarta.ws.rs.core.Application`
-    ** can be annotated -- with -- various OpenAPI annotations
-* ALTERNATIVE
-    ** feature provided by SmallRye and not part of the specification is to use configuration to add this global API information.
-* This way, you do not need to have a Jakarta REST `Application` class, and you can name the API differently per environment
-
-This will give you similar information as the `@OpenAPIDefinition` example above.
+        *** 👀appropriate OpenAPI annotations |
+            **** Jakarta REST `Application` class👀, OR
+                ***** _Example:_ empty class / extends `jakarta.ws.rs.core.Application`
+            **** ".properties"👀
 
 == Enhancing the OpenAPI Schema with Filters
 
@@ -132,7 +122,8 @@ public class MyBuildTimeFilter implements OASFilter { //<2>
 <3> For Build stage filters, the index can be passed in (optional)
 <4> Get a hold of the generated `OpenAPI` Schema, and enhance as required
 
-Remember that setting fields on the schema will override what has been generated, you might want to get and add to (so modify). Also know that the generated values might be null, so you will have to check for that.
+* Remember that setting fields on the schema will override what has been generated, you might want to get and add to (so modify)
+* Also know that the generated values might be null, so you will have to check for that
 
 === Runtime filters
 
