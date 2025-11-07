@@ -23,8 +23,9 @@ include::_attributes.adoc[]
     ** https://brew.sh[Homebrew]
     ** https://community.chocolatey.org/packages/quarkus[Chocolatey]
     ** https://scoop.sh[Scoop]
-    ** https://www.jbang.dev[JBang].
+    ** https://www.jbang.dev[JBang]
 
+=== JBang
 [role="primary asciidoc-tabs-sync-jbang"]
 .JBang
 ****
@@ -90,6 +91,7 @@ If you are installing JBang for the first time, start a new session to update yo
 ====
 ****
 
+=== SDKMAN!
 [role="secondary asciidoc-tabs-sync-sdkman"]
 .SDKMAN!
 ****
@@ -136,6 +138,7 @@ sdk upgrade quarkus
 ----
 ****
 
+=== Homebrew
 [role="secondary asciidoc-tabs-sync-homebrew"]
 .Homebrew
 ****
@@ -173,8 +176,9 @@ quarkus --version
 # upgrade quarkus
 brew upgrade quarkus
 ----
-
 ****
+
+=== Chocolatey
 
 [role="secondary asciidoc-tabs-sync-chocolatey"]
 .Chocolatey
@@ -217,6 +221,7 @@ choco upgrade quarkus
 ----
 ****
 
+=== Scoop
 [role="secondary asciidoc-tabs-sync-scoop"]
 .Scoop
 ****
@@ -252,114 +257,20 @@ scoop update quarkus-cli
 * `--help`
     ** ALL available commands
 
-[source,shell]
-----
-quarkus --help
-Usage: quarkus [-ehv] [--refresh] [--verbose] [--config=CONFIG]
-               [-D=<String=String>]... [COMMAND]
-Options:
-      --refresh         Refresh the local Quarkus extension registry cache
-      --config=CONFIG   Configuration file
-  -h, --help            Display this help message.
-  -v, --version         Print CLI version information and exit.
-  -e, --errors          Display error messages.
-      --verbose         Verbose mode.
-  -D=<String=String>    Java properties
-
-Commands:
-  create                  Create a new project.
-    app                   Create a Quarkus application project.
-    cli                   Create a Quarkus command-line project.
-    extension             Create a Quarkus extension project
-  build                   Build the current project.
-  dev                     Run the current project in dev (live coding) mode.
-  test                    Run the current project in continuous testing mode.
-  extension, ext          Configure extensions of an existing project.
-    list, ls              List platforms and extensions.
-    categories, cat       List extension categories.
-    add                   Add extension(s) to this project.
-    remove, rm            Remove extension(s) from this project.
-  image                   Build or push project container image.
-    build                 Build a container image.
-      docker              Build a container image using Docker.
-      buildpack           Build a container image using Buildpack.
-      jib                 Build a container image using Jib.
-      openshift           Build a container image using OpenShift.
-    push                  Push a container image.
-  deploy                  Deploy application.
-    kubernetes            Perform the deploy action on Kubernetes.
-    openshift             Perform the deploy action on OpenShift.
-    knative               Perform the deploy action on Knative.
-    kind                  Perform the deploy action on Kind.
-    minikube              Perform the deploy action on minikube.
-  registry                Configure Quarkus registry client
-    list                  List enabled Quarkus registries
-    add                   Add a Quarkus extension registry
-    remove                Remove a Quarkus extension registry
-  info                    Display project information and verify versions
-                            health (platform and extensions).
-  update, up, upgrade     Suggest recommended project updates with the
-                            possibility to apply them.
-  version                 Display CLI version information.
-  plugin, plug            Configure plugins of the Quarkus CLI.
-    list, ls              List CLI plugins.
-    add                   Add plugin(s) to the Quarkus CLI.
-    remove                Remove plugin(s) to the Quarkus CLI.
-    sync                  Sync (discover / purge) CLI Plugins.
-  completion              bash/zsh completion:  source <(quarkus completion)
-----
-
 * `command --help`
 
 [[project-creation]]
-=== Creating a new project
+=== Creating a new project -- `quarkus create` --
 
-* `create` command
-    ** 👀by default, `app` subcommand👀
-
-[source,shell]
-----
-quarkus create
------------
-
-applying codestarts...
-📚  java
-🔨  maven
-📦  quarkus
-📝  config-properties
-🔧  dockerfiles
-🔧  maven-wrapper
-🚀  resteasy-codestart
-
------------
-[SUCCESS] ✅ quarkus project has been successfully generated in:
---> /<output-dir>/code-with-quarkus
-----
-
-* create a folder `code-with-quarkus` | your CURRENT working directory /
-    ** default
+* 👀by default,
+    ** `app` subcommand👀
+    ** create a folder "code-with-quarkus" | your CURRENT working directory /
         *** `groupId` == `groupId='org.acme'`
         *** `artifactId` == `artifactId='code-with-quarkus'`
         *** `version` `version='1.0.0-SNAPSHOT'`
 * emojis
     ** -- depends on -- font used OR terminal/environment
         *** | IntelliJ IDEA, EXIST problems
-
-[source,shell]
-----
-# Create a project / groupId=org.acme, artifactId=bar, & version=1.0.0-SNAPSHOT
-quarkus create app bar
-
-# Create a project / groupId=com.foo, artifactId=bar, & version=1.0.0-SNAPSHOT
-quarkus create app com.foo:bar
-
-# Create a project / groupId=com.foo, artifactId=bar, & version=1.0
-quarkus create app com.foo:bar:1.0
-
-# Display create options
-quarkus create app --help
-quarkus create cli --help
-----
 
 [[specifying-quarkus-version]]
 === Specifying the Quarkus version
