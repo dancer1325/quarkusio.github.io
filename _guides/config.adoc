@@ -9,12 +9,12 @@ include::_attributes.adoc[]
 :summary: Hardcoded values in your code is a no go (even if we all did it at some point ;-)). In this guide, we learn how to configure your application.
 :topics: configuration
 
-IMPORTANT: The content of this guide and been revised and split into additional topics. Please check the
-<<additional-information,Additional Information>> section.
+* goal
+    ** how to configure a Quarkus application
 
-
-Hardcoded values in your code are a _no-go_ (even if we all did it at some point ;-)).
-In this guide, we will learn how to configure a Quarkus application.
+* allows
+    ** | your code,
+        *** ❌NOT hardcode value❌
 
 == Prerequisites
 
@@ -22,115 +22,33 @@ include::{includes}/prerequisites.adoc[]
 
 == Solution
 
-We recommend that you follow the instructions in the next sections and create the application step by step.
-However, you can go right to the completed example.
-
-Clone the Git repository: `git clone {quickstarts-clone-url}`, or download an {quickstarts-archive-url}[archive].
-
-The solution is located in the `config-quickstart` link:{quickstarts-tree-url}/config-quickstart[directory].
+* link:{quickstarts-tree-url}/config-quickstart[here]
 
 == Create the Maven project
 
-First, we need a new project. Create a new project with the following command:
+WAYS
 
 :create-app-artifact-id: config-quickstart
 :create-app-extensions: rest
 include::{includes}/devtools/create-app.adoc[]
 
-It generates:
-
-* the Maven structure
-* a landing page accessible on `http://localhost:8080`
-* example `Dockerfile` files for both `native` and `jvm` modes
-* the application configuration file
-
 == Create the configuration
 
-A Quarkus application uses the https://github.com/smallrye/smallrye-config[SmallRye Config] API to provide all
-mechanisms related with configuration.
-
-By default, Quarkus reads configuration properties from <<config-reference.adoc#configuration-sources,several sources>>.
-For the purpose of this guide, we will use an application configuration file located in `src/main/resources/application.properties`.
-
-Edit the file with the following content:
-
-.application.properties
-[source,properties]
-----
-# Your configuration properties
-greeting.message=hello
-greeting.name=quarkus
-----
-
-== Create a REST resource
-
-Create the `org.acme.config.GreetingResource` REST resource with the following content:
-
-[source,java]
-----
-package org.acme.config;
-
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.MediaType;
-
-@Path("/greeting")
-public class GreetingResource {
-
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-        return "Hello RESTEasy";
-    }
-}
-----
+* Quarkus application configuration
+    ** 👀-- based on -- https://github.com/smallrye/smallrye-config[SmallRye Config API]👀
+    ** reads -- from -- <<config-reference.adoc#configuration-sources,MULTIPLE sources>>
 
 == Inject the configuration
 
-Quarkus uses https://microprofile.io/project/eclipse/microprofile-config[MicroProfile Config] annotations to inject the
-configuration properties in the application.
-
-[source,java]
-----
-@ConfigProperty(name = "greeting.message") <1>
-String message;
-----
-<1> You can use `@Inject @ConfigProperty` or just `@ConfigProperty`. The `@Inject` annotation is not necessary for
-members annotated with `@ConfigProperty`.
-
-NOTE: If the application attempts to inject a configuration property that is not set, an error is thrown.
-
-Edit the `org.acme.config.GreetingResource`, and introduce the following configuration properties:
-
-[source,java]
-----
-@ConfigProperty(name = "greeting.message") <1>
-String message;
-
-@ConfigProperty(name = "greeting.suffix", defaultValue="!") <2>
-String suffix;
-
-@ConfigProperty(name = "greeting.name")
-Optional<String> name; <3>
-----
-<1> If you do not provide a value for this property, the application startup fails with `jakarta.enterprise.inject.spi.DeploymentException: No config value of type [class java.lang.String] exists for: greeting.message`.
-<2> The default value is injected if the configuration does not provide a value for `greeting.suffix`.
-<3> This property is optional - an empty `Optional` is injected if the configuration does not provide a value for `greeting.name`.
-
-Now, modify the `hello` method to use the injected properties:
-
-[source,java]
-----
-@GET
-@Produces(MediaType.TEXT_PLAIN)
-public String hello() {
-    return message + " " + name.orElse("world") + suffix;
-}
-----
-
-TIP: Use `@io.smallrye.config.ConfigMapping` annotation to group multiple configurations in a single interface. Please,
-check the https://smallrye.io/smallrye-config/Main/config/mappings/[Config Mappings] documentation.
+* Quarkus
+    ** inject configuration properties | application -- via --
+        *** 💡https://microprofile.io/project/eclipse/microprofile-config[MicroProfile Config] annotations💡
+            **** ways
+                ***** `@ConfigProperty` OR
+                ***** `@Inject @ConfigProperty`
+                    ****** ❌`@Inject` NOT necessary❌
+            **** ⚠️if the application tries to inject a configuration property / NOT set -> throws an error⚠️
+        *** if you want to group >1 configurations | 1! interface -> use https://smallrye.io/smallrye-config/Main/config/mappings/[`@io.smallrye.config.ConfigMapping`]
 
 [[secrets-in-environment-properties]]
 == Store secrets in an environment properties file
@@ -183,22 +101,11 @@ public class GreetingResourceTest {
 
 == Package and run the application
 
-Run the application with:
-
 include::{includes}/devtools/dev.adoc[]
 
-Open your browser to http://localhost:8080/greeting.
-
-Changing the configuration file is immediately reflected.
-You can add the `greeting.suffix`, remove the other properties, change the values, etc.
-
-As usual, the application can be packaged using:
+* 👀if you change the configuration file -> IMMEDIATELY reflected WITHOUT shut down👀
 
 include::{includes}/devtools/build.adoc[]
-
-and executed using `java -jar target/quarkus-app/quarkus-run.jar`.
-
-You can also generate the native executable with:
 
 include::{includes}/devtools/build-native.adoc[]
 

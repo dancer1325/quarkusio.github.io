@@ -1,3 +1,5 @@
+* ways to package
+
 [source,bash,subs=attributes+, role="primary asciidoc-tabs-sync-cli"]
 .CLI
 ----
@@ -34,3 +36,5 @@ ifndef::build-additional-parameters[]
 endif::[]
 ----
 endif::[]
+
+* if you want to execute -> use `java -jar target/quarkus-app/quarkus-run.jar`

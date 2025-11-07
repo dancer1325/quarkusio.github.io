@@ -1,5 +1,5 @@
-* == cohesive platform -- for -- optimized developer joy / 
-  * unified configuration
+* == cohesive platform -- for -- optimized developer / 
+  * [unified configuration](/quarkusio.github.io/_guides/config.adoc)
   * NO hassle NATIVE executable generation
 * streamlined code / 80% common usages + flexible / remainder 20%
 

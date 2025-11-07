@@ -1,3 +1,5 @@
+* ways to generate the NATIVE executable
+
 [source,bash,subs=attributes+, role="primary asciidoc-tabs-sync-cli"]
 .CLI
 ----

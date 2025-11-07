@@ -2,8 +2,8 @@
   * Quarkus' slogan
 * == Kubernetes Native Java framework /
   * -- tailored for --
-    * OpenJDK HotSpot
-    * GraalVM
+    * [OpenJDK HotSpot](https://openjdk.org/groups/hotspot/)
+    * [GraalVM](https://github.com/oracle/graal)
   * designed -- from -- the best Java libraries & standards
 
 * [Youtube video](https://www.youtube.com/watch?v=hhHgurtI674)
