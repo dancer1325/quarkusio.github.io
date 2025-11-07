@@ -13,7 +13,7 @@
     * 👀extending the standards👀
   * | v3.20 (latest LTS),
     * 💡implemented Specifications💡
-      * [Jarkarta EE](https://jakarta.ee)
+      * [Jakarta EE](https://jakarta.ee)
         * [Jakarta Core 10](https://jakarta.ee/specifications/coreprofile/)
         * [Jakarta Contexts and Dependency Injection 4.1 (Lite)](https://jakarta.ee/specifications/cdi/)
         * [Jakarta Bean Validation 3.0](https://jakarta.ee/specifications/bean-validation/)

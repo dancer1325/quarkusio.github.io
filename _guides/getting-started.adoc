@@ -11,6 +11,7 @@ include::_attributes.adoc[]
 :sectnums:
 :sectnumlevels: 4
 :topics: getting-started
+:imagesdir: images
 
 * goal
     ** how to create a Hello World Quarkus app / Jakarta REST endpoint
@@ -25,92 +26,35 @@ include::{includes}/prerequisites.adoc[]
 
 == Architecture
 
-In this guide, we create a straightforward application serving a `hello` endpoint. To demonstrate
-dependency injection, this endpoint uses a `greeting` bean.
-
-image::getting-started-architecture.png[alt=Architecture, align=center]
-
-This guide also covers the testing of the endpoint.
+image::getting-started-architecture.png[]
 
 == Solution
 
-We recommend that you follow the instructions from <<bootstrapping-the-project,Bootstrapping the project>> and onwards to create the application step by step.
-
-However, you can go right to the completed example.
-
-Download an {quickstarts-archive-url}[archive] or clone the git repository:
-
-[source,bash,subs=attributes+]
-----
-git clone {quickstarts-clone-url}
-----
-
-The solution is located in the `getting-started` link:{quickstarts-tree-url}/getting-started[directory].
+* link:{quickstarts-tree-url}/getting-started[here]
 
 == Bootstrapping the project
 
-The easiest way to create a new Quarkus project is to open a terminal and run the following command:
+MULTIPLE ways
 
 :create-app-artifact-id: getting-started
 :create-app-extensions: rest
 :create-app-code:
 include::{includes}/devtools/create-app.adoc[]
 
-It generates the following in `./getting-started`:
+* Quarkus BOM
+    ** allows
+        *** omit MULTIPLE Quarkus dependencies
+    ** see | `pom.xml` OR TODO:
 
-* the Maven structure
-* an `org.acme.GreetingResource` resource exposed on `/hello`
-* an associated unit test
-* a landing page that is accessible on `http://localhost:8080` after starting the application
-* example `Dockerfile` files for both `native` and `jvm` modes in `src/main/docker`
-* the application configuration file
+* `quarkus-maven-plugin` OR Quarkus Gradle plugin
+    ** responsible for
+        *** packaging the application
+        *** providing the development mode
+    ** see | `pom.xml` OR TODO:
 
-Once generated, look at the `pom.xml`.
-You will find the import of the Quarkus BOM, allowing you to omit the version of the different Quarkus dependencies.
-In addition, you can see the `quarkus-maven-plugin` responsible of the packaging of the application and also providing the development mode.
-
-[source,xml,subs=attributes+]
-----
-<dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>${quarkus.platform.group-id}</groupId>
-            <artifactId>${quarkus.platform.artifact-id}</artifactId>
-            <version>${quarkus.platform.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-        </dependency>
-    </dependencies>
-</dependencyManagement>
-
-<build>
-    <plugins>
-        <plugin>
-            <groupId>${quarkus.platform.group-id}</groupId>
-            <artifactId>quarkus-maven-plugin</artifactId>
-            <version>${quarkus.platform.version}</version>
-            <extensions>true</extensions>
-            <executions>
-                <execution>
-                    <goals>
-                        <goal>build</goal>
-                        <goal>generate-code</goal>
-                        <goal>generate-code-tests</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
-    </plugins>
-</build>
-----
-
-In a Gradle project, you would find a similar setup:
-
-* the Quarkus Gradle plugin
-* an `enforcedPlatform` directive for the Quarkus BOM
-
-If we focus on the dependencies section, you can see the extension allowing the development of REST applications:
-
+* `io.quarkus:quarkus-rest`
+    ** dependency / allow developing REST applications
++
 [source,xml,role="primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven"]
 .pom.xml
 ----
@@ -119,7 +63,7 @@ If we focus on the dependencies section, you can see the extension allowing the 
     <artifactId>quarkus-rest</artifactId>
 </dependency>
 ----
-
++
 [source,gradle,role="secondary asciidoc-tabs-target-sync-gradle"]
 .build.gradle
 ----
@@ -128,7 +72,7 @@ implementation("io.quarkus:quarkus-rest")
 
 === The Jakarta REST resources
 
-During the project creation, the `src/main/java/org/acme/GreetingResource.java` file has been created with the following content:
+* TODO: During the project creation, the `src/main/java/org/acme/GreetingResource.java` file has been created with the following content:
 
 [source,java]
 ----
