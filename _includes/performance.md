@@ -1,33 +1,31 @@
-<div class="full-width-bg component">
-  <div class="grid-wrapper">
-      <div class="width-3-12 width-12-12-m">
-        <img class="light-only" src="{{site.baseurl}}/assets/images/performance/icon-performance.svg" alt="Container image">
-        <img class="dark-only" src="{{site.baseurl}}/assets/images/performance/icon-performance-dark.svg" alt="Container image">
-      </div>
-      <div class="width-9-12 width-12-12-m">
-        <p class="intropara">Quarkus is engineered to be efficient by using build-time optimizations and a reactive core to achieve fast startup times, high throughput, low response latency, reduced memory footprint, and minimal resource consumption. As a result, Quarkus is fast... real fast.</p>
-      </div>
-      <div class="width-12-12 width-12-12-m">
-        <h2>Starting fast by doing less: the build-time principle</h2>
-      </div>
-      <div class="width-6-12 width-12-12-m">
-       <p>Quarkus redefines how Java applications are built and executed by shifting much of the work to the build phase ensuring that the costly work happens only once — during the build process — not at every startup. It results in faster, smaller, and more resource-efficient Java applications on both GraalVM native images and traditional JVM deployments.</p>
-       <p>For example, at build time, Quarkus reads part of the application configuration, scans the classpath for annotated classes, and constructs a model of the application. By doing this early, Quarkus has enough information to eliminate unnecessary components and compute the exact startup instructions required.</p>
-     </div>
-     <div class="width-6-12 width-12-12-m img-vert-center">
-       <img class="light-only" src="{{site.baseurl}}/assets/images/container/build-time-principle-light.png" alt="Quarkus Build Time Principle" width="90%">
-       <img class="dark-only" src="../guides/images/build-time-principle.png" alt="Quarkus Build Time Principle" width="90%">
-     </div>
-     <div class="width-12-12 width-12-12-m">
-       <p>This build-time optimization offers several key benefits:</p>
-       <ol>
-         <li><strong>Reduced startup time:</strong> Quarkus performs most of the heavy work at build-time, significantly cutting startup time and allowing the app to reach peak performance faster.</li>
-         <li><strong>Lower memory consumption:</strong> By minimizing allocations and class loading, Quarkus reduces memory usage. Replacing reflection with build-time bytecode generation further lowers the JVM's runtime workload.</li>
-         <li><strong>Better latency and improved throughput:</strong> Quarkus generates highly optimized code at build time and prunes unnecessary classes and methods. For instance, it weaves layers of indirection together, enabling better JIT optimizations. These improvements result in faster code and better latency. </li>
-       </ol>
-     </div>
- </div>
-</div>
+* Quarkus
+  * provides , -- via -- build-time optimizations + reactive core,
+    * fast startup times
+    * high throughput,
+    * low response latency,
+    * reduced memory footprint,
+    * minimal resource consumption
+
+* TODO:
+        <div class="width-12-12 width-12-12-m">
+          <h2>Starting fast by doing less: the build-time principle</h2>
+        </div>
+        <div class="width-6-12 width-12-12-m">
+         <p>Quarkus redefines how Java applications are built and executed by shifting much of the work to the build phase ensuring that the costly work happens only once — during the build process — not at every startup. It results in faster, smaller, and more resource-efficient Java applications on both GraalVM native images and traditional JVM deployments.</p>
+         <p>For example, at build time, Quarkus reads part of the application configuration, scans the classpath for annotated classes, and constructs a model of the application. By doing this early, Quarkus has enough information to eliminate unnecessary components and compute the exact startup instructions required.</p>
+       </div>
+       <div class="width-6-12 width-12-12-m img-vert-center">
+         <img class="light-only" src="{{site.baseurl}}/assets/images/container/build-time-principle-light.png" alt="Quarkus Build Time Principle" width="90%">
+         <img class="dark-only" src="../guides/images/build-time-principle.png" alt="Quarkus Build Time Principle" width="90%">
+       </div>
+       <div class="width-12-12 width-12-12-m">
+         <p>This build-time optimization offers several key benefits:</p>
+         <ol>
+           <li><strong>Reduced startup time:</strong> Quarkus performs most of the heavy work at build-time, significantly cutting startup time and allowing the app to reach peak performance faster.</li>
+           <li><strong>Lower memory consumption:</strong> By minimizing allocations and class loading, Quarkus reduces memory usage. Replacing reflection with build-time bytecode generation further lowers the JVM's runtime workload.</li>
+           <li><strong>Better latency and improved throughput:</strong> Quarkus generates highly optimized code at build time and prunes unnecessary classes and methods. For instance, it weaves layers of indirection together, enabling better JIT optimizations. These improvements result in faster code and better latency. </li>
+         </ol>
+
 
    <div class="component-wrapper-slim">
      <div class="width-12-12">

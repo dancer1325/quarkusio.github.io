@@ -2,6 +2,9 @@
 layout: base
 ---
 
+[header-navigation.html](../_includes/header-navigation.html)
+
+
 * [Homepage](../_includes/homepage.md)
 * Why
   * [what's QUARKUS?](../_includes/about.md)

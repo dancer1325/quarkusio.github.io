@@ -8,48 +8,66 @@ synopsis: Quarkus ArC is a build-time oriented dependency injection based on CDI
 
 = Quarkus Dependency Injection
 
-Quarkus ArC is a build-time oriented dependency injection based on http://cdi-spec.org/[CDI 2.0].
-In this blogpost, we're going to explain the relationship to the specification and describe some of the benefits and drawbacks of the build-time processing design.
+* goal
+    ** Quarkus ArC
+        *** vs CDI spec
+        *** benefits & drawbacks
+
+* Quarkus ArC
+    ** == 💡dependency injection💡
+        *** build-time oriented
+        *** -- based on -- http://cdi-spec.org/[CDI 2.0]
+            **** ❌NOT FULL CDI implementation❌
+                ***** https://quarkus.io/guides/cdi-reference#supported_features[supported features]
+                ***** https://quarkus.io/guides/cdi-reference#limitations[limitations]
 
 == Compatibility
 
-It does not make sense to reinvent the wheel, especially when it comes to dependency injection.
-There are many frameworks that try to solve similar problems.
-A year ago, we made a design decision to build Quarkus DI on top of CDI.
-We had some very good reasons to choose CDI:
-
-1. CDI is a mature and proven component model
-2. We at Red Hat have almost ten years of experience with developing http://weld.cdi-spec.org/[Weld - the CDI Reference Implementation]
-3. The CDI API is built on top of `javax.inject` so that it should be easy to migrate from any DI framework compatible with `@Inject`
-
-Our primary goal was to implement a supersonic build-time oriented DI solution compatible with CDI.
-This would allow users to continue using CDI in their applications but also leverage Quarkus build-time optimizations.
-However, ArC is not a full CDI implementation verified by the TCK - see also the list of https://quarkus.io/guides/cdi-reference#supported_features[supported features] and the list of https://quarkus.io/guides/cdi-reference#limitations[limitations].
+* Quarkus DI
+    ** built | CDI
+        *** Reasons:🧠
+            1. CDI is mature & proven component model
+            2. 10 years of experience developing http://weld.cdi-spec.org/[Weld - the CDI Reference Implementation]
+            3. CDI API is built | `javax.inject`
+                **** -> easy to migrate from any DI framework / compatible with `@Inject`
+    ** 's primary goal
+        *** DI solution /
+            **** supersonic build-time oriented
+            **** compatible -- with -- CDI
 
 == Build-time Processing Benefits and Drawbacks
 
 === Fail Fast
 
-Beans and dependencies are validated during the build so that your application can never fail in production with common problems such as `AmbiguousResolutionException` or `UnsatisfiedResolutionException`.
+* | build,
+    ** validate beans and dependencies
+        *** -> | production, NO errors as `AmbiguousResolutionException` or `UnsatisfiedResolutionException`
 
 === Instant Startup
 
-When the app starts ArC just loads all the metadata and initializes some internal structures.
-There is no need to analyze the application classes again.
-This means negligible startup overhead.
-
-NOTE: This applies to both the GraalVM and OpenJDK HotSpot runtimes.
+* | starts the app,
+    ** ArC
+        *** loads ALL the metadata
+        *** initializes some internal structures
+    ** _Examples:_ GraalVM & OpenJDK HotSpot runtimes
 
 === Minimized Runtime
 
-In Quarkus 0.19, ArC plus integration runtime consist of 72 classes and occupies ~ 140 KB in jars.
-http://weld.cdi-spec.org/[Weld 3.1.1] (CDI Reference Implementation) core is roughly 1200 classes and approx. 2 MB jar.
-In other words, ArC runtime takes approx. 7% of the Weld runtime in terms of number of classes and jar footprint.
+* | Quarkus 0.19,
+    ** ArC plus integration runtime
+        *** == 72 classes
+        *** ~ 140 KB (jars)
+            **** == 7% of the Weld runtime
+
+* http://weld.cdi-spec.org/[Weld 3.1.1]'s core
+    ** == 1200 classes
+    ** 2 MB (jar)
 
 === Optimized Code Paths and Metadata Structures
 
-When generating the metadata classes ArC can sometimes produce leaner and smarter logic because it has the whole application analyzed already.
-This is one of the areas where we would like to develop and improve ArC.
+* | generate the metadata classes,
+    ** ArC can sometimes produce leaner & smarter logic
+        *** Reason:🧠 it has ALREADY the whole application analyzed🧠
 
 === Extension Points
 
