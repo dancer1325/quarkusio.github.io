@@ -12,26 +12,33 @@ include::_attributes.adoc[]
 :topics: cdi,arc,injection
 :extensions: io.quarkus:quarkus-arc
 
-ArC, the CDI container in Quarkus, is bootstrapped at build time.
-To integrate with the container, https://jakarta.ee/specifications/cdi/4.1/jakarta-cdi-spec-4.1.html#spi_lite[CDI Build Compatible Extensions, window="_blank"] can be used, as well as a Quarkus-specific extension API.
-CDI Portable Extensions are not and cannot be supported.
-This guide focuses on the Quarkus-specific extensions API.
+* ArC
+    ** == Quarkus' CDI container / bootstrapped | build time
+        *** ways to integrate with the container
+            **** https://jakarta.ee/specifications/cdi/4.1/jakarta-cdi-spec-4.1.html#spi_lite[CDI Build Compatible Extensions, window="_blank"]
+            **** Quarkus-specific extension API
 
-The container is bootstrapped in multiple phases.
-From a high level perspective these phases go as follows:
+* CDI Portable Extensions
+    ** ❌NOT supported❌
 
-1. Initialization
-2. Bean discovery
-3. Registration of synthetic components
-4. Validation
+* goal
+    ** Quarkus-specific extensions API
 
-In the _initialization_ phase the preparatory work is being carried out and custom contexts are registered.
-_Bean discovery_ is then the process where the container analyzes all application classes, identifies beans and wires them all together based on the provided metadata.
-Subsequently, the extensions can register _synthetic components_.
-Attributes of these components are fully controlled by the extensions, i.e. are not derived from an existing class.
-Finally, the _deployment is validated_.
-For example, the container validates every injection point in the application and fails the build if there is no bean that satisfies the given required type and qualifiers.
+* container bootstrap phases
+    1. Initialization
+        *** register custom contexts
+    2. Bean discovery
+        *** container
+            **** analyzes ALL application classes
+            **** identifies beans
+            **** wires ALL beans -- based on the -- provided metadata
+    3. Extensions can register synthetic components
+        *** synthetic components' attributes are FULLY controlled -- by the -- extensions (NOT -- from an -- EXISTING class)
+    4. Container validates the deployment
+        ***  == validates every application's injection point
+        *** if there is NO bean / satisfies the given required type & qualifiers -> fails the build
 
+* TODO:
 TIP: You can see more information about the bootstrap by enabling additional logging. Simply run the Maven build with `-X` or `--debug` and grep the lines that contain `io.quarkus.arc`. In <<cdi-reference.adoc#dev_mode,dev mode>>, you can use `quarkus.log.category."io.quarkus.arc.processor".level=DEBUG` and two special endpoints are also registered automatically to provide some basic debug info in the JSON format.
 
 Quarkus build steps can produce and consume various build items and hook into each phase.

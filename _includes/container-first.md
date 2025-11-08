@@ -24,13 +24,19 @@
     * use regular invocations (❌NOT reflection calls❌) 
   * use generating custom proxy
     * == ❌NOT dynamic proxies❌ 
-* Arc, the dependency injection framework used by Quarkus, eliminates all the reflection calls and deduces the injection graph at build time
-* So, when the application starts, no expensive lookups; it’s done already!</p>
+* Arc
+  * == dependency injection framework used by Quarkus,
+  * eliminates ALL reflection calls
+    * Reason:🧠injection graph is deduced | build time🧠
+    * -> | bootstrap the application,
+      * ❌NO expensive lookups❌
 
-# First-Class Support for GraalVM Native Images
-* GraalVM Native Executable support has been an essential part of the design for Quarkus from the beginning
-* When an application is compiled down to a native executable, it starts much faster and can run with a much smaller heap than a standard JVM
-* The native compiler uses aggressive dead-code elimination techniques to only embed the parts of the JVM and classes that are absolutely required by your application
+# First-Class Support -- for -- GraalVM Native Images
+* == 👀application is compiled down -- to a -- native executable👀 
+* ->
+  * starts faster
+  * 's heap << standard JVM's heap
+* TODO: The native compiler uses aggressive dead-code elimination techniques to only embed the parts of the JVM and classes that are absolutely required by your application
 * Quarkus makes building optimized native executables plain easy
 * The build-time approach allows Quarkus to collect enough metadata on your application to fine-tune the compilation
 * No <code>-H:+ReportUnsupportedElementsAtRuntime</code> flag, no fallback, no compromise!</p>
