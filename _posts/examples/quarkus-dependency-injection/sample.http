@@ -1,0 +1,7 @@
+### GET
+GET http://localhost:8080/hello
+Content-Type: application/json
+
+### GET
+GET http://localhost:8080/hello/inject-example
+Content-Type: application/json
