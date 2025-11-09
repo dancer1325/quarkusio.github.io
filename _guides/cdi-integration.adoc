@@ -46,9 +46,20 @@ In the following sections we will describe all the relevant build items and comm
 
 == Metadata Sources
 
-Classes and annotations are the primary source of bean-level metadata.
-The initial metadata are read from the _bean archive index_, an immutable https://github.com/smallrye/jandex[Jandex index, window="_blank"] which is built from various sources during <<cdi-reference.adoc#bean_discovery,bean discovery>>.
-However, extensions can add, remove or transform the metadata at certain stages of the bootstrap.
+* Classes & annotations
+    ** == primary source of bean-level metadata
+
+* metadata
+    ** initial one read -- from the -- _bean archive index_
+    ** | certain stages of the bootstrap,
+        *** extensions can add, remove or transform the metadata
+
+* bean archive index
+    ** == https://github.com/smallrye/jandex[Jandex index, window="_blank"]
+    ** immutable
+    ** | <<cdi-reference.adoc#bean_discovery,bean discovery>>,
+        *** built -- from -- various sources
+
 Moreover, extensions can also register <<synthetic_beans,synthetic components>>.
 This is an important aspect to realize when integrating CDI components in Quarkus.
 
@@ -288,12 +299,15 @@ void doSomethingWithNamedBeans(SynthesisFinishedBuildItem synthesisFinished, Bui
 [[synthetic_beans]]
 == Use Case - The Need for Synthetic Beans
 
-Sometimes it is practical to be able to register a _synthetic bean_.
-Bean attributes of a synthetic bean are not derived from a Java class, method or field.
-Instead, all the attributes are defined by an extension.
-In regular CDI, this could be achieved using the https://jakarta.ee/specifications/cdi/4.1/jakarta-cdi-spec-4.1.html#after_bean_discovery[`AfterBeanDiscovery.addBean()`, window="_blank"] and https://jakarta.ee/specifications/cdi/4.1/jakarta-cdi-spec-4.1.html#bce_synthesis[`SyntheticComponents.addBean()`] methods.
-
-_Solution_: If you need to register a synthetic bean then use the `SyntheticBeanBuildItem`.
+* _synthetic bean_
+    ** 's bean attributes
+        *** are NOT derived -- from a -- Java class, method or field
+        *** are defined -- by an -- extension
+        *** are registered
+            **** | regular CDI, -- via --
+                ***** https://jakarta.ee/specifications/cdi/4.1/jakarta-cdi-spec-4.1.html#after_bean_discovery[`AfterBeanDiscovery.addBean()`, window="_blank"]
+                ***** https://jakarta.ee/specifications/cdi/4.1/jakarta-cdi-spec-4.1.html#bce_synthesis[`SyntheticComponents.addBean()`]
+            **** -- via -- `SyntheticBeanBuildItem`
 
 .`SyntheticBeanBuildItem` Example 1
 [source,java]

@@ -11,13 +11,17 @@ include::_attributes.adoc[]
 :topics: lifecycle,observers
 :extensions: io.quarkus:quarkus-arc
 
-You often need to execute custom actions when the application starts and clean up everything when the application stops.
-This guide explains how to:
+* use cases
+    ** execute custom actions | application starts
+    ** clean up everything | application stops
 
-* Write a Quarkus application with a main method
-* Write command mode applications that run a task and then terminate
-* Be notified when the application starts
-* Be notified when the application stops
+* goal
+    ** how to write
+        *** Quarkus application -- via -- main method
+        *** command mode applications / run a task & then terminate
+    ** how to be notified
+        *** | application starts
+        *** | application stops
 
 == Prerequisites
 
@@ -25,26 +29,12 @@ include::{includes}/prerequisites.adoc[]
 
 == Solution
 
-We recommend that you follow the instructions in the next sections and create the application step by step.
-However, you can go right to the completed example.
-
-Clone the Git repository: `git clone {quickstarts-clone-url}`, or download an {quickstarts-archive-url}[archive].
-
-The solution is located in the `lifecycle-quickstart` link:{quickstarts-tree-url}/lifecycle-quickstart[directory].
+* link:{quickstarts-tree-url}/lifecycle-quickstart[here]
 
 == Creating the Maven project
 
-First, we need a new project.
-Create a new project with the following command:
-
 :create-app-artifact-id: lifecycle-quickstart
 include::{includes}/devtools/create-app.adoc[]
-
-It generates:
-
-* the Maven structure
-* example `Dockerfile` files for both `native` and `jvm` modes
-* the application configuration file
 
 == The main method
 
@@ -301,20 +291,13 @@ class Bean2 {
 
 == Package and run the application
 
-Run the application with:
-
 include::{includes}/devtools/dev.adoc[]
 
-The logged message is printed.
-When the application is stopped, the second log message is printed.
-
-As usual, the application can be packaged using:
+* logged messageS printed
+    ** | run the application
+    ** | stop the application
 
 include::{includes}/devtools/build.adoc[]
-
-and executed using `java -jar target/quarkus-app/quarkus-run.jar`.
-
-You can also generate the native executable using:
 
 include::{includes}/devtools/build-native.adoc[]
 

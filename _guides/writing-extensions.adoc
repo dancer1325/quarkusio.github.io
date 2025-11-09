@@ -1581,8 +1581,7 @@ If bytecode recording isn't sufficient, link:https://github.com/quarkusio/gizmo/
 
 ==== Runtime Classpath check
 
-Extensions often need a way to determine whether a given class is part of the application's runtime classpath.
-The proper way for an extension to perform this check is to use `io.quarkus.bootstrap.classloading.QuarkusClassLoader.isClassPresentAtRuntime`.
+* if the extension need to determine whether a given class is part of the application's runtime classpath -> use `io.quarkus.bootstrap.classloading.QuarkusClassLoader.isClassPresentAtRuntime`
 
 [[generating-resources]]
 === Generating Resources

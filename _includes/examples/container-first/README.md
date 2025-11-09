@@ -23,13 +23,37 @@ If you want to learn more about Quarkus, please visit its website: <https://quar
   * generated -- via -- `./mvnw clean package -X | grep -i "config\|property\|parsing" > configPropertyParsing.txt`
 #### classpath scanning
 * | [classpathScanning.txt](classpathScanning.txt)
-  * TODO:
+  * "io.smallrye:jandex"
+  * "[io.quarkus.bootstrap.classloading.QuarkusClassLoader"
+  * "io.quarkus.bootstrap.classloading.PathTreeClassPathElement"
+  * "<dependenciesToScan>"
   * generated -- via -- `./mvnw clean package -X | grep -i "index\|scan\|jandex\|class.*loading" > classpathScanning.txt`
 #### feature toggle -- based on -- classloading
-* TODO:
+* | [configPropertyParsing.txt](configPropertyParsing.txt), you can find
+  * steps
+    * ALL [configuration parsing's steps](#configuration-parsing)
+    * "Removed unused PRODUCER METHOD"
 #### prepares ALL components initialization / -- used by -- your application
-* TODO:
-## TODO:
+* | [configPropertyParsing.txt](configPropertyParsing.txt), you can find
+  * steps
+    * " Created "
+      * == create beans & components
+    * "Unremovable - injected:"
+      * == prepare injection graph
+    * "Removed unused "
+      * == remove NOT used components
+    * "[io.quarkus.arc.processor.Transformation]"
+      * == transform annotations
+    * "io.quarkus.deployment.index"
+      * == index classes
+    * "Starting step"
+      * specific build steps
+    * "io.quarkus.arc.processor.BeanArchives"
+      * configure components
+## Quarkus' run time
+### ONLY contains the classes / used
+* 
+### TODO:
 
 ## Running the application in dev mode
 
