@@ -11,158 +11,58 @@ include::_attributes.adoc[]
 :topics: devops,kubernetes,cloud,deployment
 :extensions: io.quarkus:quarkus-kubernetes
 
-Quarkus offers the ability to automatically generate Kubernetes resources based on sane defaults and user-supplied configuration using https://github.com/dekorateio/dekorate/[dekorate].
-It currently supports generating resources for vanilla <<#kubernetes,Kubernetes>>, <<#openshift,OpenShift>> and <<#knative,Knative>>.
-Furthermore, Quarkus can deploy the application to a target Kubernetes cluster by applying the generated manifests to the target cluster's API Server.
-Finally, when either one of container image extensions is present (see the xref:container-image.adoc[container image guide] for more details), Quarkus has the ability to create a container image and push it to a registry *before* deploying the application to the target platform.
+* Quarkus
+    ** AUTOMATICALLY generate Kubernetes resources
+        *** -- ,via https://github.com/dekorateio/dekorate/[dekorate], based on --
+            **** sane defaults
+            **** user-supplied configuration
+        *** support
+            **** vanilla <<#kubernetes,Kubernetes>>,
+            **** <<#openshift,OpenShift>>
+            **** <<#knative,Knative>>
+    ** can deploy the application | target Kubernetes cluster
+        *** -- via -- applying the generated manifests | target cluster's API Server
+        *** PREVIOUSLY, if xref:container-image.adoc[a container image extensions is present] -> can
+            **** create a container image
+            **** push the container image | registry
 
 == Prerequisites
 
 :prerequisites-no-graalvm:
 include::{includes}/prerequisites.adoc[]
-* Access to a Kubernetes cluster (Minikube is a viable option)
+* Access to a Kubernetes cluster
+    ** _Example:_ -- via -- Minikube
 
 [[kubernetes]]
 == Kubernetes
 
-Let's create a new project that contains both the Kubernetes and Jib extensions:
+* goal
+    ** create a project / contains Kubernetes extension + Jib extension
 
 :create-app-artifact-id: kubernetes-quickstart
 :create-app-extensions: rest,kubernetes,jib
 :create-app-code:
 include::{includes}/devtools/create-app.adoc[]
 
-This added the following dependencies to the build file:
-
-[source,xml,role="primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven"]
-.pom.xml
-----
-<dependency>
-    <groupId>io.quarkus</groupId>
-    <artifactId>quarkus-rest</artifactId>
-</dependency>
-<dependency>
-    <groupId>io.quarkus</groupId>
-    <artifactId>quarkus-kubernetes</artifactId>
-</dependency>
-<dependency>
-    <groupId>io.quarkus</groupId>
-    <artifactId>quarkus-container-image-jib</artifactId>
-</dependency>
-----
-
-[source,gradle,role="secondary asciidoc-tabs-target-sync-gradle"]
-.build.gradle
-----
-implementation("io.quarkus:quarkus-rest")
-implementation("io.quarkus:quarkus-kubernetes")
-implementation("io.quarkus:quarkus-container-image-jib")
-----
-
-By adding these dependencies, we enable the generation of Kubernetes manifests each time we perform a build while also enabling the build of a container image using Jib.
-For example, following the execution of:
-
 include::{includes}/devtools/build.adoc[]
 
-you will notice amongst the other files that are created, two files named
-`kubernetes.json` and `kubernetes.yml` in the `target/kubernetes/` directory.
+* | package,
+    ** generate Kubernetes manifests (`Deployment`, `Service`)
+        *** | "target/kubernetes/",
+            **** kubernetes.json
+            **** kubernetes.yml
+        *** `spec.template.spec.containers[*].image` == `yourDockerUsername/kubernetes-quickstart:1.0.0-SNAPSHOT`
+    ** build a container image -- via -- Jib
 
-If you look at either file you will see that it contains both a Kubernetes `Deployment` and a `Service`.
-
-The full source of the `kubernetes.json` file looks something like this:
-
-[source,json]
-----
-{
-  {
-    "apiVersion" : "apps/v1",
-    "kind" : "Deployment",
-    "metadata" : {
-      "annotations": {
-       "app.quarkus.io/vcs-uri" : "<some url>",
-       "app.quarkus.io/commit-id" : "<some git SHA>",
-      },
-      "labels" : {
-        "app.kubernetes.io/name" : "test-quarkus-app",
-        "app.kubernetes.io/version" : "1.0.0-SNAPSHOT",
-      },
-      "name" : "test-quarkus-app"
-    },
-    "spec" : {
-      "replicas" : 1,
-      "selector" : {
-        "matchLabels" : {
-          "app.kubernetes.io/name" : "test-quarkus-app",
-          "app.kubernetes.io/version" : "1.0.0-SNAPSHOT",
-        }
-      },
-      "template" : {
-        "metadata" : {
-          "labels" : {
-            "app.kubernetes.io/name" : "test-quarkus-app",
-            "app.kubernetes.io/version" : "1.0.0-SNAPSHOT"
-          }
-        },
-        "spec" : {
-          "containers" : [ {
-            "env" : [ {
-              "name" : "KUBERNETES_NAMESPACE",
-              "valueFrom" : {
-                "fieldRef" : {
-                  "fieldPath" : "metadata.namespace"
-                }
-              }
-            } ],
-            "image" : "yourDockerUsername/test-quarkus-app:1.0.0-SNAPSHOT",
-            "imagePullPolicy" : "Always",
-            "name" : "test-quarkus-app"
-          } ]
-        }
-      }
-    }
-  },
-  {
-  "apiVersion" : "v1",
-  "kind" : "Service",
-    "metadata" : {
-      "annotations": {
-       "app.quarkus.io/vcs-uri" : "<some url>",
-       "app.quarkus.io/commit-id" : "<some git SHA>",
-      },
-      "labels" : {
-        "app.kubernetes.io/name" : "test-quarkus-app",
-        "app.kubernetes.io/version" : "1.0.0-SNAPSHOT",
-      },
-      "name" : "test-quarkus-app"
-    },
-  "spec" : {
-    "ports" : [ {
-      "name" : "http",
-      "port" : 8080,
-      "targetPort" : 8080
-    } ],
-    "selector" : {
-      "app.kubernetes.io/name" : "test-quarkus-app",
-      "app.kubernetes.io/version" : "1.0.0-SNAPSHOT"
-    },
-    "type" : "ClusterIP"
-  }
- }
-}
-----
-
-The generated manifest can be applied to the cluster from the project root using `kubectl`:
-
+* way to apply | cluster
++
 [source,bash]
 ----
 kubectl apply -f target/kubernetes/kubernetes.json
 ----
 
-An important thing to note about the `Deployment` (or `StatefulSet`) is that is uses `yourDockerUsername/test-quarkus-app:1.0.0-SNAPSHOT` as the container image of the `Pod`.
-The name of the image is controlled by the Jib extension and can be customized using the usual `application.properties`.
-
-For example with a configuration like:
-
+* way to customize the image
++
 [source,properties]
 ----
 quarkus.container-image.group=quarkus #optional, default to the system username
@@ -170,11 +70,10 @@ quarkus.container-image.name=demo-app #optional, defaults to the application nam
 quarkus.container-image.tag=1.0       #optional, defaults to the application version
 ----
 
-The image that will be used in the generated manifests will be `quarkus/demo-app:1.0`
-
 === Generating idempotent resources
 
-When generating the Kubernetes manifests, Quarkus automatically adds some labels and annotations to give extra information about the generation date or versions. For example:
+When generating the Kubernetes manifests, Quarkus automatically adds some labels and annotations to give extra information about the generation date or versions
+For example:
 
 [source,yaml]
 ----

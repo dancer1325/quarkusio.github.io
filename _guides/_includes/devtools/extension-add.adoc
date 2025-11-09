@@ -1,3 +1,5 @@
+* way to add an extension
++
 [source,bash,subs=attributes+, role="primary asciidoc-tabs-sync-cli"]
 .CLI
 ----
@@ -6,6 +8,7 @@ quarkus extension add {add-extension-extensions}
 ifndef::devtools-no-maven[]
 ifdef::devtools-wrapped[+]
 [source,bash,subs=attributes+,role="secondary asciidoc-tabs-sync-maven"]
++
 .Maven
 ----
 ./mvnw quarkus:add-extension -Dextensions='{add-extension-extensions}'
@@ -14,6 +17,7 @@ endif::[]
 ifndef::devtools-no-gradle[]
 ifdef::devtools-wrapped[+]
 [source,bash,subs=attributes+, role="secondary asciidoc-tabs-sync-gradle"]
++
 .Gradle
 ----
 ./gradlew addExtension --extensions='{add-extension-extensions}'

@@ -1,0 +1,174 @@
+public class org.acme.GreetingResource_Bean implements io.quarkus.arc.InjectableBean,java.util.function.Supplier {
+  public org.acme.GreetingResource_Bean();
+    Code:
+       0: aload_0
+       1: invokespecial #14                 // Method java/lang/Object."<init>":()V
+       4: invokestatic  #20                 // Method java/lang/Thread.currentThread:()Ljava/lang/Thread;
+       7: invokevirtual #24                 // Method java/lang/Thread.getContextClassLoader:()Ljava/lang/ClassLoader;
+      10: astore_1
+      11: iconst_2
+      12: anewarray     #4                  // class java/lang/Object
+      15: astore_2
+      16: ldc           #26                 // String org.acme.GreetingResource
+      18: iconst_0
+      19: aload_1
+      20: invokestatic  #32                 // Method java/lang/Class.forName:(Ljava/lang/String;ZLjava/lang/ClassLoader;)Ljava/lang/Class;
+      23: astore_3
+      24: aload_2
+      25: iconst_0
+      26: aload_3
+      27: aastore
+      28: ldc           #4                  // class java/lang/Object
+      30: astore        4
+      32: aload_2
+      33: iconst_1
+      34: aload         4
+      36: aastore
+      37: aload_2
+      38: invokestatic  #38                 // Method io/quarkus/arc/impl/Sets.of:([Ljava/lang/Object;)Ljava/util/Set;
+      41: astore        5
+      43: aload_0
+      44: aload         5
+      46: putfield      #40                 // Field types:Ljava/util/Set;
+      49: return
+
+  public java.lang.String getIdentifier();
+    Code:
+       0: ldc           #44                 // String VPFgRUQ7JlXHp0kizPN4VjDkV38
+       2: areturn
+
+  public java.lang.Object get();
+    Code:
+       0: aload_0
+       1: areturn
+
+  public org.acme.GreetingResource create(jakarta.enterprise.context.spi.CreationalContext);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokespecial #54                 // Method doCreate:(Ljakarta/enterprise/context/spi/CreationalContext;)Lorg/acme/GreetingResource;
+       5: areturn
+       6: nop
+       7: nop
+       8: athrow
+       9: astore_2
+      10: aload_2
+      11: instanceof    #56                 // class java/lang/RuntimeException
+      14: ifeq          25
+      17: aload_2
+      18: checkcast     #58                 // class java/lang/Throwable
+      21: athrow
+      22: nop
+      23: nop
+      24: athrow
+      25: new           #60                 // class jakarta/enterprise/inject/CreationException
+      28: dup
+      29: aload_2
+      30: checkcast     #58                 // class java/lang/Throwable
+      33: invokespecial #63                 // Method jakarta/enterprise/inject/CreationException."<init>":(Ljava/lang/Throwable;)V
+      36: checkcast     #58                 // class java/lang/Throwable
+      39: athrow
+      40: nop
+      41: nop
+      42: athrow
+    Exception table:
+       from    to  target type
+           0     6     9   Class java/lang/Exception
+
+  public java.lang.Object create(jakarta.enterprise.context.spi.CreationalContext);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokevirtual #70                 // Method create:(Ljakarta/enterprise/context/spi/CreationalContext;)Lorg/acme/GreetingResource;
+       5: areturn
+
+  public org.acme.GreetingResource get(jakarta.enterprise.context.spi.CreationalContext);
+    Code:
+       0: invokestatic  #76                 // Method io/quarkus/arc/Arc.container:()Lio/quarkus/arc/ArcContainer;
+       3: astore_2
+       4: new           #78                 // class io/quarkus/arc/impl/CreationalContextImpl
+       7: dup
+       8: aload_0
+       9: checkcast     #80                 // class jakarta/enterprise/context/spi/Contextual
+      12: invokespecial #83                 // Method io/quarkus/arc/impl/CreationalContextImpl."<init>":(Ljakarta/enterprise/context/spi/Contextual;)V
+      15: astore_3
+      16: aload_2
+      17: ldc           #85                 // class jakarta/inject/Singleton
+      19: invokeinterface #91,  2           // InterfaceMethod io/quarkus/arc/ArcContainer.getActiveContext:(Ljava/lang/Class;)Lio/quarkus/arc/InjectableContext;
+      24: checkcast     #93                 // class jakarta/enterprise/context/spi/Context
+      27: aload_0
+      28: checkcast     #80                 // class jakarta/enterprise/context/spi/Contextual
+      31: aload_3
+      32: checkcast     #67                 // class jakarta/enterprise/context/spi/CreationalContext
+      35: invokeinterface #96,  3           // InterfaceMethod jakarta/enterprise/context/spi/Context.get:(Ljakarta/enterprise/context/spi/Contextual;Ljakarta/enterprise/context/spi/CreationalContext;)Ljava/lang/Object;
+      40: checkcast     #50                 // class org/acme/GreetingResource
+      43: areturn
+
+  public java.lang.Object get(jakarta.enterprise.context.spi.CreationalContext);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokevirtual #98                 // Method get:(Ljakarta/enterprise/context/spi/CreationalContext;)Lorg/acme/GreetingResource;
+       5: areturn
+
+  public java.util.Set getTypes();
+    Code:
+       0: aload_0
+       1: getfield      #40                 // Field types:Ljava/util/Set;
+       4: areturn
+
+  public java.lang.Class getScope();
+    Code:
+       0: ldc           #85                 // class jakarta/inject/Singleton
+       2: areturn
+
+  public java.lang.Class getBeanClass();
+    Code:
+       0: ldc           #50                 // class org/acme/GreetingResource
+       2: areturn
+
+  public boolean isSuppressed();
+    Code:
+       0: iconst_0
+       1: ireturn
+
+  public boolean equals(java.lang.Object);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: if_acmpeq     8
+       5: goto          10
+       8: iconst_1
+       9: ireturn
+      10: aload_1
+      11: ifnull        17
+      14: goto          19
+      17: iconst_0
+      18: ireturn
+      19: aload_1
+      20: instanceof    #6                  // class io/quarkus/arc/InjectableBean
+      23: ifeq          29
+      26: goto          31
+      29: iconst_0
+      30: ireturn
+      31: aload_1
+      32: checkcast     #6                  // class io/quarkus/arc/InjectableBean
+      35: invokeinterface #109,  1          // InterfaceMethod io/quarkus/arc/InjectableBean.getIdentifier:()Ljava/lang/String;
+      40: astore_2
+      41: ldc           #44                 // String VPFgRUQ7JlXHp0kizPN4VjDkV38
+      43: aload_2
+      44: invokevirtual #111                // Method java/lang/Object.equals:(Ljava/lang/Object;)Z
+      47: ireturn
+
+  public int hashCode();
+    Code:
+       0: ldc           #114                // int -1400086384
+       2: ireturn
+
+  public java.lang.String toString();
+    Code:
+       0: aload_0
+       1: checkcast     #6                  // class io/quarkus/arc/InjectableBean
+       4: invokestatic  #120                // Method io/quarkus/arc/impl/Beans.toString:(Lio/quarkus/arc/InjectableBean;)Ljava/lang/String;
+       7: areturn
+}
