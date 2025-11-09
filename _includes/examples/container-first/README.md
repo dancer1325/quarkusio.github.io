@@ -1,9 +1,5 @@
 # container-first
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
-
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
-
 ## how has it been created?
 * `quarkus create -P io.quarkus.platform:quarkus-bom:3.22.3 container-first`
 
@@ -52,8 +48,22 @@ If you want to learn more about Quarkus, please visit its website: <https://quar
       * configure components
 ## Quarkus' run time
 ### ONLY contains the classes / used
-* 
-### TODO:
+* `jar -tf target/quarkus-app/app/container-first-1.0.0-SNAPSHOT.jar`
+  * ⚠️ONLY contains the used classe⚠️
+* `ls target/quarkus-app/lib/main/`
+  * dependencies
+* | [configPropertyParsing.txt](configPropertyParsing.txt), you can find
+  * "Removed unused"
+
+## Use less Reflection
+## | build-time processing,
+### extensions
+#### use regular invocations (❌NOT reflection calls❌)
+* TODO:
+#### use generating custom proxy
+* TODO:
+
+## TODO:
 
 ## Running the application in dev mode
 

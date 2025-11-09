@@ -1,0 +1,301 @@
+[INFO] Scanning for projects...
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=1420625, ConflictMarker.markTime=428666, ConflictMarker.nodeCount=1091, ConflictIdSorter.graphTime=925708, ConflictIdSorter.topsortTime=194625, ConflictIdSorter.conflictIdCount=150, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=9781334, ConflictResolver.conflictItemCount=342, DfDependencyCollector.collectTime=517985250, DfDependencyCollector.transformTime=13789875}
+  <dependenciesToScan>${dependenciesToScan}</dependenciesToScan>
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=411166, ConflictMarker.markTime=166292, ConflictMarker.nodeCount=862, ConflictIdSorter.graphTime=236375, ConflictIdSorter.topsortTime=126084, ConflictIdSorter.conflictIdCount=202, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=8761875, ConflictResolver.conflictItemCount=556, DfDependencyCollector.collectTime=204482625, DfDependencyCollector.transformTime=9823708}
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=59875, ConflictMarker.markTime=13708, ConflictMarker.nodeCount=3, ConflictIdSorter.graphTime=32000, ConflictIdSorter.topsortTime=7250, ConflictIdSorter.conflictIdCount=3, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=34791, ConflictResolver.conflictItemCount=3, DfDependencyCollector.collectTime=7361458, DfDependencyCollector.transformTime=173000}
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=30709, ConflictMarker.markTime=12166, ConflictMarker.nodeCount=13, ConflictIdSorter.graphTime=24667, ConflictIdSorter.topsortTime=7083, ConflictIdSorter.conflictIdCount=9, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=124667, ConflictResolver.conflictItemCount=13, DfDependencyCollector.collectTime=14982709, DfDependencyCollector.transformTime=207708}
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=143625, ConflictMarker.markTime=90792, ConflictMarker.nodeCount=456, ConflictIdSorter.graphTime=108375, ConflictIdSorter.topsortTime=57208, ConflictIdSorter.conflictIdCount=107, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=2665041, ConflictResolver.conflictItemCount=283, DfDependencyCollector.collectTime=4550541, DfDependencyCollector.transformTime=3094417}
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=83417, ConflictMarker.markTime=41875, ConflictMarker.nodeCount=169, ConflictIdSorter.graphTime=43208, ConflictIdSorter.topsortTime=882958, ConflictIdSorter.conflictIdCount=76, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=1880041, ConflictResolver.conflictItemCount=155, DfDependencyCollector.collectTime=13450875, DfDependencyCollector.transformTime=2946583}
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=374792, ConflictMarker.markTime=209917, ConflictMarker.nodeCount=1105, ConflictIdSorter.graphTime=297875, ConflictIdSorter.topsortTime=162250, ConflictIdSorter.conflictIdCount=260, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=7715625, ConflictResolver.conflictItemCount=719, DfDependencyCollector.collectTime=101440458, DfDependencyCollector.transformTime=8805084}
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=39625, ConflictMarker.markTime=14625, ConflictMarker.nodeCount=22, ConflictIdSorter.graphTime=9916, ConflictIdSorter.topsortTime=10417, ConflictIdSorter.conflictIdCount=14, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=115625, ConflictResolver.conflictItemCount=22, DfDependencyCollector.collectTime=21890416, DfDependencyCollector.transformTime=201042}
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=300167, ConflictMarker.markTime=165416, ConflictMarker.nodeCount=862, ConflictIdSorter.graphTime=138833, ConflictIdSorter.topsortTime=80250, ConflictIdSorter.conflictIdCount=202, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=3046541, ConflictResolver.conflictItemCount=556, DfDependencyCollector.collectTime=381526208, DfDependencyCollector.transformTime=3761833}
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=64083, ConflictMarker.markTime=44208, ConflictMarker.nodeCount=169, ConflictIdSorter.graphTime=33834, ConflictIdSorter.topsortTime=30125, ConflictIdSorter.conflictIdCount=76, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=526334, ConflictResolver.conflictItemCount=155, DfDependencyCollector.collectTime=9359125, DfDependencyCollector.transformTime=721417}
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=449792, ConflictMarker.markTime=203500, ConflictMarker.nodeCount=1105, ConflictIdSorter.graphTime=217500, ConflictIdSorter.topsortTime=94417, ConflictIdSorter.conflictIdCount=260, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=4893709, ConflictResolver.conflictItemCount=719, DfDependencyCollector.collectTime=71198875, DfDependencyCollector.transformTime=5920959}
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=15500, ConflictMarker.markTime=15167, ConflictMarker.nodeCount=25, ConflictIdSorter.graphTime=7125, ConflictIdSorter.topsortTime=9334, ConflictIdSorter.conflictIdCount=15, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=57917, ConflictResolver.conflictItemCount=25, DfDependencyCollector.collectTime=17717625, DfDependencyCollector.transformTime=114500}
+[DEBUG]   (s) dependenciesToScan = []
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=9083, ConflictMarker.markTime=10875, ConflictMarker.nodeCount=9, ConflictIdSorter.graphTime=4959, ConflictIdSorter.topsortTime=5541, ConflictIdSorter.conflictIdCount=5, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=36458, ConflictResolver.conflictItemCount=8, DfDependencyCollector.collectTime=1268750, DfDependencyCollector.transformTime=74792}
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=10708, ConflictMarker.markTime=12667, ConflictMarker.nodeCount=17, ConflictIdSorter.graphTime=6292, ConflictIdSorter.topsortTime=6542, ConflictIdSorter.conflictIdCount=10, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=32500, ConflictResolver.conflictItemCount=16, DfDependencyCollector.collectTime=5640209, DfDependencyCollector.transformTime=78375}
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=4375, ConflictMarker.markTime=7958, ConflictMarker.nodeCount=8, ConflictIdSorter.graphTime=1875, ConflictIdSorter.topsortTime=3667, ConflictIdSorter.conflictIdCount=5, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=11834, ConflictResolver.conflictItemCount=7, DfDependencyCollector.collectTime=40375, DfDependencyCollector.transformTime=34542}
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=15042, ConflictMarker.markTime=15750, ConflictMarker.nodeCount=28, ConflictIdSorter.graphTime=9417, ConflictIdSorter.topsortTime=8291, ConflictIdSorter.conflictIdCount=16, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=46583, ConflictResolver.conflictItemCount=28, DfDependencyCollector.collectTime=33558083, DfDependencyCollector.transformTime=105125}
+[DEBUG] [io.quarkus.deployment] (main) Build steps with ambiguous name detected: io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForParamConverters, using discriminator suffix for step id: io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForParamConverters_dcdfdd2a310a09abe5ee3f0ed2b2bc49f36f3d07
+[DEBUG] [io.quarkus.deployment] (main) Build steps with ambiguous name detected: io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForParamConverters, using discriminator suffix for step id: io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForParamConverters_59e3169e3a646b7fcf3083416f558434b73816c5
+[DEBUG] [io.quarkus.builder] (build-7) Starting step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveProcessor#additionalAsyncTypeMethodScanners"
+[DEBUG] [io.quarkus.builder] (build-7) Finished step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveProcessor#additionalAsyncTypeMethodScanners" in 0 ms
+[DEBUG] [io.quarkus.builder] (build-15) Starting step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#asyncSupport"
+[DEBUG] [io.quarkus.builder] (build-15) Finished step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#asyncSupport" in 0 ms
+[DEBUG] [io.quarkus.builder] (build-15) Dependency of "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#handleCustomAnnotatedMethods" finished; 2 remaining
+[DEBUG] [io.quarkus.builder] (build-2) Starting step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#defaultUnwrappedExceptions"
+[DEBUG] [io.quarkus.builder] (build-27) Starting step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#cacheControlSupport"
+[DEBUG] [io.quarkus.builder] (build-2) Finished step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#defaultUnwrappedExceptions" in 0 ms
+[DEBUG] [io.quarkus.builder] (build-2) Dependency of "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForExceptionMappers" finished; 6 remaining
+[DEBUG] [io.quarkus.builder] (build-18) Dependency of "io.quarkus.deployment.steps.CombinedIndexBuildStep#build" finished; 1 remaining
+[DEBUG] [io.quarkus.builder] (build-27) Finished step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#cacheControlSupport" in 0 ms
+[DEBUG] [io.quarkus.builder] (build-17) Dependency of "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForExceptionMappers" finished; 5 remaining
+[DEBUG] [io.quarkus.builder] (build-7) Starting step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveVertxWebSocketIntegrationProcessor#scanner"
+[DEBUG] [io.quarkus.builder] (build-7) Finished step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveVertxWebSocketIntegrationProcessor#scanner" in 4 ms
+[DEBUG] [io.quarkus.builder] (build-4) Dependency of "io.quarkus.deployment.index.ApplicationArchiveBuildStep#build" finished; 5 remaining
+[DEBUG] [io.quarkus.builder] (build-27) Dependency of "io.quarkus.deployment.index.ApplicationArchiveBuildStep#build" finished; 4 remaining
+[DEBUG] [io.quarkus.builder] (build-27) Dependency of "io.quarkus.deployment.steps.ApplicationIndexBuildStep#build" finished; 1 remaining
+[DEBUG] [io.quarkus.builder] (build-10) Dependency of "io.quarkus.deployment.steps.ApplicationIndexBuildStep#build" finished; 0 remaining
+[DEBUG] [io.quarkus.builder] (build-27) Starting step "io.quarkus.deployment.steps.ApplicationIndexBuildStep#build"
+[DEBUG] [io.quarkus.builder] (build-10) Dependency of "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#compressionSupport" finished; 0 remaining
+[DEBUG] [io.quarkus.builder] (build-3) Starting step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#compressionSupport"
+[DEBUG] [io.quarkus.builder] (build-3) Finished step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#compressionSupport" in 0 ms
+[DEBUG] [io.quarkus.builder] (build-10) Dependency of "io.quarkus.deployment.index.ApplicationArchiveBuildStep#addConfiguredIndexedDependencies" finished; 0 remaining
+[DEBUG] [io.quarkus.builder] (build-32) Starting step "io.quarkus.deployment.index.ApplicationArchiveBuildStep#addConfiguredIndexedDependencies"
+[DEBUG] [io.quarkus.builder] (build-32) Finished step "io.quarkus.deployment.index.ApplicationArchiveBuildStep#addConfiguredIndexedDependencies" in 0 ms
+[DEBUG] [io.quarkus.builder] (build-32) Dependency of "io.quarkus.deployment.index.ApplicationArchiveBuildStep#build" finished; 3 remaining
+[DEBUG] [io.quarkus.builder] (build-32) Dependency of "io.quarkus.deployment.index.ApplicationArchiveBuildStep#build" finished; 2 remaining
+[DEBUG] [io.quarkus.builder] (build-10) Dependency of "io.quarkus.deployment.index.ApplicationArchiveBuildStep#build" finished; 1 remaining
+[DEBUG] [io.quarkus.builder] (build-36) Dependency of "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForExceptionMappers" finished; 4 remaining
+[DEBUG] [io.quarkus.builder] (build-36) Dependency of "io.quarkus.resteasy.reactive.server.deployment.ObservabilityProcessor#methodScanner" finished; 0 remaining
+[DEBUG] [io.quarkus.builder] (build-37) Starting step "io.quarkus.resteasy.reactive.server.deployment.ObservabilityProcessor#methodScanner"
+[DEBUG] [io.quarkus.builder] (build-37) Finished step "io.quarkus.resteasy.reactive.server.deployment.ObservabilityProcessor#methodScanner" in 1 ms
+[DEBUG] [io.quarkus.deployment.steps.ApplicationIndexBuildStep] (build-27) Indexing /Users/ADP0253/Projects/quarkus/quarkusio.github.io/_includes/examples/container-first/target/classes/org/acme/GreetingResource.class
+[DEBUG] [io.quarkus.builder] (build-27) Finished step "io.quarkus.deployment.steps.ApplicationIndexBuildStep#build" in 23 ms
+[DEBUG] [io.quarkus.builder] (build-27) Dependency of "io.quarkus.deployment.index.ApplicationArchiveBuildStep#build" finished; 0 remaining
+[DEBUG] [io.quarkus.builder] (build-12) Starting step "io.quarkus.deployment.index.ApplicationArchiveBuildStep#build"
+[DEBUG] [io.quarkus.builder] (build-12) Finished step "io.quarkus.deployment.index.ApplicationArchiveBuildStep#build" in 43 ms
+[DEBUG] [io.quarkus.builder] (build-12) Dependency of "io.quarkus.deployment.steps.CombinedIndexBuildStep#build" finished; 0 remaining
+[DEBUG] [io.quarkus.builder] (build-20) Starting step "io.quarkus.deployment.steps.CombinedIndexBuildStep#build"
+[DEBUG] [io.quarkus.builder] (build-20) Finished step "io.quarkus.deployment.steps.CombinedIndexBuildStep#build" in 1 ms
+[DEBUG] [io.quarkus.builder] (build-20) Dependency of "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForExceptionMappers" finished; 3 remaining
+[DEBUG] [io.quarkus.builder] (build-20) Dependency of "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForParamConverters" finished; 1 remaining
+[DEBUG] [io.quarkus.builder] (build-20) Dependency of "io.quarkus.resteasy.reactive.common.deployment.ResteasyReactiveCommonProcessor#resourceIndex" finished; 0 remaining
+[DEBUG] [io.quarkus.builder] (build-24) Starting step "io.quarkus.resteasy.reactive.common.deployment.ResteasyReactiveCommonProcessor#resourceIndex"
+[DEBUG] [io.quarkus.builder] (build-24) Finished step "io.quarkus.resteasy.reactive.common.deployment.ResteasyReactiveCommonProcessor#resourceIndex" in 0 ms
+[DEBUG] [io.quarkus.builder] (build-24) Dependency of "io.quarkus.resteasy.reactive.common.deployment.ResteasyReactiveCommonProcessor#scanResources" finished; 0 remaining
+[DEBUG] [io.quarkus.builder] (build-20) Dependency of "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForContextResolvers" finished; 1 remaining
+[DEBUG] [io.quarkus.builder] (build-27) Starting step "io.quarkus.resteasy.reactive.common.deployment.ResteasyReactiveCommonProcessor#scanResources"
+[DEBUG] [io.quarkus.builder] (build-20) Dependency of "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForInterceptors" finished; 1 remaining
+[DEBUG] [io.quarkus.builder] (build-20) Dependency of "io.quarkus.resteasy.reactive.common.deployment.ResteasyReactiveCommonProcessor#scanForIOInterceptors" finished; 1 remaining
+[DEBUG] [io.quarkus.builder] (build-20) Dependency of "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#applicationSpecificUnwrappedExceptions" finished; 0 remaining
+[DEBUG] [io.quarkus.builder] (build-19) Starting step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#applicationSpecificUnwrappedExceptions"
+[DEBUG] [io.quarkus.builder] (build-19) Finished step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#applicationSpecificUnwrappedExceptions" in 0 ms
+[DEBUG] [io.quarkus.builder] (build-19) Dependency of "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForExceptionMappers" finished; 2 remaining
+[DEBUG] [io.quarkus.builder] (build-20) Dependency of "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForDynamicFeatures" finished; 1 remaining
+[DEBUG] [io.quarkus.builder] (build-20) Dependency of "io.quarkus.resteasy.reactive.common.deployment.ResteasyReactiveCommonProcessor#scanForParameterContainers" finished; 1 remaining
+[DEBUG] [io.quarkus.builder] (build-20) Dependency of "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForFeatures" finished; 1 remaining
+[DEBUG] [io.quarkus.builder] (build-20) Dependency of "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#handleCustomAnnotatedMethods" finished; 1 remaining
+[DEBUG] [io.quarkus.builder] (build-27) Finished step "io.quarkus.resteasy.reactive.common.deployment.ResteasyReactiveCommonProcessor#scanResources" in 3 ms
+[DEBUG] [io.quarkus.builder] (build-27) Dependency of "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#handleCustomAnnotatedMethods" finished; 0 remaining
+[DEBUG] [io.quarkus.builder] (build-26) Starting step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#handleCustomAnnotatedMethods"
+[DEBUG] [io.quarkus.builder] (build-19) Dependency of "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForContextResolvers" finished; 0 remaining
+[DEBUG] [io.quarkus.builder] (build-19) Dependency of "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForInterceptors" finished; 0 remaining
+[DEBUG] [io.quarkus.builder] (build-19) Dependency of "io.quarkus.resteasy.reactive.common.deployment.ResteasyReactiveCommonProcessor#scanForIOInterceptors" finished; 0 remaining
+[DEBUG] [io.quarkus.builder] (build-19) Dependency of "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForExceptionMappers" finished; 1 remaining
+[DEBUG] [io.quarkus.builder] (build-4) Starting step "io.quarkus.resteasy.reactive.common.deployment.ResteasyReactiveCommonProcessor#scanForIOInterceptors"
+[DEBUG] [io.quarkus.builder] (build-29) Starting step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForInterceptors"
+[DEBUG] [io.quarkus.builder] (build-31) Starting step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForContextResolvers"
+[DEBUG] [io.quarkus.builder] (build-4) Finished step "io.quarkus.resteasy.reactive.common.deployment.ResteasyReactiveCommonProcessor#scanForIOInterceptors" in 0 ms
+[DEBUG] [io.quarkus.builder] (build-29) Finished step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForInterceptors" in 0 ms
+[DEBUG] [io.quarkus.builder] (build-19) Dependency of "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForParamConverters" finished; 0 remaining
+[DEBUG] [io.quarkus.builder] (build-19) Dependency of "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForDynamicFeatures" finished; 0 remaining
+[DEBUG] [io.quarkus.builder] (build-24) Starting step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForParamConverters"
+[DEBUG] [io.quarkus.builder] (build-29) Starting step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForDynamicFeatures"
+[DEBUG] [io.quarkus.builder] (build-19) Dependency of "io.quarkus.resteasy.reactive.common.deployment.ResteasyReactiveCommonProcessor#scanForParameterContainers" finished; 0 remaining
+[DEBUG] [io.quarkus.builder] (build-24) Finished step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForParamConverters" in 0 ms
+[DEBUG] [io.quarkus.builder] (build-7) Starting step "io.quarkus.resteasy.reactive.common.deployment.ResteasyReactiveCommonProcessor#scanForParameterContainers"
+[DEBUG] [io.quarkus.builder] (build-24) Dependency of "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForParamConverters" finished; 0 remaining
+[DEBUG] [io.quarkus.builder] (build-19) Dependency of "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForFeatures" finished; 0 remaining
+[DEBUG] [io.quarkus.builder] (build-29) Finished step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForDynamicFeatures" in 0 ms
+[DEBUG] [io.quarkus.builder] (build-24) Starting step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForFeatures"
+[DEBUG] [io.quarkus.builder] (build-4) Starting step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForParamConverters"
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: io.quarkus.resteasy.reactive.server.runtime.exceptionmappers.AuthenticationFailedExceptionMapper
+[DEBUG] [io.quarkus.builder] (build-24) Finished step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForFeatures" in 0 ms
+[DEBUG] [io.quarkus.builder] (build-7) Finished step "io.quarkus.resteasy.reactive.common.deployment.ResteasyReactiveCommonProcessor#scanForParameterContainers" in 0 ms
+[DEBUG] [io.quarkus.builder] (build-31) Finished step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForContextResolvers" in 1 ms
+[DEBUG] [io.quarkus.builder] (build-4) Finished step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForParamConverters" in 0 ms
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: org.jboss.resteasy.reactive.server.ServerExceptionMapper
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: org.jboss.resteasy.reactive.server.ServerExceptionMapper
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: java.lang.annotation.Target
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: java.lang.annotation.Target
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: java.lang.annotation.Documented
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: java.lang.annotation.Documented
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: java.lang.annotation.Retention
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: java.lang.annotation.Retention
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: io.quarkus.resteasy.reactive.server.runtime.exceptionmappers.UnauthorizedExceptionMapper
+[DEBUG] [io.quarkus.builder] (build-26) Finished step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#handleCustomAnnotatedMethods" in 9 ms
+[DEBUG] [io.quarkus.builder] (build-26) Dependency of "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForExceptionMappers" finished; 0 remaining
+[DEBUG] [io.quarkus.builder] (build-8) Starting step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForExceptionMappers"
+[DEBUG] [io.quarkus.builder] (build-8) Finished step "io.quarkus.resteasy.reactive.server.deployment.ResteasyReactiveScanningProcessor#scanForExceptionMappers" in 1 ms
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: io.quarkus.runtime.annotations.CommandLineArguments
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: jakarta.inject.Qualifier
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: jakarta.inject.Qualifier
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: java.lang.annotation.Target
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: java.lang.annotation.Target
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: java.lang.annotation.Documented
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: java.lang.annotation.Documented
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: java.lang.annotation.Retention
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: java.lang.annotation.Retention
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: io.quarkus.vertx.runtime.VertxProducer
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: jakarta.enterprise.event.Observes
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: jakarta.enterprise.event.Observes
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: jakarta.enterprise.context.ApplicationScoped
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: jakarta.enterprise.context.ApplicationScoped
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: jakarta.enterprise.context.NormalScope
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: jakarta.enterprise.context.NormalScope
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: java.lang.annotation.Inherited
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: java.lang.annotation.Inherited
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: jakarta.inject.Singleton
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: jakarta.inject.Singleton
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: jakarta.inject.Scope
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: jakarta.inject.Scope
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: jakarta.enterprise.context.BeforeDestroyed
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: jakarta.enterprise.context.BeforeDestroyed
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: jakarta.enterprise.inject.Produces
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: jakarta.enterprise.inject.Produces
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: io.quarkus.smallrye.context.runtime.SmallRyeContextPropagationProvider
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: jakarta.enterprise.context.Dependent
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: jakarta.enterprise.context.Dependent
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: io.quarkus.arc.DefaultBean
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: io.quarkus.arc.DefaultBean
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: io.quarkus.arc.runtime.LaunchModeProducer
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: io.quarkus.arc.runtime.ConfigStaticInitCheckInterceptor
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: jakarta.interceptor.AroundInvoke
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: jakarta.interceptor.AroundInvoke
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: jakarta.interceptor.Interceptor
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: jakarta.interceptor.Interceptor
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: jakarta.annotation.Priority
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: jakarta.annotation.Priority
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: jakarta.inject.Inject
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: jakarta.inject.Inject
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: io.quarkus.arc.runtime.ConfigStaticInitCheck
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: io.quarkus.arc.runtime.ConfigStaticInitCheck
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: jakarta.interceptor.InterceptorBinding
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: jakarta.interceptor.InterceptorBinding
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: io.quarkus.arc.runtime.ConfigStaticInitValues
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: io.quarkus.vertx.core.runtime.context.SafeVertxContextInterceptor
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: io.quarkus.vertx.SafeVertxContext
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: io.quarkus.vertx.SafeVertxContext
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: jakarta.enterprise.util.Nonbinding
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: jakarta.enterprise.util.Nonbinding
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: org.jboss.resteasy.reactive.server.injection.ContextProducers
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: jakarta.enterprise.context.RequestScoped
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: jakarta.enterprise.context.RequestScoped
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: io.quarkus.resteasy.reactive.server.runtime.QuarkusContextProducers
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: jakarta.enterprise.inject.Disposes
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: jakarta.enterprise.inject.Disposes
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: io.quarkus.arc.runtime.LoggerProducer
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: io.quarkus.arc.log.LoggerName
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: io.quarkus.arc.log.LoggerName
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: jakarta.annotation.PreDestroy
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: jakarta.annotation.PreDestroy
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: io.smallrye.config.inject.ConfigProducer
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: org.eclipse.microprofile.config.inject.ConfigProperty
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: org.eclipse.microprofile.config.inject.ConfigProperty
+[DEBUG] [io.quarkus.deployment.index] (build-26) Could not index annotation: org.osgi.annotation.bundle.Requirements (missing class or dependency)
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: org.eclipse.microprofile.config.inject.ConfigProperties
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: io.quarkus.netty.BossEventLoopGroup
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: io.quarkus.netty.MainEventLoopGroup
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: io.quarkus.vertx.http.runtime.CurrentVertxRequest
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: io.quarkus.vertx.http.runtime.CurrentRequestProducer
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: jakarta.inject.Named
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: jakarta.inject.Named
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: io.quarkus.vertx.http.runtime.HttpCertificateUpdateEventListener
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: io.quarkus.virtual.threads.VirtualThreads
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: io.quarkus.resteasy.reactive.server.runtime.exceptionmappers.AuthenticationFailedExceptionMapper
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: org.jboss.resteasy.reactive.server.ServerExceptionMapper
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: org.jboss.resteasy.reactive.server.ServerExceptionMapper
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: io.quarkus.resteasy.reactive.server.runtime.exceptionmappers.UnauthorizedExceptionMapper
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: io/quarkus/resteasy/reactive/server/runtime/exceptionmappers/AuthenticationFailedExceptionMapper$ExceptionMapper$c2c34c033791b6e419bbd19d3b82f053d38098b8
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index annotation: io.quarkus.arc.Unremovable
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: io.quarkus.arc.Unremovable
+[DEBUG] [io.quarkus.deployment.index] (build-26) Index class: io/quarkus/resteasy/reactive/server/runtime/exceptionmappers/UnauthorizedExceptionMapper$ExceptionMapper$965510594634d484a005e8aaae2361e9c9c1ea07
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: jakarta.enterprise.util.AnnotationLiteral
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: java.util.concurrent.CompletableFuture
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: java.lang.Object
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: io.quarkus.arc.AsyncObserverExceptionHandler
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: org.jboss.resteasy.reactive.server.spi.ResteasyReactiveAsyncExceptionMapper
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: jakarta.ws.rs.ext.ExceptionMapper
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: jakarta.enterprise.context.control.RequestContextController
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: jakarta.ws.rs.core.SecurityContext
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: io.smallrye.config.SmallRyeConfig
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: org.eclipse.microprofile.config.Config
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: java.io.Serializable
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: java.lang.Double
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: java.lang.Comparable
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: java.lang.constant.Constable
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: java.lang.constant.ConstantDesc
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: java.lang.Number
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: jakarta.ws.rs.sse.Sse
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: java.util.List
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: java.util.Collection
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: java.lang.Iterable
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: jakarta.ws.rs.core.Configuration
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: io.vertx.mutiny.core.Vertx
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: io.smallrye.mutiny.vertx.MutinyDelegate
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: io.vertx.mutiny.core.metrics.Measured
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: io.vertx.mutiny.core.eventbus.EventBus
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: jakarta.ws.rs.container.ResourceInfo
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: jakarta.ws.rs.core.UriInfo
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: org.jboss.logging.Logger
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: org.jboss.logging.BasicLogger
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: java.util.OptionalDouble
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: java.lang.Byte
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: org.jboss.resteasy.reactive.server.spi.ServerRequestContext
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: org.jboss.resteasy.reactive.common.core.ResteasyReactiveCallbackContext
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: java.util.OptionalInt
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: jakarta.ws.rs.core.Application
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: org.jboss.resteasy.reactive.server.SimpleResourceInfo
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: java.util.function.Supplier
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: jakarta.ws.rs.container.ContainerRequestContext
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: jakarta.ws.rs.core.Request
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: java.lang.Boolean
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: io.vertx.core.eventbus.EventBus
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: io.vertx.core.metrics.Measured
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: java.lang.String
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: java.lang.CharSequence
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: jakarta.ws.rs.ext.Providers
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: java.lang.Character
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: java.lang.Short
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: io.vertx.ext.web.RoutingContext
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: java.util.Optional
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: io.quarkus.runtime.LaunchMode
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: java.lang.Enum
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: jakarta.ws.rs.container.ResourceContext
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: jakarta.ws.rs.core.HttpHeaders
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: io.vertx.core.http.HttpServerResponse
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: io.vertx.core.streams.WriteStream
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: io.vertx.core.streams.StreamBase
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: io.vertx.core.buffer.Buffer
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: java.util.Map
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: java.util.Set
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: io.vertx.core.http.HttpServerRequest
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: io.vertx.core.streams.ReadStream
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: java.util.OptionalLong
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: java.lang.Long
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: org.eclipse.microprofile.context.ThreadContext
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: io.smallrye.config.ConfigValue
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: org.eclipse.microprofile.config.ConfigValue
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: java.lang.Integer
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: io.quarkus.resteasy.reactive.server.runtime.CloserImpl
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: io.quarkus.resteasy.reactive.server.Closer
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: java.lang.Float
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-4) Index: io.quarkus.arc.runtime.AdditionalBean
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-19) Index: io.quarkus.vertx.http.runtime.HttpBuildTimeConfig
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-19) Index: io.quarkus.vertx.http.runtime.HttpConfiguration
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-29) Index: io.quarkus.vertx.http.runtime.security.BasicAuthenticationMechanism
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-29) Index: java.util.concurrent.ExecutorService
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-29) Index: java.util.concurrent.ScheduledExecutorService
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-29) Index: io.vertx.core.Vertx
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-29) Index: io.netty.channel.EventLoopGroup
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-29) Index: io.vertx.ext.web.Router
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-29) Index: io.vertx.mutiny.ext.web.Router
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-29) Index: io.quarkus.tls.TlsConfigurationRegistry
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-29) Index: jakarta.enterprise.inject.spi.InjectionPoint
+[DEBUG] [io.quarkus.deployment.index.IndexWrapper] (build-31) Index: io.quarkus.runtime.configuration.CidrAddressConverter
+[DEBUG] [io.quarkus.deployment.index.IndexWrapper] (build-31) Index: io.quarkus.runtime.configuration.MemorySizeConverter
+[DEBUG] [io.quarkus.deployment.index.IndexWrapper] (build-31) Index: io.quarkus.runtime.configuration.LocaleConverter
+[DEBUG] [io.quarkus.deployment.index.IndexWrapper] (build-31) Index: io.quarkus.runtime.logging.LevelConverter
+[DEBUG] [io.quarkus.deployment.index.IndexWrapper] (build-31) Index: io.quarkus.runtime.configuration.InetSocketAddressConverter
+[DEBUG] [io.quarkus.deployment.index.IndexWrapper] (build-31) Index: io.quarkus.runtime.configuration.CharsetConverter
+[DEBUG] [io.quarkus.deployment.index.IndexWrapper] (build-31) Index: io.quarkus.runtime.configuration.InetAddressConverter
+[DEBUG] [io.quarkus.deployment.index.IndexWrapper] (build-31) Index: io.quarkus.runtime.configuration.RegexConverter
+[DEBUG] [io.quarkus.deployment.index.IndexWrapper] (build-31) Index: io.quarkus.runtime.configuration.ZoneIdConverter
+[DEBUG] [io.quarkus.deployment.index.IndexWrapper] (build-31) Index: io.quarkus.vertx.http.runtime.TrustedProxyCheckPartConverter
+[DEBUG] [io.quarkus.deployment.index.IndexWrapper] (build-31) Index: io.quarkus.runtime.configuration.DurationConverter
+[DEBUG] [io.quarkus.deployment.index.IndexWrapper] (build-31) Index: io.quarkus.runtime.configuration.PathConverter
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-25) Index: org.eclipse.microprofile.context.ManagedExecutor
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-25) Index: java.util.concurrent.Executor
+[DEBUG] [io.quarkus.arc.processor.BeanArchives] (build-25) Index: jakarta.ws.rs.GET
