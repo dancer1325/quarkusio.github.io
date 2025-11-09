@@ -13,17 +13,18 @@
     * ...
   * runtime
     * 👀ONLY contains the classes / used 👀
-    * ->
+    * [->](performance.md)
       * faster startup time
       * less memory usage
 
-# Reduction in Reflection Usage
-* | built-time processing,
+# Use less Reflection
+* | build-time processing,
   * extensions 
     * analyze the application code & classes AVAILABLE | classpath
     * use regular invocations (❌NOT reflection calls❌) 
-  * use generating custom proxy
-    * == ❌NOT dynamic proxies❌ 
+    * use generating custom proxy
+      * == ❌NOT dynamic proxies❌ 
+
 * Arc
   * == dependency injection framework used by Quarkus,
   * eliminates ALL reflection calls
