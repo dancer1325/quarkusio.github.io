@@ -26,49 +26,6 @@ include::{includes}/prerequisites.adoc[]
 * ⚠️if you use != Java & Maven -> it could fail ⚠️
   ** Reason: 🧠NOT tested -- by the -- Quarkus team 🧠
 
-== Basic Concepts
-
-* JVM mode vs Native mode
-  ** JVM mode
-    *** allows you,
-      **** develop,
-      **** package
-      **** run classic JAR applications
-    *** Reason: 🧠Quarkus == Java framework 🧠
-  ** https://graalvm.org/[GraalVM]
-    *** allows you,
-      **** compile your Java application -- into -- machine specific code (== Go or C++)
-
-* AoT (Ahead of Time Compilation)
-  ** == compile Java bytecode -- into a -- NATIVE system-specific machine code
-
-* | classic Java frameworks,
-  ** build time
-    *** == ALL actions /
-      **** applied | your Java source files -- to convert them into -- something runnable (class files, jar/war, native images)
-      **** | developer's scope & control
-    *** == compilation + annotation processing + bytecode generation + etc.
-  ** runtime
-    *** == ALL actions / happen | execute your application (== bootstrap)
-    *** -- relies on a -- lot of technical actions
-      **** _Examples:_
-        ***** loading libraries & configuration files,
-        ***** scanning the application's classpath -- to -- find
-          ****** configurations,
-          ****** entity definitions,
-          ****** dependency injection binding
-        ***** configuring the dependency injection,
-        ***** setting up your Object-Relational Mapping,
-        ***** instantiating your REST controllers
-          ****** -- through -- reflection
-  ** ⚠️MAIN problems ⚠️
-    *** delay the readiness of your application
-      **** == | serve a business request, need to wait a couple of seconds BEFORE
-    *** if you have a peak of resource consumption | bootstrap -> you will need to size the needed resources -- based on -- your technical bootstrap needs
-
-* 💡Quarkus' goal
-  ** prevent slow & memory intensive dynamic code execution -- by -- doing them | build time 💡
-
 == Description of a Quarkus extension
 
 * Quarkus extensions
@@ -122,22 +79,26 @@ Quarkus
 
 == Project setup
 
-Extensions can be built with either Maven or Gradle. Depending on your build tool, setup can be done as following:
-
-NOTE: The Gradle extension plugin is still experimental and may be missing features available in the Maven plugin.
+* ways to build
+    ** -- via -- Maven
+    ** -- via -- Gradle
 
 === Maven setup
 
-Quarkus provides `create-extension` Maven Mojo to initialize your extension project.
-
-It will try to auto-detect its options:
-
-* from `quarkus` (Quarkus Core) or `quarkus/extensions` directory, it will use the 'Quarkus Core' extension layout and defaults.
-* with `-DgroupId=io.quarkiverse.[extensionId]`, it will use the 'Quarkiverse' extension layout and defaults.
-* in other cases it will use the 'Standalone' extension layout and defaults.
-* we may introduce other layout types in the future.
-
-TIP: You may call it without any parameter to use the interactive mode: `mvn {quarkus-platform-groupid}:quarkus-maven-plugin:{quarkus-version}:create-extension -N`
+* Quarkus' `create-extension`
+    ** == Maven Mojo /
+        *** allows
+            **** 👀initialize your extension project👀
+        *** try to auto-detect its options
+            **** FROM `quarkus` (Quarkus Core) OR `quarkus/extensions` directory,
+                ***** use the 'Quarkus Core' extension layout + defaults
+            **** + `-DgroupId=io.quarkiverse.[extensionId]`,
+                ***** use the 'Quarkiverse' extension layout + defaults
+            **** REST of cases,
+                ***** use the 'Standalone' extension layout + defaults
+            **** | future,
+                ***** other layout types can be added
+    ** `mvn {quarkus-platform-groupid}:quarkus-maven-plugin:{quarkus-version}:create-extension -N`
 
 [source,shell,subs=attributes+]
 ----
@@ -425,7 +386,12 @@ The key points are:
 
 === Gradle setup
 
-Quarkus does not provide any way to initialize a Gradle project for extensions yet.
+* Gradle extension plugin
+    ** ⚠️experimental⚠️
+        *** may miss features / AVAILABLE | Maven plugin
+
+* Quarkus
+    ** NOT provide any way -- to -- initialize a Gradle project -- for -- extensions
 
 As mentioned before, an extension is composed of two modules:
 

@@ -32,6 +32,45 @@ image::getting-started-architecture.png[]
 
 * link:{quickstarts-tree-url}/getting-started[here]
 
+== Basic Concepts
+
+* JVM mode vs Native mode
+    ** JVM mode
+        *** allows you,
+            **** develop,
+            **** package
+            **** run classic JAR applications
+        *** Reason: 🧠Quarkus == Java framework 🧠
+    ** https://graalvm.org/[GraalVM]
+        *** allows you,
+            **** compile your Java application -- into -- machine specific code (== Go or C++)
+
+* AoT (Ahead of Time Compilation)
+** == compile Java bytecode -- into a -- NATIVE system-specific machine code
+
+* | classic Java frameworks,
+    ** build time
+        *** == ALL actions /
+            **** applied | your Java source files -- to convert them into -- something runnable (class files, jar/war, native images)
+        *** == compilation + annotation processing + bytecode generation + etc.
+    ** runtime
+        *** == ALL actions / happen | execute your application (== bootstrap)
+        *** -- relies on a -- lot of technical actions
+            **** _Examples:_
+                ***** loading libraries & configuration files,
+                ***** scanning the application's classpath -- to -- find
+                    ****** configurations,
+                    ****** entity definitions,
+                    ****** dependency injection binding
+                ***** configuring the dependency injection,
+                ***** setting up your Object-Relational Mapping,
+                ***** instantiating your REST controllers
+                    ****** -- through -- reflection
+    ** ⚠️MAIN problems ⚠️
+        *** delay the readiness of your application
+            **** == | serve a business request, need to wait a couple of seconds BEFORE
+        *** if you have a peak of resource consumption | bootstrap -> you will need to size the needed resources -- based on -- your technical bootstrap needs
+
 == Bootstrapping the project
 
 MULTIPLE ways
@@ -44,13 +83,11 @@ include::{includes}/devtools/create-app.adoc[]
 * Quarkus BOM
     ** allows
         *** omit MULTIPLE Quarkus dependencies
-    ** see | `pom.xml` OR TODO:
 
 * `quarkus-maven-plugin` OR Quarkus Gradle plugin
     ** responsible for
         *** packaging the application
         *** providing the development mode
-    ** see | `pom.xml` OR TODO:
 
 * `io.quarkus:quarkus-rest`
     ** dependency / allow developing REST applications

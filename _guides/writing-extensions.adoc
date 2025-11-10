@@ -12,13 +12,23 @@ include::_attributes.adoc[]
 :sectnumlevels: 4
 :topics: extensions
 
-Quarkus extensions add a new developer focused behavior to the core offering, and consist of two distinct parts, buildtime augmentation and runtime container. The augmentation part is responsible for all metadata processing, such as reading annotations, XML descriptors etc. The output of this augmentation phase is recorded bytecode which is responsible for directly instantiating the relevant runtime services.
+* Quarkus extensions
+    ** add a NEW developer focused behavior | core offering
+    ** == buildtime augmentation + runtime container
+        *** buildtime augmentation
+            **** responsible for ALL metadata processing
+                ***** _Example:_ reading annotations, XML descriptors, etc
+            **** 's output
+                ***** == recorded bytecode
+                ***** responsible for DIRECTLY instantiating the relevant runtime services
 
 This means that metadata is only processed once at build time, which both saves on startup time, and also on memory
 usage as the classes etc that are used for processing are not loaded (or even present) in the runtime JVM.
 
-NOTE: This is an in-depth documentation, see the xref:building-my-first-extension.adoc[building my first extension] if you need an introduction,
-or the xref:extension-faq.adoc[frequently asked questions].
+* recommendations
+    ** read FIRSTLY
+        *** xref:building-my-first-extension.adoc[how to build my first extension]
+        *** xref:extension-faq.adoc[frequently asked questions]
 
 == Extension philosophy
 
@@ -26,7 +36,8 @@ This section is a work in progress and gathers the philosophy under which extens
 
 === Why an extension framework
 
-Quarkus’s mission is to transform your entire application including the libraries it uses, into an artifact that uses significantly less resources than traditional approaches. These can then be used to build native applications using GraalVM.
+Quarkus’s mission is to transform your entire application including the libraries it uses, into an artifact that uses significantly less resources than traditional approaches
+* These can then be used to build native applications using GraalVM.
 To do this you need to analyze and understand the full "closed world" of the application.
 Without the full and complete context, the best that can be achieved is partial and limited generic support.
 By using the Quarkus extension approach, we can bring Java applications in line with memory footprint constrained environments like Kubernetes or cloud platforms.
@@ -72,7 +83,8 @@ But many properties like enable caching or setting the JDBC driver can safely re
 
 ==== Static Init Config
 
-If the extension provides additional Config Sources and if these are required during Static Init, these must be registered with `StaticInitConfigBuilderBuildItem`. Configuration in Static Init does not scan for additional sources to avoid double initialization at application startup time.
+If the extension provides additional Config Sources and if these are required during Static Init, these must be registered with `StaticInitConfigBuilderBuildItem`
+* Configuration in Static Init does not scan for additional sources to avoid double initialization at application startup time.
 
 ////
 === API

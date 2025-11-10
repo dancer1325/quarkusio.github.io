@@ -18,6 +18,8 @@ layout: base
   * TODO:
 * Extensions
   * TODO:
+  * [How to create your OWN extension](https://github.com/dancer1325/quarkusio.github.io/blob/main/_guides/writing-extensions.adoc)
+  * [Share extensions](https://github.com/dancer1325/quarkiverse)
 * Community
   * TODO:
 * Start Coding

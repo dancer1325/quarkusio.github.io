@@ -21,3 +21,15 @@
         * `<mirrorOf>external:*,!registry.quarkus.io</mirrorOf>`
       * Workaround: 💡`quarkus create -P io.quarkus.platform:quarkus-bom:3.22.3`💡
       * Solution: TODO:
+
+# | classic Java frameworks
+* [springBoot](springBoot)
+
+# Quarkus BOM
+* [here](code-with-quarkus/pom.xml)'s 1! `<dependencyManagement>`
+
+# `quarkus-maven-plugin`
+* [here](code-with-quarkus/pom.xml)'s `build.plugins[0]`
+
+# `io.quarkus:quarkus-rest`
+* [here](code-with-quarkus/pom.xml)'s `<dependency>`
