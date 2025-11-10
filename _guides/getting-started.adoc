@@ -107,82 +107,16 @@ include::{includes}/devtools/create-app.adoc[]
 implementation("io.quarkus:quarkus-rest")
 ----
 
-=== The Jakarta REST resources
+== Quarkus REST resources vs Jakarta REST resources
 
-* TODO: During the project creation, the `src/main/java/org/acme/GreetingResource.java` file has been created with the following content:
-
-[source,java]
-----
-package org.acme;
-
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.MediaType;
-
-@Path("/hello")
-public class GreetingResource {
-
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-        return "Hello from Quarkus REST";
-    }
-}
-----
-
-It's a very simple REST endpoint, returning "Hello from Quarkus REST" to requests on "/hello".
-
-[TIP]
-.Differences with vanilla Jakarta REST
-====
-With Quarkus, there is no need to create an `Application` class. It's supported, but not required. In addition, only one instance
-of the resource is created and not one per request. You can configure this using the different `*Scoped` annotations (`ApplicationScoped`, `RequestScoped`, etc).
-====
+* ❌NO need to create an `Application` class❌
+* 1! resource instance
+    ** ⚠️!= 1 resource instance / request⚠️
+    ** if you want to configure it -> use `*Scoped` annotations (`ApplicationScoped`, `RequestScoped`, etc)
 
 == Running the application
 
-Now we are ready to run our application:
-
 include::{includes}/devtools/dev.adoc[]
-
-[source,shell]
-----
-[INFO] --------------------< org.acme:getting-started >---------------------
-[INFO] Building getting-started 1.0.0-SNAPSHOT
-[INFO] --------------------------------[ jar ]---------------------------------
-[INFO]
-[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ getting-started ---
-[INFO] Using 'UTF-8' encoding to copy filtered resources.
-[INFO] skip non existing resourceDirectory <path>/getting-started/src/main/resources
-[INFO]
-[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ getting-started ---
-[INFO] Changes detected - recompiling the module!
-[INFO] Compiling 2 source files to <path>/getting-started/target/classes
-[INFO]
-[INFO] --- quarkus-maven-plugin:<version>:dev (default-cli) @ getting-started ---
-Listening for transport dt_socket at address: 5005
-2019-02-28 17:05:22,347 INFO  [io.qua.dep.QuarkusAugmentor] (main) Beginning quarkus augmentation
-2019-02-28 17:05:22,635 INFO  [io.qua.dep.QuarkusAugmentor] (main) Quarkus augmentation completed in 288ms
-2019-02-28 17:05:22,770 INFO  [io.quarkus] (main) Quarkus started in 0.668s. Listening on: http://localhost:8080
-2019-02-28 17:05:22,771 INFO  [io.quarkus] (main) Installed features: [cdi, rest]
-----
-
-Once started, you can request the provided endpoint:
-
-[source,shell]
-----
-$ curl -w "\n" http://localhost:8080/hello
-Hello from Quarkus REST
-----
-
-Hit `CTRL+C` to stop the application, or keep it running and enjoy the blazing fast hot-reload.
-
-[TIP]
-.Automatically add newline with `curl -w "\n"`
-====
-We are using `curl -w "\n"` in this example to avoid your terminal printing a '%' or put both result and next command prompt on the same line.
-====
 
 == Using injection
 
@@ -460,8 +394,6 @@ include::{generated-dir}/config/quarkus-info.adoc[opts=optional, leveloffset=+2]
 
 == What's next?
 
-This guide covered the creation of an application using Quarkus.
-However, there is much more.
 We recommend continuing the journey by creating xref:getting-started-dev-services.adoc[your second Quarkus application], with Dev Services and persistence.
 You can learn about creating a native executable and packaging it in a container with the xref:building-native-image.adoc[building a native executable guide].
 If you are interested in reactive, we recommend the xref:getting-started-reactive.adoc[getting started with reactive guide], where you can see how to implement reactive applications with Quarkus.
