@@ -128,17 +128,19 @@ include::{includes}/devtools/dev.adoc[]
 
 include::{includes}/devtools/dev.adoc[]
 
-== Development Mode
-
-`quarkus:dev` runs Quarkus in development mode. This enables live reload with background compilation, which means
-that when you modify your Java files and/or your resource files and refresh your browser, these changes will automatically take effect.
-This works too for resource files like the configuration property file.
-Refreshing the browser triggers a scan of the workspace, and if any changes are detected, the Java files are recompiled
-and the application is redeployed; your request is then serviced by the redeployed application. If there are any issues
-with compilation or deployment an error page will let you know.
-
-This will also listen for a debugger on port `5005`. If you want to wait for the debugger to attach before running you
-can pass `-Dsuspend` on the command line. If you don't want the debugger at all you can use `-Ddebug=false`.
+== Development Mode -- `quarkus:dev` --
+* enables
+    ** live reload + background compilation
+        *** == if you modify your Java files &/OR your resource files & refresh your browser -> these changes AUTOMATICALLY take effect
+            **** Reason to refresh the browser: 🧠 triggers a scan of the workspace🧠
+        *** == application is redeployed
+        *** if there are any issues about compilation or deployment -> error page
+    ** listen for a debugger | port `5005`
+        *** == 👀enables JVM debug mode👀
+* `-Dsuspend`
+    ** BEFORE executing any code, waits for attaching the debugger
+* `-Ddebug=false`
+    ** if you do NOT want the debugger
 
 == Testing
 
