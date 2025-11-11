@@ -144,10 +144,10 @@ include::{includes}/devtools/dev.adoc[]
 
 == Testing
 
-All right, so far so good, but wouldn't it be better with a few tests, just in case.
-
-In the generated build file, you can see 2 test dependencies:
-
+* steps
+    ** add the dependencies
+        *** | pom.xml
++
 [source,xml,role="primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven"]
 .pom.xml
 ----
@@ -162,7 +162,8 @@ In the generated build file, you can see 2 test dependencies:
     <scope>test</scope>
 </dependency>
 ----
-
+        *** | build.gradle
++
 [source,gradle,role="secondary asciidoc-tabs-target-sync-gradle"]
 .build.gradle
 ----
@@ -170,10 +171,11 @@ testImplementation("io.quarkus:quarkus-junit5")
 testImplementation("io.rest-assured:rest-assured")
 ----
 
-Quarkus supports https://junit.org/junit5/[JUnit 5] tests.
-
-Because of this, in the case of Maven, the version of the https://maven.apache.org/surefire/maven-surefire-plugin/[Surefire Maven Plugin] must be set, as the default version does not support JUnit 5:
-
+* https://maven.apache.org/surefire/maven-surefire-plugin/[Surefire Maven Plugin]
+    ** requirements
+        *** set the `<version>`
+            **** Reason:🧠default version does NOT support JUnit 5🧠
++
 [source,xml,subs=attributes+]
 ----
 <plugin>
@@ -188,78 +190,37 @@ Because of this, in the case of Maven, the version of the https://maven.apache.o
 </plugin>
 ----
 
-We also set the `java.util.logging` system property to make sure tests will use the correct log manager and `maven.home` to ensure that custom configuration
-from `${maven.home}/conf/settings.xml` is applied (if any).
+        *** set `<java.util.logging>` system property
+            **** Reason: 🧠make sure tests will use the correct log manager🧠
+        *** set `<maven.home>`
+            **** Reason:🧠ensure apply custom configuration -- from -- `${maven.home}/conf/settings.xml` 🧠
 
-The generated project contains a simple test.
-Edit the `src/test/java/org/acme/GreetingResourceTest.java` to match the following content:
+* `./mvnw test`
+    ** run tests
+        *** by default | port "8081"
 
-[source,java]
-----
-package org.acme;
+* `./mvnw test -Dtest=TestClassName`
+    ** run 1! specific test
 
-import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
+* clients for testing
+    ** RestAssured
+        *** default one
+    ** 👀`@TestHTTPResource` | tested application's URL -- through -- test class's field👀
+        *** 's ALLOWED types
+            **** `String`,
+            **** `URL`
+            **** `URI`
 
-import java.util.UUID;
+* `quarkus.http.test-port`
+    ** == config property /
+        *** set the test port
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.is;
-
-@QuarkusTest
-public class GreetingResourceTest {
-
-    @Test    // <1>
-    public void testHelloEndpoint() {
-        given()
-          .when().get("/hello")
-          .then()
-             .statusCode(200)    // <2>
-             .body(is("Hello from Quarkus REST"));
-    }
-
-    @Test
-    public void testGreetingEndpoint() {
-        String uuid = UUID.randomUUID().toString();
-        given()
-          .pathParam("name", uuid)
-          .when().get("/hello/greeting/{name}")
-          .then()
-            .statusCode(200)
-            .body(is("hello " + uuid));
-    }
-
-}
-----
-<1> By using the `QuarkusTest` runner, you instruct JUnit to start the application before the tests.
-<2> Check the HTTP response status code and content
-
-These tests use https://rest-assured.io/[RestAssured], but feel free to use your favorite library.
-
-You can run these using Maven:
-
-[source,bash,subs=attributes+]
-----
-./mvnw test
-----
-
-You can also run the test from your IDE directly (be sure you stopped the application first).
-
-By default, tests will run on port `8081` so as not to conflict with the running application. We automatically
-configure RestAssured to use this port. If you want to use a different client you should use the `@TestHTTPResource`
-annotation to directly inject the URL of the tested application into a field on the test class. This field can be of the type
-`String`, `URL` or `URI`. This annotation can also be given a value for the test path. For example, if I want to test
-a Servlet mapped to `/myservlet` I would just add the following to my test:
-
-
-[source,java]
-----
-@TestHTTPResource("/myservlet")
-URL testUrl;
-----
-
-The test port can be controlled via the `quarkus.http.test-port` config property. Quarkus also creates a system
-property called `test.url` that is set to the base test URL for situations where you cannot use injection.
+* `test.url`
+    ** == system property /
+        *** created by Quarkus
+        *** == base test URL | your test application is running
+    ** use cases
+        *** you can NOT use injection
 
 == Working -- with -- multi-module project OR external modules
 
