@@ -42,7 +42,7 @@ include::{includes}/devtools/create-app.adoc[]
 
 * Quarkus
     ** inject configuration properties | application -- via --
-        *** 💡https://microprofile.io/project/eclipse/microprofile-config[MicroProfile Config] annotations💡
+        *** 💡 https://microprofile.io/project/eclipse/microprofile-config[MicroProfile Config] annotations💡
             **** ways
                 ***** `@ConfigProperty` OR
                 ***** `@Inject @ConfigProperty`

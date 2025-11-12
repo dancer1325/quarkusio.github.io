@@ -1,0 +1,53 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.example</groupId>
+    <artifactId>my-quarkus-platform-bom</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Platform descriptor -->
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>my-quarkus-platform-bom-quarkus-platform-descriptor</artifactId>
+                <version>1.0.0</version>
+                <type>json</type>
+                <classifier>1.0.0</classifier>
+            </dependency>
+
+            <!-- Platform configuration properties -->
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>my-quarkus-platform-bom-quarkus-platform-properties</artifactId>
+                <version>1.0.0</version>
+                <type>properties</type>
+                <classifier>1.0.0</classifier>
+            </dependency>
+
+            <!-- Import Quarkus BOM (non-flattened approach) -->
+            <dependency>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-bom</artifactId>
+                <version>3.5.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Additional platform-specific extensions / platform consists of -->
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>my-custom-extension</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+
+            <!-- Third-party dependency version alignment -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.12.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

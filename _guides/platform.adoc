@@ -9,34 +9,54 @@ include::_attributes.adoc[]
 :summary: Learn more about what we call a Platform in the Quarkus world.
 :topics: internals,platform
 
-The Quarkus extension ecosystem consists of the Quarkus extensions developed and maintained by the community, including the Quarkus core development team. While the Quarkus ecosystem (sometimes also referred to as the "Quarkus universe") includes all the Quarkus extensions ever developed, there is also a concept of a Quarkus platform.
-
 == Quarkus Platform
 
-The fundamental promise of a Quarkus platform is any combination of the Quarkus extensions the platform consists of can be used in the same application without causing any conflict for each other.
-Each organization creating their Quarkus platform may establish their own criteria for the extensions to be accepted into the platform and the means to guarantee the compatibility between the accepted extensions.
+* https://github.com/dancer1325/quarkiverse/blob/main/docs/Home.md#quarkiverse-vs-quarkus-platform[definition]
+* != ⚠️ https://github.com/dancer1325/quarkiverse/blob/main/docs/Home.md[Quarkiverse]⚠️
 
 === Quarkus Platform Artifacts
 
-Each Quarkus platform is defined with a few artifacts.
+* recommendations
+    ** FEW artifacts
+    ** provide <<Quarkus Platform BOM,1 BOM>>
 
 === Quarkus Platform BOM
 
-Each Quarkus Platform is expected to provide a Maven BOM artifact that
+* ⚠️requirements⚠️
+    ** imports a chosen version of `io.quarkus:quarkus-bom`
+        *** OR flattened == import ALL individual BOM's dependencies != the BOM
+    ** includes
+        *** ALL Quarkus extension artifacts (runtime & deployment ones) / platform consists of
+        *** ALL necessary third-party artifacts / compatible BETWEEN ALL platform extensions' transitive dependency versions
+        *** <<platform-descriptor,platform JSON descriptor>> artifact
+        *** POSSIBLY <<platform-properties,platform configuration properties>> artifacts
 
-* imports a chosen version of `io.quarkus:quarkus-bom` (the platform BOM may be flattened at the end, but it has to be based on some version of `io.quarkus:quarkus-bom`)
-* includes all the Quarkus extension artifacts (the runtime and the deployment ones) the platform consists of
-* includes all the necessary third-party artifacts that align the transitive dependency versions of the platform extensions to guarantee compatibility between them
-* includes the <<platform-descriptor,platform JSON descriptor>> artifact
-* possibly includes the <<platform-properties,platform configuration properties>> artifacts
-
-Quarkus applications that want to include extensions from a Quarkus platform will be importing the Quarkus platform BOM.
+* uses
+    ** 👀Quarkus applications / want to include extensions -- from a -- Quarkus platform -> import the Quarkus platform BOM👀
 
 [[platform-descriptor]]
 === Quarkus Platform Descriptor
 
-Quarkus platform descriptor is a JSON artifact that provides information about the platform and its extensions to the Quarkus tools. E.g. https://code.quarkus.io/ and the Quarkus command line tools consult this descriptor to list, add and remove extensions to/from the project on user's request.
-This artifact is also used as a Quarkus platform identifier. When Quarkus tools need to identify the Quarkus platform(s) used in the project, they will analyze the dependency version constraints of the project (the effective list of the managed dependencies from the `dependencyManagement` section in Maven terms) looking for the platform descriptor artifact(s) among them. Given that the platform descriptors are included into the Quarkus platform BOMs, every Quarkus application will inherit the platform descriptor artifact from the imported platform BOM(s) as a dependency version constraint (managed dependency in Maven terms).
+* Quarkus platform descriptor
+    ** == JSON artifact /
+        *** provides , -- to the -- Quarkus tools, information about
+            **** platform
+            **** its extensions
+    ** uses
+        *** add & remove extensions to/from the project on user's request, by
+            **** https://code.quarkus.io/[Quarkus initializr]
+            **** Quarkus command line tools
+        *** as a Quarkus platform identifier
+
+* TODO:
+When Quarkus tools need to identify the Quarkus platform(s) used in the project,
+they will analyze the dependency version constraints of the project
+(the effective list of the managed dependencies from the `dependencyManagement` section in Maven terms)
+looking for the platform descriptor artifact(s) among them
+
+Given that the platform descriptors are included into the Quarkus platform BOMs,
+every Quarkus application will inherit the platform descriptor artifact from the imported platform BOM(s)
+as a dependency version constraint (managed dependency in Maven terms).
 
 To be able to easily identify Quarkus platform descriptors among the project's dependency constraints, the platform descriptor Maven artifact coordinates should follow the following naming convention:
 
@@ -88,25 +108,41 @@ The platform descriptor will normally be generated using a Maven plugin, e.g.
 <7> this parameter is also optional and defaults to false. It has to be set to true in case the platform BOM *is not generated* and *is not flattened*. Which for example is the case for `io.quarkus:quarkus-bom`.
 
 [[platform-properties]]
-=== Quarkus Platform Properties
+=== Quarkus Platform Properties -- "platform.properties" file --
 
-A Quarkus platform may provide its own default values for some configuration options.
+* == another source of configuration
+    ** hierarchy dominated -- by the -- application's `application.properties`
+    ** loaded | `java.util.Properties` class's instance
+    ** recommendations
+       *** `platform.`
+            **** naming
 
-Quarkus is using https://github.com/smallrye/smallrye-config[SmallRye Config] for wiring application configuration. A Quarkus platform may be used as another source of configuration in the hierarchy of the configuration sources dominated by the application's `application.properties`.
+* uses
+    ** provide Quarkus platform's configuration's default values
+        *** ⚠️ONLY recommended CERTAIN configuration options⚠️
 
-To provide platform-specific defaults, the platform needs to include a dependency version constraint in its BOM for a properties artifact whose coordinates follow the following naming convention:
+* Quarkus
+    ** wires application configuration -- via -- https://github.com/smallrye/smallrye-config[SmallRye Config]
+        *** link:config.adoc[MORE]
 
-* the `groupId` of the properties artifact should match the `groupId` of the corresponding Quarkus Platform BOM;
-* the `artifactId` of the properties artifact should be the `artifactId` of the corresponding Quarkus Platform BOM with the `-quarkus-platform-properties` suffix;
-* the `classifier` of the descriptor artifact should be left empty/null;
-* the `type` of the descriptor artifact should be `properties`;
-* the `version` of the descriptor artifact should match the `version` of the  corresponding Quarkus Platform BOM.
+* 👀steps / BOM makes the platform's default properties available -- to -- ALL applications / use that platform👀
+    ** create Quarkus Platform properties .xml
+    ** | Quarkus Platform "pom.xml", add
++
+[source,xml]
+----
+<dependency>
+    <groupId>QuarkusPlatformBOMGroupIdValue</groupId>
+    <artifactId>QuarkusPlatformBOMArtifactIdValue-quarkus-platform-properties</artifactId>
+    <version>QuarkusPlatformBOMVersionValue</version>
+    <type>properties</type>
+<!--    <classifier>1.0.0</classifier>-->  <!-- empty OR null-->
+</dependency>
+----
+* TODO:
 
-The properties artifact itself is expected to be a traditional `properties` file that will be loaded into an instance of `java.util.Properties` class.
-
-IMPORTANT: At this point, platform properties are only allowed to provide the default values for a restricted set of configuration options. The property names in the platform properties file must be prefixed with the `platform.` suffix.
-
-Extension developers that want to make their configuration options platform-specific should set their default values to properties that start with the `platform.` suffix. Here is an example:
+Extension developers that want to make their configuration options platform-specific should set their default values to properties
+that start with the `platform.` suffix. Here is an example:
 
 [source,java]
 ----
@@ -148,7 +184,8 @@ and for UBI9 https://quay.io/repository/quarkus/ubi9-quarkus-mandrel-builder-ima
 ====
 
 
-There is also a Maven plugin goal that validates the platform properties content and its artifact coordinates and also checks whether the platform properties artifact is present in the platform's BOM. Here is a sample plugin configuration:
+There is also a Maven plugin goal that validates the platform properties content and its artifact coordinates and also checks whether the platform properties artifact is present in the platform's BOM
+Here is a sample plugin configuration:
 
 [source,xml]
 ----

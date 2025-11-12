@@ -1,0 +1,45 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.example</groupId>
+    <artifactId>my-quarkus-platform-bom-flattened</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Platform descriptor -->
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>my-quarkus-platform-bom-quarkus-platform-descriptor</artifactId>
+                <version>1.0.0</version>
+                <type>json</type>
+                <classifier>1.0.0</classifier>
+            </dependency>
+
+            <!-- Flattened Quarkus BOM dependencies -->
+            <dependency>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-core</artifactId>
+                <version>3.5.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-resteasy-reactive</artifactId>
+                <version>3.5.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-hibernate-orm</artifactId>
+                <version>3.5.0</version>
+            </dependency>
+
+            <!-- Platform-specific extensions -->
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>my-custom-extension</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
