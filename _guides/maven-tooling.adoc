@@ -13,8 +13,8 @@ include::_attributes.adoc[]
 
 * Maven
     ** allows you
-        *** create a NEW project,
-        *** add or remove extensions,
+        *** <<project-creation,create a NEW project>>
+        *** <<Dealing with extensions,dealing with extensions>>
         *** launch development mode,
         *** debug your application,
         *** build your application -- into -- jar / native executable / container-friendly executable
@@ -41,15 +41,15 @@ include::{includes}/devtools/create-app.adoc[]
 
 | `projectGroupId`
 | `org.acme.sample`
-| The group id of the created project
+| created project's groupId
 
 | `projectArtifactId`
 | _mandatory_
-| The artifact id of the created project. Not passing it triggers the interactive mode.
+| created project's artifactId. if you do NOT pass -> interactive mode
 
 | `projectVersion`
 | `1.0.0-SNAPSHOT`
-| The version of the created project
+| created project's version
 
 | `platformGroupId`
 | `{quarkus-platform-groupid}`
@@ -68,8 +68,8 @@ include::{includes}/devtools/create-app.adoc[]
 | The version of Java you want the project to use.
 
 | `className`
-| _Not created if omitted_
-| The fully qualified name of the generated resource
+| if omitted -> NOT created
+| generated resource's FULLY qualified name
 
 | `path`
 | `/hello`
@@ -77,7 +77,7 @@ include::{includes}/devtools/create-app.adoc[]
 
 | `extensions`
 | _[]_
-| The list of extensions to add to the project (comma-separated)
+| [extension1,extension2,..]
 
 | `quarkusRegistryClient`
 | `true`
@@ -95,7 +95,7 @@ If the directory already exists, the generation fails.
 A pair of Dockerfiles for native and jvm mode are also generated in `src/main/docker`.
 Instructions to build the image and run the container are written in those Dockerfiles.
 
-== Dealing with extensions
+Dealing with extensions== Dealing with extensions
 
 From inside a Quarkus project, you can obtain a list of the available extensions with:
 
@@ -668,7 +668,9 @@ artifact classifier for the Uber-Jar artifact. There are two ways to attach an U
 [[multi-module-maven]]
 === Working with multi-module projects
 
-By default, Quarkus will not discover CDI beans inside another module.
+* Quarkus
+    ** by default,
+        *** ❌does NOT discover CDI beans | ANOTHER module❌
 
 The best way to enable CDI bean discovery for a module in a multi-module project would be to include the `jandex-maven-plugin`,
 unless it is the main application module already configured with the quarkus-maven-plugin, in which case it will be indexed automatically.

@@ -227,18 +227,18 @@ testImplementation("io.rest-assured:rest-assured")
 * Quarkus' build time
     ** 👀discover >1 classes OR annotations -- via -- https://github.com/smallrye/jandex[Jandex]👀
         *** _Example:_ CDI bean discovery
+            **** xref:cdi-reference.adoc#bean_discovery[MORE]
+        *** | Quarkus 2.0+,
+            **** ❌NOT create separated Jandex index file❌
+
+* | multi-module project,
+    ** xref:maven-tooling.adoc#multi-module-maven[Maven]
+    ** xref:gradle-tooling.adoc#multi-module-gradle[Gradle]
 
 * TODO:
-This index is created by default on the project on which Quarkus is configured for, thanks to our Maven and Gradle plugins.
-
-However, when working with a multi-module project, be sure to read the `Working with multi-module projects` section of the
-xref:maven-tooling.adoc#multi-module-maven[Maven] or xref:gradle-tooling.adoc#multi-module-gradle[Gradle] guides.
-
 If you plan to use external modules (for example, an external library for all your domain objects),
 you will need to make these modules known to the indexing process either by adding the Jandex plugin (if you can modify them)
 or via the `quarkus.index-dependency` property inside your `application.properties` (useful in cases where you can't modify the module).
-
-* xref:cdi-reference.adoc#bean_discovery[MORE]
 
 == Packaging and run the application
 
