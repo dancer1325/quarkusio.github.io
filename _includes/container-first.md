@@ -20,12 +20,12 @@
 # Use less Reflection
 * | build-time processing,
   * extensions 
-    * analyze the application code & classes AVAILABLE | classpath
+    * [analyze the application code & classes AVAILABLE | classpath](#build-time-processing)
     * use regular invocations (❌NOT reflection calls❌) 
     * use generating custom proxy
       * == ❌NOT dynamic proxies❌ 
 
-* Arc
+* [Arc](/quarkusio.github.io/_guides/cdi-integration.adoc)
   * == dependency injection framework used by Quarkus,
   * eliminates ALL reflection calls
     * Reason:🧠injection graph is deduced | build time🧠
@@ -37,20 +37,36 @@
 * ->
   * starts faster
   * 's heap << standard JVM's heap
-* TODO: The native compiler uses aggressive dead-code elimination techniques to only embed the parts of the JVM and classes that are absolutely required by your application
-* Quarkus makes building optimized native executables plain easy
-* The build-time approach allows Quarkus to collect enough metadata on your application to fine-tune the compilation
-* No <code>-H:+ReportUnsupportedElementsAtRuntime</code> flag, no fallback, no compromise!</p>
+
+* [Performance](performance.md)
 
 # Native Image Pre-Boot
-* We pre-boot as many of the frameworks as possible during the native compilation of a Quarkus application
-* It means that the resulting native executable has already run most of the startup code and serialized the result into the executable: even faster startup!</p>
+* | native compilation of a Quarkus application
+  * pre-boot, as much as possible
+    * _Example:_ CDI bean discovery, configuration binding,  reflection registration, proxy registration, ... 
+    * == resulting native executable has ALREADY
+      * run MOST of the startup code
+      * serialized the result | executable
 
-# Kubernetes, but also bare metal</h2>
-* All the techniques allowing reducing the memory usage and provide faster startup times are not only advantageous in containers
-* Even on bare metal, it would reduce your memory pressure, and it’s always pleasant to not have to wait 10 seconds to see your application running.</p>
-* When Quarkus was designed, we didn’t focus only on containers but also on deploying Quarkus applications on container orchestrators such as Kubernetes
-* Quarkus build-time processing also generates the Kubernetes metadata, so your application is ready to be deployed on Kubernetes
-* Runtime capabilities such as health checks and metrics are exposed out of the box
-* Quarkus collects all the required metadata at build time to create the Kubernetes deployment descriptor and produce a container image
-* A single command line can deploy your application onto your Kubernetes cluster.</p>
+# Kubernetes, but also bare metal
+* reduce the memory usage & provide faster startup times
+  * profitable |
+    * containers
+    * bare metal
+
+* Quarkus's original design
+  * | 
+    * containers &
+    * container orchestrators
+
+* | Quarkus build-time
+  * 👀generates the Kubernetes metadata👀
+    * Kubernetes deployment descriptor
+    * produce a container image
+
+* runtime capabilities (_Example:_ health checks and metrics)
+  * are exposed out of the box
+
+* `-Dquarkus.kubernetes.deploy=true`
+  * 👀CL's command -- to -- deploy your application | your Kubernetes cluster 👀
+  * [MORE](/quarkusio.github.io/_guides/deploying-to-kubernetes.adoc)

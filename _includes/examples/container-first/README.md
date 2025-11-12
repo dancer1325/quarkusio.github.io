@@ -46,8 +46,8 @@
       * specific build steps
     * "io.quarkus.arc.processor.BeanArchives"
       * configure components
-## Quarkus' run time
-### ONLY contains the classes / used
+### Quarkus' run time
+#### ONLY contains the classes / used
 * `jar -tf target/quarkus-app/app/container-first-1.0.0-SNAPSHOT.jar`
   * ⚠️ONLY contains the used classe⚠️
 * `ls target/quarkus-app/lib/main/`
@@ -59,11 +59,41 @@
 ## | build-time processing,
 ### extensions
 #### use regular invocations (❌NOT reflection calls❌)
-* TODO:
+* `sh check-reflection-usage.sh`
+  * barely reflection calls
 #### use generating custom proxy
 * TODO:
 
-## TODO:
+## Kubernetes, but also bare metal
+* | [pom.xml](pom.xml),
+  * add
+    ```xml
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-kubernetes</artifactId>
+    </dependency>
+    ```
+### | Quarkus build-time
+#### generates the Kubernetes metadata
+* `./mvnw clean package -DskipTests`
+* check 'targets/kubernetes'
+### runtime capabilities
+#### are exposed out of the box
+* | [pom.xml](pom.xml)
+  * add
+    ```xml
+    <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-smallrye-health</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-micrometer-registry-prometheus</artifactId>
+    </dependency>
+    ```
+* [run it](#running-the-application-in-dev-mode)
+  * http://localhost:8080/q/health
+  * http://localhost:8080/q/metrics
 
 ## Running the application in dev mode
 
