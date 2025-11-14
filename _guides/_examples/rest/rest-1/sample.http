@@ -1,0 +1,11 @@
+### GET
+GET http://localhost:8080/{{ALLRESTEndpointsPATH}}/hello
+Content-Type: */*
+
+### 2. withoutSpecifyingProduce
+GET http://localhost:8080/{{ALLRESTEndpointsPATH}}/hello/withoutSpecifyingProduce
+Content-Type: */*
+
+### 3. withoutUriPrefix
+GET http://localhost:8080/{{ALLRESTEndpointsPATH}}/withoutUriPrefix
+Content-Type: */*
