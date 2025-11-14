@@ -20,31 +20,31 @@ include::_attributes.adoc[]
 :resteasy-reactive-api: https://javadoc.io/doc/io.quarkus.resteasy.reactive/resteasy-reactive/{quarkus-version}
 :resteasy-reactive-common-api: https://javadoc.io/doc/io.quarkus.resteasy.reactive/resteasy-reactive-common/{quarkus-version}
 
-This guide explains how to write REST Services with Quarkus REST in Quarkus.
-
-[TIP]
-====
-This is the reference guide for Quarkus REST.
-For a more lightweight introduction, please refer to the xref:rest-json.adoc[Writing JSON REST services guides].
-====
+* goal
+    ** how to write REST Services -- with -- Quarkus REST
 
 == What is Quarkus REST?
 
-Quarkus REST is a new link:{jaxrsspec}[Jakarta REST (formerly known as JAX-RS)]
-implementation written from the ground up to work on our
-common https://vertx.io/[Vert.x] layer and is thus fully reactive, while also being very tightly integrated with
-Quarkus and consequently moving a lot of work to build time.
-
-You should be able to use it in place of any Jakarta REST implementation, but on top of that it has
-great performance for both blocking and non-blocking endpoints, and a lot of new features on top
-of what Jakarta REST provides.
+* Quarkus REST
+    ** == 👀NEW link:{jaxrsspec}[Jakarta REST (formerly JAX-RS)] implementation👀
+        *** ⚠️FROM the scratch⚠️
+        *** ⚠️fully reactive⚠️
+            **** Reason:🧠based on Quarkus common https://vertx.io/[Vert.x] layer🧠
+        *** tightly integrated -- with -- Quarkus
+            **** == | build time, lot of work
+        *** vs other Jakarta REST implementation
+            **** performance | blocking & non-blocking endpoints
+            ***** NEW features
 
 == Writing endpoints
 
 === Getting started
 
-Add the following import to your build file:
-
+* add `io.quarkus:quarkus-rest` extension
+    ** if you create the Quarkus application via Quarkus Platform BOM -> 👀ALREADY included👀
+    ** OTHERWISE,
+        *** | Maven, add
++
 [source,xml,role="primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven"]
 .pom.xml
 ----
@@ -53,93 +53,54 @@ Add the following import to your build file:
     <artifactId>quarkus-rest</artifactId>
 </dependency>
 ----
-
+        *** | Gradle, add
++
 [source,gradle,role="secondary asciidoc-tabs-target-sync-gradle"]
 .build.gradle
 ----
 implementation("io.quarkus:quarkus-rest")
 ----
 
-You can now write your first endpoint in the `org.acme.rest.Endpoint` class:
-
-[source,java]
-----
-package org.acme.rest;
-
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-
-@Path("")
-public class Endpoint {
-
-    @GET
-    public String hello() {
-        return "Hello, World!";
-    }
-}
-----
-
 === Terminology
 
-REST:: https://en.wikipedia.org/wiki/Representational_state_transfer[REpresentational State Transfer]
-Endpoint:: Java method which is called to serve a REST call
-URL / URI (Uniform Resource Locator / Identifier):: Used to identify the location of REST resources (https://tools.ietf.org/html/rfc7230#section-2.7[specification])
-Resource:: Represents your domain object. This is what your API serves and modifies. Also called an `entity` in Jakarta REST.
-Representation:: How your resource is represented on the wire, can vary depending on content types
-Content type:: Designates a particular representation (also called a media type), for example `text/plain` or `application/json`
-HTTP:: Underlying wire protocol for routing REST calls (see https://tools.ietf.org/html/rfc7230[HTTP specifications])
-HTTP request:: The request part of the HTTP call, consisting of an HTTP method, a target URI, headers and an optional message body
-HTTP response:: The response part of the HTTP call, consisting of an HTTP response status, headers and an optional message body
+* REST
+    ** https://en.wikipedia.org/wiki/Representational_state_transfer[REpresentational State Transfer]
+* Endpoint
+    ** method / called -- to -- serve a REST call
+* URL / URI (Uniform Resource Locator / Identifier)
+    ** == REST resources location
+    ** https://tools.ietf.org/html/rfc7230#section-2.7[specification]
+* Resource
+    ** == your domain object
+    ** == what your API serves & modifies
+    ** | Jakarta REST, `entity`
+* Representation of your resource | wire (internet)
+    ** depend -- on -- content types (JSON, XML, HTML, ...)
+* Content type OR media type
+    ** == particular representation
+        *** _Example:_ `text/plain` or `application/json`
+* HTTP
+    ** wire protocol -- for -- routing REST calls
+    ** https://tools.ietf.org/html/rfc7230[HTTP specifications]
+* HTTP request
+    ** == HTTP method + target URI + headers + message body (OPTIONAL)
+* HTTP response
+    ** == HTTP response status + headers + message body (OPTIONAL)
 
 === Declaring endpoints: URI mapping
 
-Any class annotated with a link:{jaxrsapi}/jakarta/ws/rs/Path.html[`@Path`] annotation can have its methods exposed as REST endpoints,
-provided they have an HTTP method annotation (see below).
+* link:{jaxrsapi}/jakarta/ws/rs/Path.html[`@Path`] annotation
+    ** | class
+        *** 👀's methods can be exposed -- as -- REST endpoints👀
+            **** requirements
+                ***** HTTP method annotation
+        *** == URI prefix | its exposed methods
+            **** OPTIONAL === can be `""`
+    ** | exposed endpoint method
+        *** == URI
 
-That link:{jaxrsapi}/jakarta/ws/rs/Path.html[`@Path`] annotation defines the URI prefix under which those methods will be exposed. It can
-be empty, or contain a prefix such as `rest` or `rest/V1`.
-
-Each exposed endpoint method can in turn have another link:{jaxrsapi}/jakarta/ws/rs/Path.html[`@Path`] annotation which adds to its containing
-class annotation. For example, this defines a `rest/hello` endpoint:
-
-[source,java]
-----
-package org.acme.rest;
-
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-
-@Path("rest")
-public class Endpoint {
-
-    @Path("hello")
-    @GET
-    public String hello() {
-        return "Hello, World!";
-    }
-}
-----
-
-See <<uri-parameters,URI parameters>> for more information about URI mapping.
-
-You can set the root path for all rest endpoints using the `@ApplicationPath` annotation, as shown below.
-
-[source,java]
-----
-package org.acme.rest;
-
-import jakarta.ws.rs.ApplicationPath;
-import jakarta.ws.rs.core.Application;
-
-@ApplicationPath("/api")
-public static class MyApplication extends Application {
-
-}
-----
-
-This will cause all rest endpoints to be resolve relative to `/api`, so the endpoint above with `@Path("rest")` would
-be accessible at `/api/rest/`. You can also set the `quarkus.rest.path` build time property to set the root path if you
-don't want to use an annotation.
+* `@ApplicationPath` annotation OR `quarkus.rest.path` build time property
+    ** 💡set ALL rest endpoints' root path💡
 
 === Declaring endpoints: HTTP methods
 
