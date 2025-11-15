@@ -11,15 +11,14 @@ include::_attributes.adoc[]
 
 == What Are Dev Services?
 
-* := 👀unconfigured services / Quarkus -- can -- AUTOMATICALLY provision 👀
+* := unconfigured services / Quarkus -- can -- 💡AUTOMATICALLY provision 💡
     ** _Example:_ databases, identity servers, etc
+    ** what does Quarkus make in the background?
+        *** 👀start the relevant service -- NORMALLY, via -- https://www.testcontainers.org/[Testcontainers]👀
+        *** wire up your application -- to use -- this service
 * ALLOWED |
-    ** development mode
-    ** test mode
-
-* if you include an extension & NOT configure it -> Quarkus -- will AUTOMATICALLY --
-    ** start the relevant service -- NORMALLY, via -- https://www.testcontainers.org/[Testcontainers]
-    ** wire up your application -- to use -- this service
+    ** link:maven-tooling.adoc[development mode]
+    ** link:continuous-testing.adoc[test mode]
 
 * _Example:_ see xref:getting-started-dev-services.adoc[Your Second Quarkus Application]
 
