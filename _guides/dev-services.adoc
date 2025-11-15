@@ -11,7 +11,7 @@ include::_attributes.adoc[]
 
 == What Are Dev Services?
 
-* 👀unconfigured services / Quarkus -- can -- AUTOMATICALLY provision 👀
+* := 👀unconfigured services / Quarkus -- can -- AUTOMATICALLY provision 👀
     ** _Example:_ databases, identity servers, etc
 * ALLOWED |
     ** development mode

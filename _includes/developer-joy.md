@@ -19,13 +19,12 @@
 * [Dev Mode guide](../_guides/maven-tooling.adoc)'s dev mode
 
 ## Unified Config
-* == 1! configuration file
-* lets configure ALL single extension
+* == [1! configuration file](/quarkusio.github.io/_guides/config.adoc)
 
 ## Opinionated
-* Quarkus' features' design
-  * simplest
-  * useful
+* == 👀Quarkus configure by default features' design👀
+* != configure ALL from scratch approach
+  * _Example:_ Spring
 
 ## Dev UI
 * [Dev UI guide](../_guides/dev-ui.adoc)

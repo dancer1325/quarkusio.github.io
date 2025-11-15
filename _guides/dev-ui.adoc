@@ -23,31 +23,28 @@ image::dev-ui-overview-v2.png[]
     ** allows you
         *** view
             **** ALL extensions (status & documentation) CURRENTLY loaded
-            **** `Dev Services` information
+            **** link:dev-services.adoc[Dev Services information]
             **** Build information
-        *** change `Configuration`
-        *** manage `Continuous Testing`
+        *** change Configuration`
+        *** manage link:continuous-testing.adoc[continuous testing]
         *** stream various logs
 * Dev UI v2
     ** == default one | Quarkus v3+
 
-== Make my extension extend the Dev UI
+== Make my extension / extend the Dev UI
 
-* TODO:
-To make your extension listed in the Dev UI, you don't need to do anything!
+* ALL extensionS
+    ** by default, are listed | Dev UI
 
-So you can always start with that :)
-
-Extensions can:
-
-- <<add-links-to-an-extension-card,Add links to an extension card>>
-- <<add-full-pages,Add full custom pages>>
-- <<add-a-footer-tab,Add a footer tab>>
-- <<add-a-section-menu,Add a section menu>>
-- <<custom-cards,Create a custom card>>
+* ways / extensions | Dev Ui, can
+    - <<add-links-to-an-extension-card,Add links | extension card>>
+    - <<add-full-pages,Add full custom pages>>
+    - <<add-a-footer-tab,Add a footer tab>>
+    - <<add-a-section-menu,Add a section menu>>
+    - <<custom-cards,Create a custom card>>
 
 == Add links to an extension card
-
+* TODO:
 === External links
 
 These are links that reference other (external from Dev UI) data. This data can be HTML pages, text, or other data.

@@ -3,7 +3,9 @@
   * MULTIPLE extensions used & running great BETWEEN them
 ## easy generate a NATIVE executable
 * `./mvnw package -Pnative -Dquarkus.native.container-build=true -Dquarkus.native.native-image-xmx=2g -DskipTests`
-  * 
+  * Problems:
+    * Problem1: NOT end up never
+      * Solution: TODO:
 
 # Quarkus features' goals
 ## works well
@@ -43,4 +45,7 @@
 ## intuitive
 * _Example:_ features naming
   * `@QuarkusTest`
+
+# Opinionated
+* [GreetingResource.java](cohesive-demo/src/main/java/demo/GreetingResource.java) use Jackson -- for -- JSON
 
