@@ -1,17 +1,22 @@
-* == cohesive platform -- for -- optimized developer / 
+* == 👀cohesive platform👀 -- for -- optimized developer / 
   * [unified configuration](/quarkusio.github.io/_guides/config.adoc)
-  * NO hassle NATIVE executable generation
+  * easy generate a NATIVE executable
+    * -- via -- `./mvnw package -Pnative -Dquarkus.native.container-build=true`
+    * OTHERWISE, it would require
+      * install & configure GraalVM
+      * install & configure native-image
+      * run native-image
 * streamlined code / 80% common usages + flexible / remainder 20%
 
 ## Quarkus features' goals
-  * works well, 
-  * simple,
-  * little or Zero configuration
-    * == applications can -- run -- WITHOUT configuration
-  * intuitive
+* works well
+* simple
+* little or Zero configuration
+  * == applications can -- run -- WITHOUT configuration
+* intuitive
 
 ## Live Coding == Live Reload
-* [Dev Mode guide](../_guides/maven-tooling.adoc)
+* [Dev Mode guide](../_guides/maven-tooling.adoc)'s dev mode
 
 ## Unified Config
 * == 1! configuration file

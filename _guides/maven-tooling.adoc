@@ -182,20 +182,19 @@ and any options you put in that file will be picked up by Maven, without having 
 == Development mode
 
 * built-in Quarkus
-* 👀if you update code / resources / configurations -> AUTOMATICALLY reflected | your running application👀
-    ** code -> refresh browser -> repeat
-    ** -> make easier development [database, UI]
-* enables
+
+include::{includes}/devtools/dev.adoc[]
+
+* enable
     ** ⭐️hot deployment + background compilation ⭐️
         *** == if you modify your ".java" OR resource files & refresh your browser -> these changes -- will AUTOMATICALLY -- deployed
         *** if there are issues with compilation OR deployment -> error page -- will -- let you know
-* refresh the browser
-    ** -- triggers a -- scan of the workspace
-include::{includes}/devtools/dev.adoc[]
+    ** link:dev-ui.adoc[Dev UI]
 
 * debug host
     ** by default, `localhost`
     ** if you need to change it -> specify `-DdebugHost`
+        *** https://www.jetbrains.com/help/idea/tutorial-remote-debug.html[IntelliJ's remote debug]
         *** _Example:_ debugging | ALL hosts
 
 :dev-additional-parameters: -DdebugHost=0.0.0.0
