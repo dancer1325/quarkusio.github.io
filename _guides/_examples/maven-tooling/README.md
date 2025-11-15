@@ -1,3 +1,44 @@
+# Creating a new project
+## ALLOWED attributes
+```shell
+mvn io.quarkus.platform:quarkus-maven-plugin:3.6.0:create \
+    -DprojectGroupId=com.example \
+    -DprojectArtifactId=maven-tooling-create \
+    -DprojectVersion=2.0.0-SNAPSHOT \
+    -DplatformGroupId=io.quarkus.platform \
+    -DplatformArtifactId=quarkus-bom \
+    -DplatformVersion=3.6.0 \
+    -DjavaVersion=21 \
+    -DclassName=com.example.HelloResource \
+    -Dpath=/hello \
+    -Dextensions=resteasy-reactive \
+    -DquarkusRegistryClient=false
+```
+* [output](maven-tooling-create)
+## `io.quarkus.platform:quarkus-bom` is the default target
+* [here](maven-tooling-1/pom.xml)'s `dependencyManagement.dependencies.dependency`
+## SEVERAL Dockerfiles
+###  are generated
+* [here](maven-tooling-create/src/main/docker)
+### -- for -- native mode, jvm mode
+* check the DIFFERENT names
+
+# Dealing with extensions
+## list the AVAILABLE extensions
+* `./mvnw quarkus:list-extensions`
+## list installed extensions | your Quarkus application
+* `./mvnw quarkus:list-extensions -Dinstalled`
+## add an extension
+* `./mvnw quarkus:add-extension -Dextensions='hibernate-validator,quarkus-spring-cache'`
+### way to specify the extension
+#### `groupId:artifactId:name`
+* `./mvnw quarkus:add-extension -Dextensions='io.quarkiverse.opentracing:quarkus-smallrye-opentracing:1.0.0'`
+#### partially
+* `./mvnw quarkus:add-extension -Dextensions='opentracing'`
+#### globbing pattern
+* `./mvnw quarkus:add-extension -Dextensions='smallrye-*'`
+
+
 # TODO:
 
 # Development mode

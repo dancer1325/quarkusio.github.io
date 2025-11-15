@@ -23,8 +23,6 @@ include::_attributes.adoc[]
 [[project-creation]]
 == Creating a new project
 
-* ways
-
 :create-app-group-id: my-groupId
 :create-app-artifact-id: my-artifactId
 :create-app-code:
@@ -45,7 +43,7 @@ include::{includes}/devtools/create-app.adoc[]
 
 | `projectArtifactId`
 | _mandatory_
-| created project's artifactId. if you do NOT pass -> interactive mode
+| created project's artifactId. if you do NOT pass -> interactive mode. == directory name. if it ALREADY exists -> generation fails
 
 | `projectVersion`
 | `1.0.0-SNAPSHOT`
@@ -53,19 +51,19 @@ include::{includes}/devtools/create-app.adoc[]
 
 | `platformGroupId`
 | `{quarkus-platform-groupid}`
-| The group id of the target platform.
+| target platform's groupId
 
 | `platformArtifactId`
 | `quarkus-bom`
-| The artifact id of the target platform BOM.
+| target platform BOM's artifactId
 
 | `platformVersion`
-| The version currently recommended by the xref:extension-registry-user.adoc[Quarkus Extension Registry]
-| The version of the platform you want the project to use. It can also accept a version range, in which case the latest from the specified range will be used.
+| recommended by the xref:extension-registry-user.adoc[Quarkus Extension Registry]
+| if you specify a range -> latest from the specified range
 
 | `javaVersion`
 | 17
-| The version of Java you want the project to use.
+| Java version / used by the project
 
 | `className`
 | if omitted -> NOT created
@@ -73,7 +71,7 @@ include::{includes}/devtools/create-app.adoc[]
 
 | `path`
 | `/hello`
-| The resource path, only relevant if `className` is set.
+| resource path. ONLY relevant if `className` is set
 
 | `extensions`
 | _[]_
@@ -81,56 +79,40 @@ include::{includes}/devtools/create-app.adoc[]
 
 | `quarkusRegistryClient`
 | `true`
-| Whether Quarkus should use the online registry to resolve extension catalogs. If this is set to false, the extension catalog will be narrowed to the defined (or default) platform BOM.
+| use OR NOT the online registry -- to -- resolve extension catalogs. if false -> extension catalog == platform BOM's catalog
 
 |===
 
 * `{quarkus-platform-groupid}:quarkus-bom:{quarkus-version}`
     ** == default target
 
-* TODO:
-The project is generated in a directory named after the passed artifactId.
-If the directory already exists, the generation fails.
+* SEVERAL Dockerfiles
+    ** are generated | "src/main/docker"
+    ** -- for --
+        *** native mode
+        *** jvm mode
 
-A pair of Dockerfiles for native and jvm mode are also generated in `src/main/docker`.
-Instructions to build the image and run the container are written in those Dockerfiles.
+== Dealing with extensions
 
-Dealing with extensions== Dealing with extensions
-
-From inside a Quarkus project, you can obtain a list of the available extensions with:
+* | Quarkus project,
+    ** list ALL AVAILABLE extensions
 
 include::{includes}/devtools/extension-list.adoc[]
 
-You can add an extension using:
-
-:add-extension-extensions: hibernate-validator
-include::{includes}/devtools/extension-add.adoc[]
-
-Extensions are passed using a comma-separated list.
-
-The extension name is the GAV name of the extension: e.g., `io.quarkus:quarkus-agroal`.
-However, you can pass a partial name, and Quarkus will do its best to find the right extension.
-For example, `agroal`, `Agroal`, or `agro` will expand to `io.quarkus:quarkus-agroal`.
-If no extension is found or more than one extension matches, you will see a red check mark ❌ in the command result.
-
+    ** list installed extensions | your Quarkus application
++
 [source,shell]
 ----
-$ ./mvnw quarkus:add-extensions -Dextensions=jdbc,agroal,non-exist-ent
-[...]
-❌ Multiple extensions matching 'jdbc'
-     * io.quarkus:quarkus-jdbc-h2
-     * io.quarkus:quarkus-jdbc-mariadb
-     * io.quarkus:quarkus-jdbc-postgresql
-     Be more specific e.g using the exact name or the full gav.
-✅ Adding extension io.quarkus:quarkus-agroal
-❌ Cannot find a dependency matching 'non-exist-ent', maybe a typo?
-[...]
+./mvnw quarkus:list-extensions -Dinstalled
 ----
 
-You can install all extensions which match a globbing pattern :
-
-:add-extension-extensions: smallrye-*
+:add-extension-extensions: hibernate-validator,quarkus-spring-cache
 include::{includes}/devtools/extension-add.adoc[]
++
+    ** way to specify the extension
+        *** `groupId:artifactId:name`
+        *** partially
+        *** globbing pattern
 
 [[configuring-development-mode]]
 == Configuring `javac` options
