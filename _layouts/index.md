@@ -1,9 +1,6 @@
----
-layout: base
----
-
+--- TODO: remove as soon as ALL index created
 [header-navigation.html](../_includes/header-navigation.html)
-
+---
 
 * [Homepage](../_includes/homepage.md)
 * Why

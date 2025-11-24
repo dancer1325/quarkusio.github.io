@@ -1,0 +1,5 @@
+### GET
+GET localhost:9090/config
+Content-Type: */*
+
+###

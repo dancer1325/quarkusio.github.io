@@ -9,39 +9,64 @@ include::_attributes.adoc[]
 :summary: Learn more about Quarkus reactive architecture.
 :topics: internals,reactive
 
-Quarkus is reactive.
-It's even more than this: Quarkus unifies reactive and imperative programming.
-You don't even have to choose: you can implement reactive components and imperative components then combine them inside the very **same** application.
-No need to use different stacks, tooling or APIs; Quarkus bridges both worlds.
+* goal
+    ** _Reactive_
+        *** meaning
+        *** how Quarkus enables it
+    ** execution & programming models
+    ** Quarkus extensions / reactive characteristics
 
-This page will explain what we mean by _Reactive_ and how Quarkus enables it.
-We will also discuss execution and programming models.
-Finally, we will list the Quarkus extensions offering reactive facets.
+* Quarkus
+    ** 💡unifies reactive & imperative programming💡
+        *** ⚠️WITHOUT choosing⚠️
+            **** == you can
+                ***** implement reactive components & imperative components
+                ***** combine reactive components + imperative components | **same** application
 
 == What is _Reactive_?
 
-The _Reactive_ word is overloaded and associated with many concepts such as back-pressure, monads, or event-driven architecture.
-So, let's clarify what we mean by _Reactive_.
+* _Reactive_
+    ** associated-concepts (back-pressure, monads, or event-driven architecture)
+    ** == principles + guidelines -- to -- build
+        *** responsive distributed systems
+        *** applications
 
-_Reactive_ is a set of principles and guidelines to build responsive distributed systems and applications.
-The https://www.reactivemanifesto.org/[Reactive Manifesto] characterizes _Reactive Systems_ as distributed systems having four characteristics:
+* _Reactive Systems_
+    ** == distributed systems / follow https://www.reactivemanifesto.org/[Reactive Manifesto]
+        1. Responsive
+            **** == must respond | timely fashion
+        2. Elastic
+            **** adapt themselves -- to the -- fluctuating load
+        3. Resilient
+            **** handle failures gracefully
+        4. Asynchronous message passing
+            **** reactive system's component interact -- via -- messages
 
-1. Responsive - they must respond in a timely fashion
-2. Elastic - they adapt themselves to the fluctuating load
-3. Resilient - they handle failures gracefully
-4. Asynchronous message passing - the component of a reactive system interact using messages
+image::/images/reactive-systems.png[alt=Reactive Systems Pillars, width=50%, align=center]
 
-image::reactive-systems.png[alt=Reactive Systems Pillars, width=50%, align=center]
-
-In addition to this, the https://principles.reactive.foundation/[Reactive Principles white paper] lists a set of rules and patterns to help the construction of reactive systems.
+* https://principles.reactive.foundation/[Reactive Principles white paper]
+    ** == rules & patterns /
+        *** help the construction of reactive systems
 
 == Reactive Systems and Quarkus
 
-Reactive System is an architectural style that can be summarized by: distributed systems done right.
-Relying on asynchronous message passing helps enforce the loose coupling (both in terms of space and time) between the different components.
-You send messages to virtual destinations. The receiver can be located anywhere, or even not yet exist at the time of the message dispatch.
-The elasticity pillar allows scaling up and down individual components according to the load.
-Elasticity also provides redundancy, which helps with the resilience pillar.
+* Reactive System
+    ** == architectural style /
+        *** == distributed systems done right
+        *** == asynchronous messageS BETWEEN DIFFERENT components /
+            **** loose space coupling
+                ***** Reason:🧠 receiver can
+                    ****** be located anywhere, OR
+                    ****** NOT YET exist🧠
+            **** loose time coupling
+                ***** Reason:🧠 sender & receiver do NOT need to be active | SAME time🧠
+
+* elasticity
+    ** allows
+        *** scaling up & down individual components -- based on the -- load
+    ** provides
+        *** redundancy
+            **** -> helps the resilience pillar
 Failures are inevitable.
 Components forming a reactive system must handle them gracefully, avoid cascading failures, and self-adapt themselves.
 
@@ -68,12 +93,16 @@ As a result, Quarkus applications allow for higher concurrency, use less memory,
 
 == How does Quarkus enable Reactive?
 
-Under the hood, Quarkus has a reactive engine.
-This engine, powered by Eclipse Vert.x and Netty, handles the non-blocking I/O interactions.
+* Quarkus' reactive engine
+    ** powered -- by -- Eclipse Vert.x & Netty
+    ** handles the non-blocking I/O interactions
+    ** uses
+        *** by Quarkus extensions & Quarkus application code, -- to --
+            **** orchestrate I/O interactions,
+            **** interact with databases,
+            **** send & receive messages
 
-image::quarkus-reactive-core.png[Quarkus Reactive Core,width=50%, align=center]
-
-Quarkus extensions and the application code can use this engine to orchestrate I/O interactions, interact with databases, send and receive messages, and so on.
+image::/images/quarkus-reactive-core.png[Quarkus Reactive Core,width=50%, align=center]
 
 == Reactive execution model
 
@@ -91,7 +120,7 @@ The size of this pool constrains the concurrency of the application.
 In addition, each thread has a cost in terms of memory and CPU.
 Large thread pools result in greedy applications.
 
-image::blocking-threads.png[alt=Imperative Execution Model and Worker Threads,width=50%, align=center]
+image::/images/blocking-threads.png[alt=Imperative Execution Model and Worker Threads,width=50%, align=center]
 
 As we have seen above, non-blocking I/O avoids that problem.
 A few threads can handle many concurrent I/O.
@@ -100,7 +129,7 @@ Because there are only a few of them, you need to use them wisely.
 When the request processing needs to call a remote service, you can't block the thread anymore.
 You schedule the I/O and pass a continuation, i.e., the code to execute once the I/O completes.
 
-image::reactive-thread.png[alt=Reactive Execution Model and I/O Threads,width=50%, align=center]
+image::/images/reactive-thread.png[alt=Reactive Execution Model and I/O Threads,width=50%, align=center]
 
 This model is much more efficient, but we need a way to write code to express these continuations.
 
@@ -141,7 +170,7 @@ It means that you can write traditional blocking applications on Quarkus.
 But how do you avoid blocking the I/O threads?
 Quarkus implements a https://en.wikipedia.org/wiki/Proactor_pattern[proactor pattern] that switches to worker thread when needed.
 
-image::proactor-pattern.png[The proactor pattern in Quarkus,width=50%, align=center]
+image::/images/proactor-pattern.png[The proactor pattern in Quarkus,width=50%, align=center]
 
 Thanks to hints in your code (such as the `@Blocking` and `@NonBlocking` annotations), Quarkus extensions can decide when the application logic is blocking or non-blocking.
 If we go back to the HTTP endpoint example from above, the HTTP request is always received on an I/O thread.
@@ -196,6 +225,7 @@ Offer reactive and imperative programming interfaces.
 [[engine]]
 === Engine
 
-* Vert.x : the underlying reactive engine of Quarkus.
+* Vert.x
+    ** == 💡Quarkus reactive engine💡
 The extension allows accessing to the managed Vert.x instance, as well as its Mutiny variant (exposing the Vert.x API using Mutiny types)
 * Context Propagation: capture and propagate contextual objects (transaction, principal…) in a reactive pipeline

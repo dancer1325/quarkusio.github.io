@@ -9,102 +9,26 @@ include::_attributes.adoc[]
 :keywords: vertx event verticle
 :summary: This guide explains how to use Vert.x in Quarkus to build reactive applications.
 
-https://vertx.io[Vert.x] is a toolkit for building reactive applications.
-As described in the xref:quarkus-reactive-architecture.adoc[Quarkus Reactive Architecture], Quarkus uses Vert.x underneath.
 
-image::quarkus-reactive-core.png[Quarkus Reactive Core,width=50%, align=center]
+* https://vertx.io[Vert.x]
+    ** == toolkit -- for -- building reactive applications
+    ** uses
+        *** xref:quarkus-reactive-architecture.adoc[by Quarkus]
+            **** == Quarkus applications can access & use the Vert.x APIs
 
-Quarkus applications can access and use the Vert.x APIs.
+image::/images/quarkus-reactive-core.png[]
 
-This guide presents how you can build a Quarkus application using:
-
-* the managed instance of Vert.x
-* the Vert.x event bus
-* the Vert.x Web Client
-
-It's an introductory guide.
-The xref:vertx-reference.adoc[Vert.x reference guide] covers more advanced features such as verticles, and native transports.
-
-== Architecture
-
-We are going to build a simple application exposing four HTTP endpoints:
-
-1. `/vertx/lorem` returns the content from a small file
-2. `/vertx/book` returns the content from a large file (a book)
-3. `/vertx/hello` uses the Vert.x event bus to produce the response
-4. `/vertx/web` uses the Vert.x Web Client to retrieve data from Wikipedia
-
-image::quarkus-vertx-guide-architecture.png[Architecture of the Vert.x guide,width=50%, align=center]
+* goal
+    ** how to build a Quarkus application -- via --
+        *** Vert.x APIs
+            **** managed instance of Vert.x
+            **** Vert.x event bus
+            **** Vert.x Web Client
+        *** xref:mutiny-primer.adoc[Mutiny == intuitive, reactive programming library]
 
 == Solution
 
-We recommend that you follow the instructions in the following sections and create the application step by step.
-However, you can go right to the completed example.
-
-Clone the Git repository: `git clone {quickstarts-clone-url}`, or download an {quickstarts-archive-url}[archive].
-
-The solution is located in the `vertx-quickstart` link:{quickstarts-tree-url}/vertx-quickstart[directory].
-
-[TIP]
-.Mutiny
-====
-This guide uses the Mutiny API.
-If you are not familiar with Mutiny, check xref:mutiny-primer.adoc[Mutiny - an intuitive, reactive programming library].
-====
-
-
-== Bootstrapping the application
-
-Click on https://code.quarkus.io/?a=quarkus-getting-started-vertx&nc=true&e=rest-jackson&e=vertx[this link] to configure your application.
-It selected a few extensions:
-
-* `rest-jackson`, which also brings `rest`. We are going to use it to expose our HTTP endpoints.
-* `vertx`, which provides access to the underlying managed Vert.x
-
-Click on the `Generate your application` button, download the zip file and unzip it.
-Then, open the project in your favorite IDE.
-
-If you open the generated build file, you can see the selected extensions:
-
-[source,xml,role="primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven"]
-.pom.xml
-----
-<dependency>
-  <groupId>io.quarkus</groupId>
-  <artifactId>quarkus-rest-jackson</artifactId>
-</dependency>
-<dependency>
-  <groupId>io.quarkus</groupId>
-  <artifactId>quarkus-vertx</artifactId>
-</dependency>
-----
-
-[source,gradle,role="secondary asciidoc-tabs-target-sync-gradle"]
-.build.gradle
-----
-implementation("io.quarkus:quarkus-rest-jackson")
-implementation("io.quarkus:quarkus-vertx")
-----
-
-While you are in your build file, add the following dependency:
-
-[source,xml,role="primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven"]
-.pom.xml
-----
-<dependency>
-  <groupId>io.smallrye.reactive</groupId>
-  <artifactId>smallrye-mutiny-vertx-web-client</artifactId>
-</dependency>
-----
-
-[source,gradle,role="secondary asciidoc-tabs-target-sync-gradle"]
-.build.gradle
-----
-implementation("io.smallrye.reactive:smallrye-mutiny-vertx-web-client")
-----
-
-This dependency provides the Vert.x Web Client, which we will be using to implement the `/web` endpoint.
-
+* link:{quickstarts-tree-url}/vertx-quickstart[here]
 
 == Accessing the managed Vert.x instance
 
@@ -462,9 +386,7 @@ void onStart(@Observes StartupEvent event, ExternalService service) {
 
 == Going further
 
-This guide introduced how you can use Vert.x APIs from a Quarkus application.
-It's just a brief overview.
-If you want to know more, check the xref:vertx-reference.adoc[reference guide about Vert.x in Quarkus].
+* xref:vertx-reference.adoc[MORE]
 
 As we have seen, the event bus is the connecting tissue of Vert.x applications.
 Quarkus integrates it so different beans can interact with asynchronous messages.
