@@ -10,98 +10,71 @@ include::_attributes.adoc[]
 :topics: security,authorization,http,rest
 :extensions: io.quarkus:quarkus-vertx-http,io.quarkus:quarkus-rest,io.quarkus:quarkus-resteasy
 
-* TODO:
-Quarkus incorporates a pluggable web security layer.
-When security is active, the system performs a permission check on all HTTP requests to determine if they should proceed.
+* Quarkus' web security layer
+    ** pluggable
+    ** if it's enabled -> check permissions | ALL HTTP requests
 
-Using `@PermitAll` will not open a path if the path is restricted by the `quarkus.http.auth.` configuration.
-To ensure specific paths are accessible, appropriate configurations must be made within the Quarkus security settings.
+* `@PermitAll`
+    ** 👀's priority < `quarkus.http.auth.` 's priority👀
 
-[NOTE]
-====
-If you use Jakarta RESTful Web Services, consider using `quarkus.security.jaxrs.deny-unannotated-endpoints` or `quarkus.security.jaxrs.default-roles-allowed` to set default security requirements instead of HTTP path-level matching because annotations can override these properties on an individual endpoint.
-====
+* if you use Jakarta RESTful Web Services & you want to set default security requirements -> 👀use `quarkus.security.jaxrs.deny-unannotated-endpoints` OR `quarkus.security.jaxrs.default-roles-allowed` 👀
+    ** instead of `quarkus.http.auth.`
+        *** Reason:🧠higher priority🧠
 
-Authorization is based on user roles that the security provider provides.
-To customize these roles, a `SecurityIdentityAugmentor` can be created, see
-xref:security-customization.adoc#security-identity-customization[Security Identity Customization].
+* Authorization
+    ** 👀is -- based on -- user roles👀 /
+        *** security provider provides
+        *** if you want to customize these roles -> create a
+xref:security-customization.adoc#security-identity-customization[`SecurityIdentityAugmentor`]
 
 [[authorization-using-configuration]]
 == Authorization using configuration
 
-Permissions are defined in the Quarkus configuration by permission sets, each specifying a policy for access control.
+* roles
+    ** == set of permissionS
+    ** types
+        *** built-in
+        *** custom
 
 .{project-name} policies summary
 [options="header"]
 |===
 s| Built-in policy s| Description
-s| `deny` | This policy denies all users.
-s| `permit` | This policy permits all users.
-s| `authenticated` | This policy permits only authenticated users.
+s| `deny` | denies ALL users
+s| `permit` | permits ALL users
+s| `authenticated` | permits ONLY authenticated users
 |===
 
-You can define role-based policies that allow users with specific roles to access the resources.
+* role-based policies
+    ** can be defined
+    ** enable users / specific roles -- to -- access the resources
+    ** _Example:_
++
 
-.Example of a role-based policy
 [source,properties]
 ----
-quarkus.http.auth.policy.role-policy1.roles-allowed=user,admin                  <1>
+#  enable users / user & admin roles
+quarkus.http.auth.policy.role-policy1.roles-allowed=user,admin
 ----
-<1> This defines a role-based policy that allows users with the `user` and `admin` roles.
 
-You can reference a custom policy by configuring the built-in permission sets that are defined in the `application.properties` file, as outlined in the following configuration example:
-
-.Example of policy configuration
+    ** == built-in permission sets
+        *** _Example:_
++
 [source,properties]
 ----
-quarkus.http.auth.permission.permit1.paths=/public/*                            <1>
+# permission / refers the default built-in `permit` policy
+quarkus.http.auth.permission.permit1.paths=/public/*
 quarkus.http.auth.permission.permit1.policy=permit
 quarkus.http.auth.permission.permit1.methods=GET
 
-quarkus.http.auth.permission.deny1.paths=/forbidden                             <2>
+# permission / refers the default built-in `deny` policy
+quarkus.http.auth.permission.deny1.paths=/forbidden         # ALSO secures `/forbidden/`
 quarkus.http.auth.permission.deny1.policy=deny
 
-quarkus.http.auth.permission.roles1.paths=/roles-secured/*,/other/*,/api/*      <3>
+# permission / refers the PREVIOUS custom `role-policy1` policy
+quarkus.http.auth.permission.roles1.paths=/roles-secured/*,/other/*,/api/*
 quarkus.http.auth.permission.roles1.policy=role-policy1
 ----
-<1> This permission references the default built-in `permit` policy to allow `GET` methods to `/public`.
-In this case, the demonstrated setting would not affect this example because this request is allowed anyway.
-<2> This permission references the built-in `deny` policy for both `/forbidden` and `/forbidden/` paths.
-It is an exact path match because it does not end with `*`.
-<3> This permission set references the previously defined policy.
-`roles1` is an example name; you can call the permission sets whatever you want.
-
-[IMPORTANT]
-====
-The exact path pattern `/forbidden` in the example above also secures the `/forbidden/` path.
-This way, the `forbidden` endpoint in the example below is secured by the `deny1` permission.
-
-[source,java]
-----
-package org.acme.crud;
-
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-
-@Path("/forbidden")
-public class ForbiddenResource {
-    @GET
-    public String forbidden() { <1>
-        return "No!";
-    }
-}
-----
-<1> Both `/forbidden` and `/forbidden/` paths need to be secured in order to secure the `forbidden` endpoint.
-
-If you need to permit access to the `/forbidden/` path, please add new permission with more specific exact path like in the example below:
-
-[source,properties]
-----
-quarkus.http.auth.permission.permit1.paths=/forbidden/ <1>
-quarkus.http.auth.permission.permit1.policy=permit
-----
-<1> The `/forbidden/` path is not secured.
-====
 
 [[custom-http-security-policy]]
 === Custom HttpSecurityPolicy
