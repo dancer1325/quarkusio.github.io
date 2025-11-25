@@ -11,6 +11,7 @@ include::_attributes.adoc[]
 :topics: security,identity-providers
 :extensions: io.quarkus:quarkus-elytron-security-properties-file
 
+* TODO:
 Quarkus provides support for properties file-based authentication intended for development and testing purposes.
 It is not recommended to use this authentication in production as, at present, only plain-text and MD5 hashed passwords are used, and properties files are generally too limited.
 
