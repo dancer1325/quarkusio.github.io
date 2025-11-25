@@ -14,50 +14,53 @@ include::_attributes.adoc[]
 :topics: observability,micrometer
 :extensions: io.quarkus:quarkus-micrometer
 
-Micrometer provides an abstraction layer for metrics collection.
-It defines an API for basic meter types, like counters, gauges, timers, and distribution summaries, along with a `MeterRegistry` API that generalizes metrics collection and propagation for different backend monitoring systems.
+* Micrometer
+    ** | Quarkus applications,
+        *** recommended approach to metrics /
+            **** by default, exposed | main HTTP server
+            **** if you would like to surface metrics -- from a -- separate management port -> <<management-interface,Managed interface>>
+    ** provides
+        *** abstraction layer -- for -- metrics collection
+        *** API -- for - basic meter types (_Examples:_ counters, gauges, timers, and distribution summaries)
+        *** `MeterRegistry` API / generalizes for different backend monitoring systems
+            **** metrics collection
+            **** propagation
 
 include::{includes}/observability-include.adoc[]
 
-IMPORTANT: Micrometer is the recommended approach to metrics for Quarkus.
-
-NOTE: By default, the metrics are exposed on the main HTTP server.
-If you would like to surface metrics from a separate management port, see the <<management-interface,Managed interface>> section.
-
 == Micrometer and monitoring system extensions
 
-Quarkus Micrometer extensions are structured in the same way as the Micrometer project.
-The `quarkus-micrometer` extension provides core Micrometer support and runtime integration.
-Other Quarkus and Quarkiverse extensions use the Quarkus Micrometer extension to provide support for other monitoring systems.
+* Quarkus Micrometer extensions structure
+    ** == 👀Micrometer project structure👀
+    ** == `quarkus-micrometer` extension (== core Micrometer + runtime integration) + OTHER extensions
+        *** OTHER extensions
+            **** provide support -- for -- OTHER monitoring systems
 
-Quarkus extensions:
+* Quarkus extensions
+    - micrometer
+    - micrometer-registry-prometheus
+        ** 👀ALSO include `quarkus-micrometer`👀
 
-- micrometer
-- micrometer-registry-prometheus
+* link:https://github.com/quarkiverse/quarkus-micrometer-registry[Quarkiverse extensions]
+    ** micrometer-registry-azure-monitor
+    ** micrometer-registry-datadog
+    ** micrometer-registry-graphite
+    ** micrometer-registry-influx
+    ** micrometer-registry-jmx
+    ** micrometer-registry-newrelic-telemetry
+    ** micrometer-registry-otlp
+    ** micrometer-registry-signalfx
+    ** micrometer-registry-stackdriver
+    ** micrometer-registry-statsd
 
-link:https://github.com/quarkiverse/quarkus-micrometer-registry[Quarkiverse extensions] (may be incomplete):
-
-- micrometer-registry-azure-monitor
-- micrometer-registry-datadog
-- micrometer-registry-graphite
-- micrometer-registry-influx
-- micrometer-registry-jmx
-- micrometer-registry-newrelic-telemetry
-- micrometer-registry-otlp
-- micrometer-registry-signalfx
-- micrometer-registry-stackdriver
-- micrometer-registry-statsd
-
-To add support for Prometheus metrics to your application, for example, use the `micrometer-registry-prometheus` extension.
-It will bring in the Quarkus Micrometer extension and Micrometer core libraries as dependencies.
-
-Add the extension to your project using following command (from your project directory):
+=== if you want to support Prometheus metrics -> use `micrometer-registry-prometheus` extension
 
 :add-extension-extensions: micrometer-registry-prometheus
 include::{includes}/devtools/extension-add.adoc[]
 
-This will add the following to your build file:
-
+* | your build file, it would add
+    ** | Maven
++
 [source,xml,role="primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven"]
 .pom.xml
 ----
@@ -67,34 +70,13 @@ This will add the following to your build file:
 </dependency>
 ----
 
+
+    ** | Gradle
++
 [source,gradle,role="secondary asciidoc-tabs-target-sync-gradle"]
 .build.gradle
 ----
 implementation("io.quarkus:quarkus-micrometer-registry-prometheus")
-----
-
-And you're all set!
-
-A similar process applies for other meter registry extensions.
-To use the Micrometer StackDriver MeterRegistry, for example, you would use the
-`quarkus-micrometer-registry-stackdriver` extension from the Quarkiverse:
-
-:add-extension-extensions: io.quarkiverse.micrometer.registry:quarkus-micrometer-registry-stackdriver
-include::{includes}/devtools/extension-add.adoc[]
-
-[source,xml,role="primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven"]
-.pom.xml
-----
-<dependency>
-    <groupId>io.quarkiverse.micrometer.registry</groupId>
-    <artifactId>quarkus-micrometer-registry-stackdriver</artifactId>
-</dependency>
-----
-
-[source,gradle,role="secondary asciidoc-tabs-target-sync-gradle"]
-.build.gradle
-----
-implementation("io.quarkiverse.micrometer.registry:quarkus-micrometer-registry-stackdriver")
 ----
 
 === Other registry implementations

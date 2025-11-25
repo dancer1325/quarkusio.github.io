@@ -9,6 +9,7 @@ include::_attributes.adoc[]
 :summary: Instructions on how to use Grafana Otel LGTM
 :topics: observability,grafana,lgtm,otlp,opentelemetry,devservices,micrometer
 :extensions: io.quarkus:quarkus-observability-devservices
+:imagesdir: images
 
 * https://github.com/grafana/docker-otel-lgtm[Grafana OTel-LGTM]
     ** == `ALL-in-1` Docker image
@@ -46,7 +47,7 @@ implementation("io.quarkus:quarkus-observability-devservices-lgtm")
 
 === Micrometer
 
-* https://quarkus.io/guides/telemetry-micrometer[Micrometer Quarkus extension]
+* xref:telemetry-micrometer.adoc[Micrometer Quarkus extension]
     ** provides
         *** metrics -- from -- automatic instrumentation / implemented | Quarkus and its extensions
             **** automatic == NO require to add code
@@ -89,7 +90,6 @@ implementation("io.quarkiverse.micrometer.registry:quarkus-micrometer-registry-p
 
 * Micrometer OTLP registry
     ** output data -- , via OpenTelemetry OTLP protocol, to the -- Grafana LGTM Dev Service
-    **
     ** ways to set it up
         *** | Maven
 +
@@ -120,61 +120,55 @@ implementation("io.quarkiverse.micrometer.registry:quarkus-micrometer-registry-o
 === Micrometer -- to -- OpenTelemetry bridge
 
 * https://quarkus.io/guides/opentelemetry[Micrometer OpenTelemetry extension]
-This extension provides Micrometer metrics and OpenTelemetry metrics, traces and logs
-All data is managed and sent out by the OpenTelemetry extension.
-
-**All signals are enabled by default.**
 
 == Grafana
 
 === Grafana UI access
 
-Once you start your app in dev mode:
-
 include::{includes}/devtools/dev.adoc[]
 
-You will see a log entry like this:
-
+* Grafana is accessible | ephemeral port
+    ** ways to check the port
+        *** | logs
+            **** _Example:_
++
 [source, log]
 ----
 [io.qu.ob.de.ObservabilityDevServiceProcessor] (build-35) Dev Service Lgtm started, config: {grafana.endpoint=http://localhost:42797, quarkus.otel.exporter.otlp.endpoint=http://localhost:34711, otel-collector.url=localhost:34711, quarkus.micrometer.export.otlp.url=http://localhost:34711/v1/metrics, quarkus.otel.exporter.otlp.protocol=http/protobuf}
+
+# grafana.endpoint=http://localhost:42797
 ----
-Remember that Grafana is accessible in an ephemeral port, so you need to check the logs to see which port is being used. In this example, the grafana endpoint is `grafana.endpoint=http://localhost:42797`.
 
-Another option is to use the *Dev UI* (http://localhost:8080/q/dev-ui/extensions) as the Grafana URL link will be available and if selected it will open a new browser tab directly to the running Grafana instance:
+        ***  | Dev UI
++
+image::dev-ui-observability-card.png[]
 
-image::dev-ui-observability-card.png[alt=Dev UI LGTM, align=center,width=50%]
+=== Grafana > Explore
 
-=== Explore
-
-In the explore section, you can query the data for all the data sources.
-
-To see traces, select the `tempo` data source and query for data:
-
+* traces
+    ** data source == `tempo`
++
 image::observability-grafana-tempo.png[alt=Dev UI LGTM, align=center,width=90%]
 
-For logs, select the `loki` data source and query for data:
-
+* logs
+    ** data source == `loki`
++
 image::observability-grafana-loki.png[alt=Dev UI LGTM, align=center,width=90%]
 
-=== The dashboards
+=== Grafana > dashboards
 
-The Dev Service includes a set of dashboards.
-
+* built-in dashboards
+    ** *Quarkus Micrometer OpenTelemetry*
+        *** used -- with -- Micrometer & OpenTelemetry extension
+    ** *Quarkus Micrometer OTLP registry*
+        *** used -- with -- Micrometer OTLP registry extension
+    ** *Quarkus Micrometer Prometheus registry*
+        *** used -- with -- Micrometer Prometheus registry extension
+    ** *Quarkus OpenTelemetry Logging*
+        *** allows
+            **** viewing logs / come -- from the -- OpenTelemetry extension
++
 image::observability-grafana-dashboards.png[alt=Dev UI LGTM, align=center,width=90%]
-
-Each dashboard is tuned for the specific application setup. The available dashboards are:
-
-* *Quarkus Micrometer OpenTelemetry*: to be used with the Micrometer and OpenTelemetry extension.
-* *Quarkus Micrometer OTLP registry*: to be used with the Micrometer OTLP registry extension.
-* *Quarkus Micrometer Prometheus registry*: to be used with the Micrometer Prometheus registry extension.
-* *Quarkus OpenTelemetry Logging*: to view logs coming from the OpenTelemetry extension.
-
-
-[NOTE]
-====
-Some panels in the dashboards might take a few minutes to show accurate data when their values are calculated over a sliding  time window.
-====
 
 === Additional configuration
 
