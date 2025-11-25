@@ -4,12 +4,17 @@
     * long startup times
     * large memory requirements
   * ❌| NOT existed cloud nor containers ❌
+
 * Quarkus
   * == Java framework / 
     * 💡's goal 
       * == meet the needs | NEW world 💡 
       * == create applications | MODERN cloud-native world 💡
-      * -- offer -- WIDE range of distributed application architectures
+        * Reasons:🧠
+          * enable horizontal scaling -- thanks to -- [HIGH performance](performance.md)
+          * [resiliency](../_guides/smallrye-fault-tolerance.adoc)
+          * [observability](../_guides/observability.adoc)🧠
+      * -- offer -- WIDE range of distributed application architectures -- TODO: check -- 
       * == leading platform | Kubernetes & serverless environments / 
         * generate AUTOMATICALLY (⚠️WITHOUT creating ".yaml"⚠️) Kubernetes resources 
   * [homepage](homepage.md)

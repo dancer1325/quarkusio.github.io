@@ -3,25 +3,29 @@ This guide is maintained in the main Quarkus repository
 and pull requests should be submitted there:
 https://github.com/quarkusio/quarkus/tree/main/docs/src/main/asciidoc
 ////
-= Observability Dev Services with Grafana OTel LGTM
+= Observability Dev Services -- with -- Grafana OTel LGTM
 include::_attributes.adoc[]
 :categories: observability,devservices,telemetry,metrics,tracing,logging, opentelemetry, micrometer, prometheus, tempo, loki, grafana
 :summary: Instructions on how to use Grafana Otel LGTM
 :topics: observability,grafana,lgtm,otlp,opentelemetry,devservices,micrometer
 :extensions: io.quarkus:quarkus-observability-devservices
 
-This Dev Service provides the https://github.com/grafana/docker-otel-lgtm[Grafana OTel-LGTM], an `all-in-one` Docker image containing an https://opentelemetry.io/docs/collector[OpenTelemetry Collector] receiving and then forwarding telemetry data to Prometheus (metrics), Tempo (traces) and Loki (logs).
-This data can then be visualized by https://github.com/grafana/grafana[Grafana]. The LGTM abbreviation stands for:
-
-- L -> https://github.com/grafana/loki[Loki] (logs)
-- G -> https://github.com/grafana/grafana[Grafana] (metrics visualization)
-- T -> https://github.com/grafana/tempo[Tempo] (traces)
-- M -> https://grafana.com/oss/mimir[Mimir] (long term storage for Prometheus)
+* https://github.com/grafana/docker-otel-lgtm[Grafana OTel-LGTM]
+    ** == `ALL-in-1` Docker image
+        *** https://opentelemetry.io/docs/collector[OpenTelemetry Collector]
+            **** receive data -- from -- data sources
+            **** forward telemetry data -- to -- Prometheus (metrics), Tempo (traces) and Loki (logs)
+        *** L -> https://github.com/grafana/loki[Loki] (logs)
+        *** G -> https://github.com/grafana/grafana[Grafana] (metrics visualization)
+        *** T -> https://github.com/grafana/tempo[Tempo] (traces)
+        *** M -> https://grafana.com/oss/mimir[Mimir] (long term storage for Prometheus)
 
 == Configuring your project
 
-Add the Quarkus Grafana OTel LGTM sink (where data goes) extension to your build file:
-
+* | your build file,
+    ** add the Quarkus Grafana OTel LGTM sink extension
+        *** -- via -- Maven
++
 [source,xml,role="primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven"]
 .pom.xml
 ----
@@ -32,6 +36,8 @@ Add the Quarkus Grafana OTel LGTM sink (where data goes) extension to your build
 </dependency>
 ----
 
+        *** -- via --Gradle
++
 [source,gradle,role="secondary asciidoc-tabs-target-sync-gradle"]
 .build.gradle
 ----
@@ -40,15 +46,27 @@ implementation("io.quarkus:quarkus-observability-devservices-lgtm")
 
 === Micrometer
 
-The https://quarkus.io/guides/telemetry-micrometer[Micrometer Quarkus extension] provides metrics from automatic instrumentation implemented in Quarkus and its extensions.
+* https://quarkus.io/guides/telemetry-micrometer[Micrometer Quarkus extension]
+    ** provides
+        *** metrics -- from -- automatic instrumentation / implemented | Quarkus and its extensions
+            **** automatic == NO require to add code
 
-There are multiple ways to output Micrometer metrics. Next there are some examples:
+* ways to output Micrometer metrics
+    ** xref:#via-micrometer-prometheus-registry[-- via -- Micrometer Prometheus registry]
+    ** xref:#via-micrometer-otlp-registry[-- via -- Micrometer OTLP registry]
 
-==== Using the Micrometer Prometheus registry
+[[via-micrometer-prometheus-registry]]
+==== -- via -- Micrometer Prometheus registry
 
-This is the most common way to output metrics from Micrometer and the default way in Quarkus. The Micrometer Prometheus registry will publish data in the `/q/metrics` endpoint and a scraper inside the Grafana LGTM Dev Service will grab it (*pull* data from the service).
+* | Quarkus,
+    ** default way
 
-
+* Micrometer Prometheus registry
+    ** publish data | `/q/metrics` endpoint
+        *** scraper | Grafana LGTM Dev Service, will grab it
+    ** ways to set it up
+        *** | Maven
++
 [source,xml,role="primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven"]
 .pom.xml
 ----
@@ -58,16 +76,23 @@ This is the most common way to output metrics from Micrometer and the default wa
 </dependency>
 ----
 
+        *** | Gradle
++
 [source,gradle,role="secondary asciidoc-tabs-target-sync-gradle"]
 .build.gradle
 ----
 implementation("io.quarkiverse.micrometer.registry:quarkus-micrometer-registry-prometheus")
 ----
 
-==== Using the Micrometer OTLP registry
+[[via-micrometer-otlp-registry]]
+==== -- via -- link:++https://docs.quarkiverse.io/quarkus-micrometer-registry/dev/micrometer-registry-otlp.html[Quarkiverse Micrometer OTLP registry]++[Micrometer OTLP registry]
 
-The https://docs.quarkiverse.io/quarkus-micrometer-registry/dev/micrometer-registry-otlp.html[Quarkiverse Micrometer OTLP registry] will output data using the OpenTelemetry OTLP protocol to the Grafana LGTM Dev Service. This will *push* data out of the service:
-
+* Micrometer OTLP registry
+    ** output data -- , via OpenTelemetry OTLP protocol, to the -- Grafana LGTM Dev Service
+    **
+    ** ways to set it up
+        *** | Maven
++
 [source,xml,role="primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven"]
 .pom.xml
 ----
@@ -77,62 +102,28 @@ The https://docs.quarkiverse.io/quarkus-micrometer-registry/dev/micrometer-regis
 </dependency>
 ----
 
+        *** | Gradle
++
 [source,gradle,role="secondary asciidoc-tabs-target-sync-gradle"]
 .build.gradle
 ----
 implementation("io.quarkiverse.micrometer.registry:quarkus-micrometer-registry-otlp")
 ----
 
-When using the https://micrometer.io/[Micrometer's] Quarkiverse OTLP registry to push metrics to Grafana OTel LGTM, the `quarkus.micrometer.export.otlp.url` property is automatically set to OTel collector endpoint as seen from the outside of the Docker container.
+* `quarkus.micrometer.export.otlp.url` property
+    ** AUTOMATICALLY == OTel collector endpoint / outside of the Docker container
 
 === OpenTelemetry
 
-With OpenTelemetry, metrics, traces and logs can be created and sent to the Grafana LGTM Dev Service.
+* https://quarkus.io/guides/opentelemetry[OpenTelemetry extension]
 
-By default, the https://quarkus.io/guides/opentelemetry[OpenTelemetry extension] will produce https://quarkus.io/guides/opentelemetry-tracing[traces]. https://quarkus.io/guides/opentelemetry-metrics[Metrics] and https://quarkus.io/guides/opentelemetry-logging[logs] must be enabled separately.
+=== Micrometer -- to -- OpenTelemetry bridge
 
-The `quarkus-opentelemetry` extension can be added to your build file like this:
-[source,xml,role="primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven"]
-.pom.xml
-----
-<dependency>
-    <groupId>io.quarkus</groupId>
-    <artifactId>quarkus-opentelemetry</artifactId>
-</dependency>
-----
-
-[source,gradle,role="secondary asciidoc-tabs-target-sync-gradle"]
-.build.gradle
-----
-implementation("io.quarkus:quarkus-opentelemetry")
-----
-
-The `quarkus.otel.exporter.otlp.endpoint` property is automatically set to the OTel collector endpoint as seen from the outside of the Docker container.
-
-The `quarkus.otel.exporter.otlp.protocol` is set to `http/protobuf`.
-
-=== Micrometer to OpenTelemetry bridge
-
-This extension provides Micrometer metrics and OpenTelemetry metrics, traces and logs. All data is managed and sent out by the OpenTelemetry extension.
+* https://quarkus.io/guides/opentelemetry[Micrometer OpenTelemetry extension]
+This extension provides Micrometer metrics and OpenTelemetry metrics, traces and logs
+All data is managed and sent out by the OpenTelemetry extension.
 
 **All signals are enabled by default.**
-
-The extension can be added to your build file like this:
-
-[source,xml,role="primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven"]
-.pom.xml
-----
-<dependency>
-    <groupId>io.quarkus</groupId>
-    <artifactId>quarkus-micrometer-opentelemetry</artifactId>
-</dependency>
-----
-
-[source,gradle,role="secondary asciidoc-tabs-target-sync-gradle"]
-.build.gradle
-----
-implementation("io.quarkus:quarkus-micrometer-opentelemetry")
-----
 
 == Grafana
 

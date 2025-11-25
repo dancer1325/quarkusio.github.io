@@ -13,20 +13,20 @@ include::_attributes.adoc[]
 :topics: observability,opentelemetry,metrics,micrometer,tracing,logs
 :extensions: io.quarkus:quarkus-micrometer-opentelemetry
 
-This extension provides support for both Micrometer and OpenTelemetry in Quarkus applications. It streamlines integration by incorporating both extensions along with a bridge that enables sending Micrometer metrics via OpenTelemetry.
+* telemetry-micrometer-opentelemetry
+    ** == extension /
+        *** == xref:telemetry-micrometer.adoc[micrometer extension] + xref:opentelemetry.adoc[opentelemetry extension] + bridge BETWEEN them
+    ** provides
+        *** | Quarkus applications, support for Micrometer & OpenTelemetry
+    ** allows
+        *** using Micrometer API /
+            **** metrics are handled -- by the -- OpenTelemetry extension
+    ** requirements
+        *** | Quarkus v3.19
 
 include::{includes}/extension-status.adoc[]
 
 include::{includes}/observability-include.adoc[]
-
-[NOTE]
-====
-- This extension is available since Quarkus version 3.19.
-- The xref:telemetry-micrometer.adoc[Micrometer Guide] is available for detailed information about the Micrometer extension.
-- The xref:opentelemetry.adoc[OpenTelemetry Guide] provides information about the OpenTelemetry extension.
-====
-
-The extension allows the normal use of the Micrometer API, but have the metrics handled by the OpenTelemetry extension.
 
 As an example, the `@Timed` annotation from Micrometer is used to measure the execution time of a method:
 [source,java]
@@ -50,13 +50,13 @@ The bridge is more than the simple OTLP registry found in Quarkiverse. In this e
 
 == Usage
 
-If you already have your Quarkus project configured, you can add the `quarkus-micrometer-opentelemetry` extension to your project by running the following command in your project base directory:
-
 :add-extension-extensions: micrometer-opentelemetry
 include::{includes}/devtools/extension-add.adoc[]
 
-This will add the following to your build file:
-
+* | build file,
+    ** it adds,
+        *** | Maven
++
 [source,xml,role="primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven"]
 .pom.xml
 ----
@@ -66,6 +66,8 @@ This will add the following to your build file:
 </dependency>
 ----
 
+        *** | Gradle
++
 [source,gradle,role="secondary asciidoc-tabs-target-sync-gradle"]
 .build.gradle
 ----

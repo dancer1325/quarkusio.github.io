@@ -11,71 +11,37 @@ include::_attributes.adoc[]
 :topics: observability,opentelemetry,logging
 :extensions: io.quarkus:quarkus-opentelemetry
 
-This guide explains how your Quarkus application can utilize https://opentelemetry.io/[OpenTelemetry] (OTel) to provide
-distributed logging for interactive web applications.
+* goal
+    ** how your web Quarkus application can provide -- , via https://opentelemetry.io/[OpenTelemetry] (OTel), -- distributed logging
+
+* OpenTelemetry Logging
+    ** ⚠️by default, disabled⚠️
+        *** Reason:🧠_tech preview_🧠
 
 include::{includes}/extension-status.adoc[]
 
 include::{includes}/observability-include.adoc[]
-
-[NOTE]
-====
-- OpenTelemetry Logging is considered _tech preview_ and is disabled by default.
-- The xref:opentelemetry.adoc[OpenTelemetry Guide] is available with signal independent information about the OpenTelemetry extension.
-====
 
 == Prerequisites
 
 :prerequisites-docker-compose:
 include::{includes}/prerequisites.adoc[]
 
-== Architecture
-
-In this guide, we create a straightforward REST application to demonstrate distributed logging, similar to the other OpenTelemetry guides.
-
 == Solution
 
-We recommend that you follow the instructions in the next sections and create the application step by step.
-However, you can skip right to the completed example.
-
-Clone the Git repository: `git clone {quickstarts-clone-url}`, or download an {quickstarts-archive-url}[archive].
-
-The solution is located in the `opentelemetry-quickstart` link:{quickstarts-tree-url}/opentelemetry-quickstart[directory].
+* link:{quickstarts-tree-url}/opentelemetry-quickstart[here]
 
 == Creating the Maven project
-
-First, we need a new project. Create a new project with the following command:
 
 :create-app-artifact-id: opentelemetry-quickstart
 :create-app-extensions: rest,quarkus-opentelemetry
 include::{includes}/devtools/create-app.adoc[]
 
-This command generates the Maven project and imports the `quarkus-opentelemetry` extension,
-which includes the default OpenTelemetry support,
-and a gRPC span exporter for https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md[OTLP].
-
-If you already have your Quarkus project configured, you can add the `quarkus-opentelemetry` extension
-to your project by running the following command in your project base directory:
+* `quarkus-opentelemetry` extension
+    ** == default OpenTelemetry support + gRPC span exporter for https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md[OTLP]
 
 :add-extension-extensions: opentelemetry
 include::{includes}/devtools/extension-add.adoc[]
-
-This will add the following to your build file:
-
-[source,xml,role="primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven"]
-.pom.xml
-----
-<dependency>
-    <groupId>io.quarkus</groupId>
-    <artifactId>quarkus-opentelemetry</artifactId>
-</dependency>
-----
-
-[source,gradle,role="secondary asciidoc-tabs-target-sync-gradle"]
-.build.gradle
-----
-implementation("io.quarkus:quarkus-opentelemetry")
-----
 
 === Examine the Jakarta REST resource
 
@@ -109,7 +75,6 @@ If you have followed the tracing guide, this class will seem familiar. The main 
 
 === Create the configuration
 
-The only mandatory configuration for OpenTelemetry Logging is the one enabling it:
 [source,properties]
 ----
 quarkus.otel.logs.enabled=true

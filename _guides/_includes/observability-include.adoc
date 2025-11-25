@@ -1,1 +1,2 @@
-This document is part of the xref:observability.adoc[Observability in Quarkus reference guide] which features this and other observability related components.
+* xref:../observability.adoc[Observability features | Quarkus]
+    ** == this feature + OTHER observability related components
