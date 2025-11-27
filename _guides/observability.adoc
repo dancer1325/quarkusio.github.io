@@ -115,7 +115,7 @@ include::_attributes.adoc[]
 - *O*
     ** off by default
 
-== The signals
+== The telemetry data
 
 === Logging and events
 

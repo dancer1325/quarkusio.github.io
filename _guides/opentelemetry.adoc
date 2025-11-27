@@ -46,10 +46,9 @@ include::{includes}/observability-include.adoc[]
         *** for metrics
             **** manual instrumentation capabilities
                 ***** -> can be observable -- by -- tools & services / support OpenTelemetry
-
-* xref:telemetry-micrometer.adoc[Quarkus Micrometer extension]
-    ** allows
-        *** AUTOMATIC metrics instrumentation
+    ** 👀vs xref:telemetry-micrometer.adoc[Quarkus Micrometer extension]👀
+        *** allows
+            **** AUTOMATIC metrics instrumentation
 
 * OpenTelemetry Autoconfiguration
     ** == https://opentelemetry.io/docs/languages/java/configuration/[OpenTelemetry SDK Autoconfigure]
