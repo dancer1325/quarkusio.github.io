@@ -12,8 +12,8 @@ include::_attributes.adoc[]
 :extensions: io.quarkus:quarkus-opentelemetry
 
 * goal
-    ** how your Quarkus application can -- , via https://opentelemetry.io/[OpenTelemetry] (OTel), -- provide
-Observability for interactive web applications
+    ** how your Quarkus application can provide -- , via https://opentelemetry.io/[OpenTelemetry] (OTel), --
+telemetry data
 
 include::{includes}/observability-include.adoc[]
 
@@ -64,7 +64,7 @@ include::{includes}/devtools/extension-add.adoc[]
 :opentelemetry-config:
 include::{includes}/opentelemetry-config.adoc[]
 
-=== Disable all or parts of the OpenTelemetry extension
+=== Disable OpenTelemetry extension's ALL OR parts
 
 * TODO:
 Once you add the dependency, the extension will generate tracing data by default. To enable metrics or disable the OpenTelemetry extension globally or partially these are the properties to use (they are extracted from the config reference bellow):

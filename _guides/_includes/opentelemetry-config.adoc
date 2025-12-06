@@ -1,5 +1,7 @@
 * exporters
     ** by default, 👀send out data in batches👀
+        *** Reason:🧠 by default, `quarkus.otel.simple=false`
+            **** https://github.com/dancer1325/quarkus-quarkus/blob/main/extensions/opentelemetry/runtime/src/main/java/io/quarkus/opentelemetry/runtime/config/build/OTelBuildConfig.java#L49[source code]🧠
         *** -- via --
             **** gRPC protocol
             **** endpoint: `http://localhost:4317`
