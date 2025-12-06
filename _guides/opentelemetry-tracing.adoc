@@ -176,15 +176,22 @@ public class CustomConfiguration {
 ----
 
 === Propagators
-OpenTelemetry propagates cross-cutting concerns through https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/context/api-propagators.md[propagators] that will share an underlying `Context` for storing state and accessing
-data across the lifespan of a distributed transaction.
 
-By default, the OpenTelemetry extension enables the https://www.w3.org/TR/trace-context/[W3C Trace Context] and the https://www.w3.org/TR/baggage/[W3C Baggage]
-propagators, you can however choose any of the supported OpenTelemetry propagators by setting the `propagators` config that is described in the <<configuration-reference>>.
+* https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/context/api-propagators.md[OpenTelemetry propagators]
+    ** allows
+        *** propagating cross-cutting concerns / share an underlying `Context`
+    ** uses
+        *** distributed (== cross MULTIPLE services) transaction
+
+* OpenTelemetry extension
+    ** 👀by default, enable the propagators👀
+        *** https://www.w3.org/TR/trace-context/[W3C Trace Context]
+        *** https://www.w3.org/TR/baggage/[W3C Baggage]
+    ** if you want to customize which one to enable -> set <<configuration-reference, `propagators`>>
 
 ==== Additional Propagators
 
-* The `b3`, `b3multi`, `jaeger` and `ottrace` propagators will need the https://github.com/open-telemetry/opentelemetry-java/tree/main/extensions/trace-propagators[trace-propagators]
+* TODO: The `b3`, `b3multi`, `jaeger` and `ottrace` propagators will need the https://github.com/open-telemetry/opentelemetry-java/tree/main/extensions/trace-propagators[trace-propagators]
 extension to be added as a dependency to your project.
 
 [source,xml,role="primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven"]
