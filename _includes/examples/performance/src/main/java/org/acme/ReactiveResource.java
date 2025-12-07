@@ -15,6 +15,7 @@ public class ReactiveResource {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
+    // Uni<String>      ==      async method
     public Uni<String> nonBlocking() {
         int requestId = requestCounter.incrementAndGet();
         String startThread = Thread.currentThread().getName();

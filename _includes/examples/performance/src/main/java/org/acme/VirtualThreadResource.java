@@ -11,9 +11,9 @@ public class VirtualThreadResource {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    @RunOnVirtualThread
+    @RunOnVirtualThread     // virtual thread   == JDK 21+
     public String virtualThread() throws InterruptedException {
-        // Código imperativo en virtual thread (JDK 21+)
+        // imperative code
         Thread.sleep(100);
         return "Virtual thread model - Thread: " + Thread.currentThread().getName() +
                " (isVirtual: " + Thread.currentThread().isVirtual() + ")";

@@ -14,12 +14,13 @@
       * efficient asynchronous
       * non-blocking
       * -- based on -- Netty & Eclipse Vert.x
-    * == few event loops
-      * != large thread pool
+    * == 💡few event loops💡
+      * ⚠️!= large thread pool⚠️
       * -> optimize hardware behavior ->
         * reduce resource usage
         * improve response times
     * ❌!= you MUST write reactive code❌
+      * _Example:_ imperative model
   * provided development models
     * Imperative model
       * == traditional synchronous approach / faster execution
@@ -28,9 +29,9 @@
         * lower concurrency
       * if high concurrency -> increases memory use
     * Reactive model
+      * == asynchronous, non-blocking code
       * enables
-        * high concurrency / minimal resources 
-          * -- via -- asynchronous, non-blocking code
+        * high concurrency / minimal resources
       * cons
         * MORE complex | implement and debug
     * Virtual threads (JDK 21+)

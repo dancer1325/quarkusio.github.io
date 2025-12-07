@@ -13,9 +13,8 @@
 * `./mvnw dependency:tree 2>/dev/null | grep "io.netty"`
 * `./mvnw dependency:tree 2>/dev/null | grep "io.vertx"`
 ### == few event loops
-* TODO:
-### ❌!= you MUST write reactive code❌
-* TODO:
+* `bash prove-event-loops.sh`
+  * check sh execution logs / FEW threads used
 
 ## Quarkus' provided development models
 ### Imperative model
@@ -26,21 +25,17 @@
 
 ### Reactive model
 * [ReactiveResource](src/main/java/org/acme/ReactiveResource.java)
-  * asynchronous, non-blocking code
-  * executes on event loop threads (`vert.x-eventloop-thread-X`)
+* `bash test-reactive.sh`
+  * Problems:
+    * Problem1: NOT reach === Thread Analysis ===
+      * Solution: TODO:
 
 ### Virtual threads (JDK 21+)
 * [VirtualThreadResource](src/main/java/org/acme/VirtualThreadResource.java)
-  * imperative code on lightweight virtual threads
-  * requires JDK 21+
-
-## how to verify?
-* `./mvnw quarkus:dev`
-* test endpoints:
-  * `curl http://localhost:8080/imperative`
-  * `curl http://localhost:8080/reactive`
-  * `curl http://localhost:8080/virtual`
-* check thread names in responses
+* `bash test-virtual-threads.sh`
+  * Problems:
+    * Problem1: Stay forever in "Sending 1000 requests..."
+      * Solution: TODO:
 
 ## TODO:
 
