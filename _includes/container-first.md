@@ -1,21 +1,33 @@
 * Quarkus' container-first philosophy
   * == low memory usage & fast startup times
 
-    ![](/quarkusio.github.io/assets/images/container/build-time-principle-light.png)
-
 # Build Time Processing
 * 💡Quarkus' 
   * build-time == traditional frameworks' runtime💡
-    * configuration parsing,
-    * classpath scanning,
-    * feature toggle -- based on -- classloading
-    * prepares ALL components initialization / -- used by -- your application
-    * ...
+    * == ⚠️the HIGHEST cost⚠️
+    * happens 1! time
+      * != EACH startup
+    * steps / taken
+      * configuration parsing,
+      * classpath scanning,
+      * feature toggle -- based on -- classloading
+      * prepares ALL components initialization / -- used by -- your application
+      * ...
   * runtime
     * 👀ONLY contains the classes / used 👀
-    * [->](performance.md)
+    * [-> BETTER performance](performance.md)
       * faster startup time
+        * -> reach FASTER the peak performance
       * less memory usage
+        * Reason:🧠-- thanks to -- 
+          * minimize allocations & class loading
+          * replace reflection -- by -- build-time bytecode generation🧠
+      * better latency & improved throughput
+        * Reason:🧠
+          * prunes unnecessary classes and methods
+          * avoids MULTIPLE layers of indirection🧠
+
+    ![](/quarkusio.github.io/assets/images/container/build-time-principle-light.png)
 
 # Use less Reflection
 * | build-time processing,
