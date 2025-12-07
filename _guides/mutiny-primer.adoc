@@ -8,142 +8,88 @@ include::_attributes.adoc[]
 :categories: reactive
 :topics: mutiny,reactive
 :extensions: io.quarkus:quarkus-mutiny
+:imagesdir: ./images
 
-https://smallrye.io/smallrye-mutiny[Mutiny] is an intuitive, reactive programming library.
-It is the primary model to write reactive applications with Quarkus.
+* https://smallrye.io/smallrye-mutiny[Mutiny]
+    ** == programming library
+        *** intuitive
+        *** reactive
+        *** event-driven
+    ** uses
+        *** write reactive applications | Quarkus
 
 == An event-driven reactive programming API
 
-Mutiny is very different from the other reactive programming libraries.
-It takes a different approach to design your program.
-With Mutiny everything is event-driven: you receive events, and you react to them.
-This event-driven aspect embraces the asynchronous nature of distributed systems and provides an elegant and precise way to express continuation.
+* event-driven
+    ** == you receive events & you react to them
+    ** use cases
+        *** distributed systems
 
-Mutiny offers two types that are both event-driven and lazy:
+* 👀provided types👀 /
+    ** event-driven & lazy (-> event sources)
+        *** `Uni`
+            **** emits 1! event (item OR failure)
+            **** use cases
+                ***** asynchronous actions / return 0 OR 1
+                    ****** _Example:_ send a message -- to a -- message broker queue
+        *** `Multi`
+            **** emits multiple events (TODO: n items, 1 failure or 1 completion)
+            **** use cases
+                ***** streams of items (even unbounded)
+                     ****** _Example:_ receive messages -- from a -- message broker queue
 
-* A `Uni` emits a single event (an item or a failure).
-Unis are convenient to represent asynchronous actions that return 0 or 1 result.
-A good example is the result of sending a message to a message broker queue.
-* A `Multi` emits multiple events (n items, 1 failure or 1 completion).
-Multis can represent streams of items, potentially unbounded.
-A good example is receiving messages from a message broker queue.
-
-These two types allow representing any type of interactions.
-They are event sources.
-You observe them (_subscription_) and you get notified when they emit an item, a failure, or, in the case of a bounded Multi, a completion event.
-When you (the subscriber) receive the event, you can process it (e.g., transform it, filter it).
-With Mutiny, you are going to write code like _onX().action()_, which reads as “on item X do action”.
-
-If you want to know more about Mutiny, and the concepts behind it, check https://smallrye.io/smallrye-mutiny/latest/reference/why-is-asynchronous-important[the Mutiny Reference documentation].
+* event sources
+    ** == you observe them (_subscription_) + | emit an item, failure, or completion event (bounded Multi), you get notified
+        *** if the subscriber receives the event -> can process it (_Examples:_ transform it, filter it)
 
 == Mutiny in Quarkus
 
-Mutiny is the primary API when dealing with the reactive features from Quarkus.
-It means that most extensions support Mutiny either by exposing an API returning Unis and Multis (such as reactive data sources or rest clients) or understanding when your methods return a Uni or a Multi (such as Quarkus REST (formerly RESTEasy Reactive) or Reactive Messaging).
+* 👀MOST Quarkus extensions
+    ** support Mutiny👀 -- by --
+        *** exposing an API / return Unis and Multis (_Examples:_ reactive data sources or rest clients) OR
+        *** understanding when your methods return a Uni or Multi (_Example:_ Quarkus REST or Reactive Messaging)
 
-These integrations make Mutiny a prominent and cohesive model for every reactive application developed with Quarkus.
-In addition, Mutiny architecture allows fine-grain dead-code elimination which improves the memory usage when compiled to native (such as with Quarkus native mode or GraalVM native image compiler).
+* allows
+    ** eliminating dead-code -> less memory usage
+        *** Reason: 🧠Mutiny architecture🧠 
+
+* xref:quarkus-reactive-architecture.adoc#engine[Quarkus reactive engine]
 
 == Why another reactive programming API?
 
-Seasoned reactive developers may wonder why Quarkus introduced yet another reactive programming APIs while there are existing ones.
-Mutiny is taking a very different angle:
-
-**Event-Driven** -
-Mutiny places events at the core of its design.
-With Mutiny, you observe events, react to them, and create elegant and readable processing pipelines.
-A Ph.D. in functional programming is not required.
-
-**Navigable** - Even with intelligent code completion, classes with hundreds of methods are confusing.
-Mutiny provides a navigable and explicit API driving you towards the operator you need.
-
-**Non-Blocking I/O** - Mutiny is the perfect companion to tame the asynchronous nature of applications with non-blocking I/O (which powers xref:quarkus-reactive-architecture.adoc[Quarkus]).
-Declaratively compose operations, transform data, enforce progress, recover from failures, and more.
-
-**Made for an asynchronous world** - Mutiny can be used in any asynchronous application such as event-driven microservices, message-based applications, network utilities, data stream processing, and of course... reactive applications!
-
-**Reactive Streams and Converters Built-In** - Mutiny is based on the https://www.reactive-streams.org/[Reactive Streams] specification, and so it can be integrated with any other reactive programming library.
-In addition, it proposes converters to interact with other popular libraries.
+* vs other reactive programming libraries
+    ** ⚠️| design your program, different approach⚠️
+        *** <<an-event-driven-reactive-programming-api,Event-Driven>>
+        *** **Navigable**
+            **** == drive you towards the operator / you need
+        *** **Non-Blocking I/O**
+            **** -> powers xref:quarkus-reactive-architecture.adoc[Quarkus reactive architecture]
+        *** **It can be used | any asynchronous application**
+            **** _Examples:_ event-driven microservices, message-based applications, network utilities, data stream processing, reactive applications, ...
+        *** **Reactive Streams and Converters Built-In**
+            **** it can be integrated -- with -- any other reactive programming library
+                ***** Reason:🧠Mutiny is based -- on the -- https://www.reactive-streams.org/[Reactive Streams specification]🧠
 
 == Mutiny and the I/O Threads
 
-Quarkus is powered by a xref:quarkus-reactive-architecture.adoc#engine[reactive engine], and when developing a reactive application, your code is executed on one of the few I/O threads.
-Remember, you must never block these threads, and the model would collapse if you do.
-So, you can't use blocking I/O.
-Instead, you need to schedule the I/O operation and pass a continuation.
+* | reactive application
+    ** code is executed | one of the FEW I/O threads
+    ** recommendations
+        *** ❌NEVER block these threads❌
+            **** Reason:🧠otherwise, the model would collapse🧠
+            **** == ❌NOT use blocking I/O❌
+        *** schedule the I/O operation + pass a continuation
 
 image::reactive-thread.png[alt=Reactive Execution Model and I/O Threads,width=50%, align=center]
 
-The Mutiny event-driven paradigm is tailored for this.
+* Mutiny event-driven paradigm
+    ** tailored for: schedule the I/O operation + pass a continuation
 When the I/O operation completes successfully, the Uni that represents it emits an item event.
 When it fails, it emits a failure event.
 The continuation is simply and naturally expressed using the event-driven API.
 
 == Mutiny through Examples
 
-Many Quarkus extensions expose Mutiny APIs. In this section, we use the MongoDB extension to illustrate how to use Mutiny.
-
-Let's imagine a simple structure representing an element from the https://en.wikipedia.org/wiki/Periodic_table[periodic table]:
-
-[source, java]
-----
-public class Element {
-
-   public String name;
-   public String symbol;
-   public int position;
-
-   public Element(String name, String symbol, int position) {
-       this.name = name;
-       this.symbol = symbol;
-       this.position = position;
-   }
-
-   public Element() {
-        // Use by JSON mappers
-   }
-}
-----
-
-This structure contains the name, symbol, and position of the element.
-To retrieve and store elements into a Mongo collection, you can use the following code:
-
-[source, java]
-----
-@ApplicationScoped
-public class ElementService {
-
-   final ReactiveMongoCollection<Element> collection;
-
-   @Inject
-   ElementService(ReactiveMongoClient client) {
-       collection = client.getDatabase("quarkus")
-               .getCollection("elements", Element.class);
-   }
-
-   public void add(Element element) {
-       Uni<InsertOneResult> insertion = collection.insertOne(element);
-       insertion
-           .onItem().transform(r -> r.getInsertedId().asString())
-           .subscribe().with(
-               result -> System.out.println("inserted " + result),
-               failure -> System.out.println("D'oh" + failure));
-   }
-
-   public void getAll() {
-       collection.find()
-           .subscribe().with(
-              element -> System.out.println("Element: " + element),
-             failure -> System.out.println("D'oh! " + failure),
-             () -> System.out.println("No more elements")
-       );
-   }
-
-}
-----
-
-First, the Mongo client is injected.
-Note that it uses the reactive variant (`io.quarkus.mongodb.reactive.ReactiveMongoClient`).
 In the initialize method, we retrieve and store the collection in which elements will be inserted.
 
 The `add` method inserts an element in the collection.

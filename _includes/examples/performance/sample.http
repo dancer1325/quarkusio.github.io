@@ -1,0 +1,9 @@
+GET http://localhost:8080/imperative
+
+###
+GET http://localhost:8080/reactive
+Content-Type: */*
+
+###
+GET http://localhost:8080/virtual
+Content-Type: */*
