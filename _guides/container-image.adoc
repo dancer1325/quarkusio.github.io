@@ -10,8 +10,7 @@ include::_attributes.adoc[]
 :topics: devops,cloud
 :extensions: io.quarkus:quarkus-container-image-openshift,io.quarkus:quarkus-container-image-jib,io.quarkus:quarkus-container-image-docker,io.quarkus:quarkus-container-image-podman,io.quarkus:quarkus-container-image-buildpack
 
-Quarkus provides extensions for building (and pushing) container images. Currently, it supports:
-
+* 👀Quarkus extensions / build & push container images👀
 - <<#jib,Jib>>
 - <<#docker,Docker>>
 - <<#podman,Podman>>
@@ -21,24 +20,29 @@ Quarkus provides extensions for building (and pushing) container images. Current
 == Container Image extensions
 
 [[jib]]
-=== Jib
+=== https://github.com/GoogleContainerTools/jib[Jib]
 
-The extension `quarkus-container-image-jib` is powered by https://github.com/GoogleContainerTools/jib[Jib] for performing container image builds.
-The major benefit of using Jib with Quarkus is that all the dependencies (everything found under `target/lib`) are cached in a different layer than the actual application making rebuilds really fast and small (when it comes to pushing).
-Another important benefit of using this extension is that it provides the ability to create a container image without having to have any dedicated client side tooling (like Docker) or running daemon processes (like the Docker daemon)
-when all that is needed is the ability to push to a container image registry.
-
-To use this feature, add the following extension to your project:
+* `quarkus-container-image-jib`
+    ** allows
+        *** perform container image builds
+            **** == create container images
+    ** benefit
+        *** 💡rebuilds really fast & small💡
+            **** Reason:🧠ALL the dependencies (| "target/lib") are cached | layer != actual application layer🧠
+        *** ❌enable you NOT need to
+            **** have a dedicated client side tooling / create a container image -- _Example:_ Docker --
+            **** run a daemon process -- _Example:_ Docker daemon --❌
 
 :add-extension-extensions: container-image-jib
 include::{includes}/devtools/extension-add.adoc[]
 
-WARNING: In situations where all that is needed to build a container image and no push to a registry is necessary (essentially by having set `quarkus.container-image.build=true` and left `quarkus.container-image.push` unset - it defaults to `false`), then this extension creates a container image and registers
-it with the Docker daemon. This means that although Docker isn't used to build the image, it is nevertheless necessary. Also note that using this mode, the built container image *will*
-show up when executing `docker images`.
+* requirements: if you want ALSO to push | registry
+    ** `quarkus.container-image.push=true`
+    ** Docker daemon
 
 ==== Including extra files
 
+* TODO:
 There are cases when additional files (other than ones produced by the Quarkus build) need to be added to a container image.
 To support these cases, Quarkus copies any file under `src/main/jib` into the built container image (which is essentially the same
 idea that the Jib Maven and Gradle plugins support).

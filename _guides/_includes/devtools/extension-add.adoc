@@ -1,4 +1,4 @@
-* way to add an extension
+* wayS to add this extension
 +
 [source,bash,subs=attributes+, role="primary asciidoc-tabs-sync-cli"]
 .CLI
