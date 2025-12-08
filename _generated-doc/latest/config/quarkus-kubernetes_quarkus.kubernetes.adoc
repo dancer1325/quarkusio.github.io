@@ -1,5 +1,18 @@
 [.configuration-legend]
-icon:lock[title=Fixed at build time] Configuration property fixed at build time - All other configuration properties are overridable at runtime
+* icon:lock[title=Fixed at build time] Configuration property / fixed | build time
+* REST of configuration properties
+    ** are overridable | runtime
+
+* properties / use NON-standard types
+    ** can be referenced -- by -- expanding the property
+        *** _Example:_ `kubernetes-readiness-probe`'s type == `Probe`
++
+[source,properties]
+----
+quarkus.kubernetes.readiness-probe.initial-delay=20s
+quarkus.kubernetes.readiness-probe.period=45s
+----
+
 [.configuration-reference.searchable, cols="80,.^10,.^10"]
 |===
 

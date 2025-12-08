@@ -21,10 +21,12 @@ include::_attributes.adoc[]
             **** <<#openshift,OpenShift>>
             **** <<#knative,Knative>>
     ** can deploy the application | target Kubernetes cluster
-        *** -- via -- applying the generated manifests | target cluster's API Server
-        *** PREVIOUSLY, if xref:container-image.adoc[a container image extensions is present] -> can
-            **** create a container image
-            **** push the container image | registry
+        *** steps
+            **** add xref:container-image.adoc[a container image extension]
+                ***** Reason:🧠
+                    ****** create a container image
+                    ****** push the container image | registry🧠
+            **** apply the generated manifests | target cluster's API Server
 
 == Prerequisites
 
@@ -47,12 +49,16 @@ include::{includes}/devtools/create-app.adoc[]
 include::{includes}/devtools/build.adoc[]
 
 * | package,
-    ** generate Kubernetes manifests (`Deployment`, `Service`)
+    ** 👀`./mvnw package` -> generate Kubernetes manifests (`Deployment`, `Service`)👀
         *** | "target/kubernetes/",
             **** kubernetes.json
             **** kubernetes.yml
         *** `spec.template.spec.containers[*].image` == `yourDockerUsername/kubernetes-quickstart:1.0.0-SNAPSHOT`
-    ** build a container image -- via -- Jib
+    ** 👀build a container image -- via -- Jib👀
+        *** ways to build it
+            **** `./mvnw package -Dquarkus.container-image.build=true`
+            **** | "application.properties", `quarkus.container-image.build=true`
+        *** by default, disabled
 
 * way to apply | cluster
 +
@@ -69,6 +75,10 @@ quarkus.container-image.group=quarkus #optional, default to the system username
 quarkus.container-image.name=demo-app #optional, defaults to the application name
 quarkus.container-image.tag=1.0       #optional, defaults to the application version
 ----
+
+=== Example
+
+* https://github.com/dancer1325/quarkus-quickstarts/tree/main/kubernetes-quickstart[here]
 
 === Generating idempotent resources
 
@@ -921,27 +931,24 @@ quarkus.kubernetes.rbac.cluster-role-bindings.my-cluster-role-binding.role-name=
 
 === Deploying to local Kubernetes
 
-When deploying to local Kubernetes environments, users often perform minor changes to their manifests that simplify the development process.
-The most common changes are:
+* common changes | generated manifests
+    ** `imagePullPolicy=IfNotPresent`
+    ** `NodePort=Service`
 
-- Setting `imagePullPolicy` to `IfNotPresent`
-- Using `NodePort` as `Service` type
-
-Quarkus provides extensions that among others set these options by default.
-Such extensions are:
-
-- quarkus-minikube
-- quarkus-kind
-
-If the list of extensions does not match the tool you are using (e.g. Docker Desktop, microk8s etc) then it is suggested to use the `quarkus-minikube` extension.
-as its defaults should be reasonable for most environments.
-
+* Quarkus extensions / set ADDITIONAL options by default
+    ** quarkus-minikube
+        *** use cases: Minikube, Docker Desktop, microk8s
+    ** quarkus-kind
 
 ==== Deploying to Minikube
 
-https://github.com/kubernetes/minikube[Minikube] is quite popular when a Kubernetes cluster is needed for development purposes. To make the deployment to Minikube
-experience as frictionless as possible, Quarkus provides the `quarkus-minikube` extension. This extension can be added to a project like so:
+* https://github.com/kubernetes/minikube[Minikube]
 
+* `quarkus-minikube` extension
+    ** generate Kubernetes manifests (`minikube.yaml` and `minikube.json`) / tailored to Minikube
+    ** ways to use it
+        *** | Maven
++
 [source,xml,role="primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven"]
 .pom.xml
 ----
@@ -950,15 +957,16 @@ experience as frictionless as possible, Quarkus provides the `quarkus-minikube` 
     <artifactId>quarkus-minikube</artifactId>
 </dependency>
 ----
-
++
+        *** | Gradle
 [source,gradle,role="secondary asciidoc-tabs-target-sync-gradle"]
 .build.gradle
 ----
 implementation("io.quarkus:quarkus-minikube")
 ----
 
-The purpose of this extension is to generate Kubernetes manifests (`minikube.yaml` and `minikube.json`) that are tailored to Minikube.
-This extension assumes a couple of things:
+    ** requirements
+        *** TODO:
 
 * Users won't be using an image registry and will instead make their container image accessible to the Kubernetes cluster by building it directly
 into Minikube's Docker daemon. To use Minikube's Docker daemon you must first execute:
@@ -986,9 +994,15 @@ NOTE: If the assumptions the Minikube extension makes don't fit your workflow, n
 and apply those to your Minikube cluster.
 
 ==== Deploying to Kind
-https://kind.sigs.k8s.io/[Kind] is another popular tool used as a Kubernetes cluster for development purposes. To make the deployment to Kind
-experience as frictionless as possible, Quarkus provides the `quarkus-kind` extension. This extension can be added to a project like so:
+* https://kind.sigs.k8s.io/[Kind]
 
+* `quarkus-kind` extension
+    ** generate Kubernetes manifests (`kind.yaml` and `kind.json`) / tailored to
+        *** Kind
+        *** | perform container image builds -> AUTOMATICALLY load images | cluster
+    ** ways to use it
+        *** | Maven
++
 [source,xml]
 ----
 <dependency>
@@ -997,46 +1011,17 @@ experience as frictionless as possible, Quarkus provides the `quarkus-kind` exte
 </dependency>
 ----
 
-The purpose of this extension is to generate Kubernetes manifests (`kind.yaml` and `kind.json`) that are tailored to Kind and also to automate the process of loading images to the cluster
-when performing container image builds. The tailor made manifests will be pretty similar (they share the same rules) with Minikube (see above).
-
-== Tuning the generated resources using application.properties
-
-The Kubernetes extension allows tuning the generated manifest, using the `application.properties` file.
-Here are some examples:
+== Tuning the generated resources -- via -- application.properties
 
 === Configuration options
-
-The table below describe all the available configuration options.
 
 .Kubernetes
 :no-duration-note: true
 include::{generated-dir}/config/quarkus-kubernetes_quarkus.kubernetes.adoc[opts=optional, leveloffset=+1]
 
-Properties that use non-standard types, can be referenced by expanding the property.
-For example to define a `kubernetes-readiness-probe` which is of type `Probe`:
-
-[source,properties]
-----
-quarkus.kubernetes.readiness-probe.initial-delay=20s
-quarkus.kubernetes.readiness-probe.period=45s
-----
-
-In this example `initial-delay` and `period` are fields of the type `Probe`.
-Below you will find tables describing all available types.
-
-==== Client Connection Configuration
-You may need to configure the connection to your Kubernetes cluster.
-By default, it automatically uses the active _context_ used by `kubectl`.
-
-For instance, if your cluster API endpoint uses a self-signed SSL Certificate you need to explicitly configure the client to trust it. You can achieve this by defining the following property:
-
-[source,properties]
-----
-quarkus.kubernetes-client.trust-certs=true
-----
-
-The full list of the Kubernetes client configuration properties is provided below.
+==== Client Connection Configuration == connection -- to -- Kubernetes cluster
+* by default,
+    ** AUTOMATICALLY uses the `kubectl`'s active _context_
 
 :no-duration-note: true
 include::{generated-dir}/config/quarkus-kubernetes-client.adoc[opts=optional, leveloffset=+1]

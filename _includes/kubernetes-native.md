@@ -1,19 +1,6 @@
 https://quarkus.io/kubernetes-native/
 
 * Quarkus applications
-  * 👀' design
-    * run | container👀
-  * are -- Reason:🧠due to its design 🧠 --
-    * scalable
-    * fast
-    * lightweight
-  * benefit
-    * increase developer productivity
-      * Reasons:🧠
-        * tooling, 
-        * pre-built integrations,
-        * application services,
-        * ...🧠
   * == 💡Kubernetes-native framework💡
     * == [1! step deployments](#1-step-deployments) + [tracing & debugging](#tracing--debugging) + [application health & metrics](#application-health--metrics) + [remote development](#remote-development) 
 
@@ -48,9 +35,13 @@ https://quarkus.io/kubernetes-native/
   * [MORE](../_guides/telemetry-micrometer.adoc)
 
 # Application Configuration
-<h3>Application Configuration</h3>
-      <p>Quarkus includes an extension that allows developers to use Kubernetes ConfigMaps and Secrets as a configuration source, without having to mount them into the Pod running the Quarkus application or make any other modifications to their Kubernetes Deployment (or Openshift DeploymentConfig) <a href="{{site.baseurl}}/guides/kubernetes-config">Read the guide for more details.</a></p>
+* Quarkus extension
+  * allows
+    * use Kubernetes ConfigMaps and Secrets -- as a -- configuration source / WITHOUT mounting them MANUALLY
+  * [MORE](../_guides/kubernetes-config.adoc)
       
 # Remote Development
-<h3>Remote Development</h3>
-      <p>Create and debug applications in the same environment where applications run. Live coding in development mode where any changes made locally will be immediately visible in a clustered Kubernetes environment. <a href="https://developers.redhat.com/blog/2021/02/11/enhancing-the-development-loop-with-quarkus-remote-development">Read this blog post for greater insight.</a></p>
+* create & debug applications | environment / applications run
+* live coding | development mode /
+  * any changes made locally will be IMMEDIATELY visible | clustered Kubernetes environment
+* [MORE](https://developers.redhat.com/blog/2021/02/11/enhancing-the-development-loop-with-quarkus-remote-development)
