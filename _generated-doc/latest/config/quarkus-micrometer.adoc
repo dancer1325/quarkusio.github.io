@@ -1,5 +1,8 @@
 [.configuration-legend]
-icon:lock[title=Fixed at build time] Configuration property fixed at build time - All other configuration properties are overridable at runtime
+* icon:lock[title=Fixed at build time]  Configuration property / fixed | build time
+* REST of configuration properties
+    ** are overridable | runtime
+
 [.configuration-reference.searchable, cols="80,.^10,.^10"]
 |===
 

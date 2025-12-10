@@ -16,13 +16,14 @@ include::_attributes.adoc[]
 
 * Micrometer
     ** | Quarkus applications,
-        *** recommended approach to metrics /
-            **** by default, exposed | main HTTP server
-            **** if you would like to surface metrics -- from a -- separate management port -> <<management-interface,Managed interface>>
+        *** recommended approach, to metrics /
+            **** by default,
+                ***** 👀exposed | main HTTP server -- "/q/metrics" -- 👀
+            **** customize to surface metrics | <<management-interface, separate management port>>
     ** provides
-        *** abstraction layer -- for -- metrics collection
-        *** API -- for - basic meter types (_Examples:_ counters, gauges, timers, and distribution summaries)
-        *** `MeterRegistry` API / generalizes for different backend monitoring systems
+        *** <<Create your own metrics,abstraction layer -- for -- metrics collection>>
+        *** API -- for - basic meter types (_Examples:_ <<Counters,counters>>, <<Gauges,gauges>>, <<Summaries and Timers,timers and summaries>>)
+        *** <<Create a customized MeterRegistry,`MeterRegistry` API>> / generalizes different backend monitoring systems
             **** metrics collection
             **** propagation
 
@@ -39,7 +40,7 @@ include::{includes}/observability-include.adoc[]
 * Quarkus extensions
     - micrometer
     - micrometer-registry-prometheus
-        ** 👀ALSO include `quarkus-micrometer`👀
+        ** ⚠️ALSO include `quarkus-micrometer`⚠️
 
 * link:https://github.com/quarkiverse/quarkus-micrometer-registry[Quarkiverse extensions]
     ** micrometer-registry-azure-monitor
@@ -700,26 +701,23 @@ NOTE: The MP Metrics API compatibility layer may be moved to a different extensi
 [[management-interface]]
 == Management interface
 
-By default, the metrics are exposed on the main HTTP server.
-
-You can expose them on a separate network interface and port by setting `quarkus.management.enabled=true` in your application configuration.
-Note that this property is a build-time property.
-The value cannot be overridden at runtime.
-
-If you enable the management interface without customizing the management network interface and port, the metrics are exposed under: `http://0.0.0.0:9000/q/metrics`.
-
-You can configure the path of each exposed format using:
+* steps
+    ** | "application.properties",
+        *** `quarkus.management.enabled=true`
+            **** == build-time property
+                ***** ❌can NOT be overridden | runtime❌
+            **** exposed | "http://0.0.0.0:9000/q/metrics"
+        *** OPTIONAL MORE properties
++
 [source, properties]
 ----
-quarkus.micrometer.export.json.enabled=true # Enable json metrics
+# Enable json metrics
+quarkus.micrometer.export.json.enabled=true
 quarkus.micrometer.export.json.path=metrics/json
 quarkus.micrometer.export.prometheus.path=metrics/prometheus
 ----
 
-With such a configuration, the json metrics will be available from `http://0.0.0.0:9000/q/metrics/json`.
-The prometheus metrics will be available from `http://0.0.0.0:9000/q/metrics/prometheus`.
-
-Refer to the xref:./management-interface-reference.adoc[management interface reference] for more information.
+* xref:./management-interface-reference.adoc[MORE about management interface]
 
 [[quarkus-extensions-using-micrometer]]
 == Quarkus core extensions instrumented with Micrometer
