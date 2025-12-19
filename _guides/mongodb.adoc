@@ -47,26 +47,33 @@ include::{includes}/devtools/extension-add.adoc[]
         *** have a default (== empty) constructor
 
 == Configuring the MongoDB database
-The main property to configure is the URL to access the MongoDB instance. Almost all configuration can be included in the connection URI, so we advise you to do so. You can find more information in the MongoDB documentation: https://docs.mongodb.com/manual/reference/connection-string/
 
-A sample configuration should look like this:
+* URL -- to -- access the MongoDB instance
+    ** == 💡main property to configure💡
+    ** enable you
+        *** 👀configure ALMOST ALL👀
+    ** https://docs.mongodb.com/manual/reference/connection-string/[MongoDB documentation]
 
+* `quarkus.mongodb.connection-string`
+    ** _Examples:_
+        *** _Example1:_
++
 [source,properties]
 ----
-# configure the mongoDB client for a replica set of two nodes
+# mongoDB client / replica set of 2 nodes
 quarkus.mongodb.connection-string = mongodb://mongo1:27017,mongo2:27017
 ----
-
-In this example, we are using a single instance running on localhost:
-
+        *** _Example2:_
++
 [source,properties]
 ----
-# configure the mongoDB client for a single instance on localhost
+# mongoDB client / 1! instance | localhost
 quarkus.mongodb.connection-string = mongodb://localhost:27017
 ----
 
 === Resolving mongo+srv:// URLs
 
+* TODO:
 When using `mongo+srv://` URLs, the MongoDB driver resolves DNS SRV records to retrieve the list of hosts to connect to.
 By default, it relies on a DNS client implemented using JNDI.
 
@@ -134,19 +141,12 @@ ReactiveMongoClient mongoClient2;
 ----
 
 == Running a MongoDB Database
-As by default, `MongoClient` is configured to access a local MongoDB database on port 27017 (the default MongoDB port), if you have a local running database on this port, there is nothing more to do before being able to test it!
 
-If you want to use Docker to run a MongoDB database, you can use the following command to launch one:
-[source,bash]
-----
-docker run -ti --rm -p 27017:27017 mongo:4.4
-----
-
-[NOTE]
-====
-If you use <<dev-services,Dev Services>>, launching the container manually is not necessary.
-====
-
+* ways
+    ** -- via -- "docker-compose.yaml"
+    ** `docker run -ti --rm -p 27017:27017 mongo:4.4`
+    ** <<dev-services,Dev Services>>
+        *** ❌NOT launch the container manually❌
 
 == Creating a frontend
 

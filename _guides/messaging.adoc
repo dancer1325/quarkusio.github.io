@@ -20,58 +20,56 @@ include::_attributes.adoc[]
 :solace-quarkus: https://solacelabs.github.io/solace-quarkus/
 :http-websocket-connector: https://quarkus.io/extensions/io.quarkiverse.reactivemessaging.http/quarkus-reactive-messaging-http/
 
-Event-driven messaging systems have become the backbone of most modern applications,
-enabling the building of message-driven microservices or complex data streaming pipelines.
+:imagesdir: images
 
-Quarkus offers a comprehensive suite of messaging extensions designed to synchronize with leading messaging technologies effortlessly.
-This empowers developers to concentrate on crafting the core application logic, liberating them from the necessity to delve into the complexities of individual APIs and messaging infrastructures.
+* Event-driven messaging systems
+    ** enable building
+        *** message-driven microservices
+        *** complex data streaming pipelines
+
+* Quarkus
+    ** provides
+        *** suite of messaging extensions / synchronize with leading messaging technologies
 
 image::messaging-quarkus.png[Quarkus Messaging]
 
-This page focuses on common features and the development model for all messaging extensions.
-
-Some of these extensions are maintained in the core Quarkus repository:
-
-* *Messaging*: The core extension defines the basic concepts and APIs to develop messaging applications
-* xref:kafka.adoc[*Messaging - Kafka Connector*]
-* xref:pulsar.adoc[*Messaging - Pulsar Connector*]
-* xref:rabbitmq-reference.adoc[*Messaging - RabbitMQ Connector*]
-* xref:amqp-reference.adoc[*Messaging - AMQP 1.0 Connector*]
-* *Messaging - MQTT Connector*
-
-Some extensions are contributed and maintained by the community:
-
-* link:{camel-smallrye-reactive-messaging}[Camel SmallRye Reactive Messaging]
-* link:{nats-jetstream}[Nats Jetstream Connector]
-* link:{solace-quarkus}[Solace Messaging Connector]
-* link:{http-websocket-connector}[Reactive HTTP and WebSocket Connector]
-* AWS SQS Connector
-
-Other connectors, such as the *JMS Connector* or the *Google PubSub Connector*, do not benefit from the same level of integration and require more manual configuration to set up.
-
-On the other hand, some messaging-related extensions propose low-level provider-specific integrations.
-The level of support covered on this page DOES NOT involve these low-level extensions.
-A non-exhaustive list of this kind of extension are the following:
-
-* link:https://quarkus.io/guides/kafka-streams[Kafka Streams Extension]
-* link:https://docs.quarkiverse.io/quarkus-rabbitmq-client/dev/index.html[RabbitMQ Client]
-* link:https://docs.quarkiverse.io/quarkus-hivemq-client/dev/index.html[HiveMQ Client]
-* link:https://docs.quarkiverse.io/quarkus-artemis/dev/quarkus-artemis-jms.html[Artemis Core & JMS]
-* link:https://docs.quarkiverse.io/quarkus-google-cloud-services/main/pubsub.html[Google Cloud Pubsub]
+* Quarkus extensions /
+    ** maintained | core Quarkus repository
+        *** *Messaging*
+            **** == basic concepts + APIs
+            **** uses
+                ***** develop messaging applications
+        *** xref:kafka.adoc[*Messaging - Kafka Connector*]
+        *** xref:pulsar.adoc[*Messaging - Pulsar Connector*]
+        *** xref:rabbitmq-reference.adoc[*Messaging - RabbitMQ Connector*]
+        *** xref:amqp-reference.adoc[*Messaging - AMQP 1.0 Connector*]
+        *** *Messaging - MQTT Connector*
+    ** maintained | community
+        *** link:{camel-smallrye-reactive-messaging}[Camel SmallRye Reactive Messaging]
+        *** link:{nats-jetstream}[Nats Jetstream Connector]
+        *** link:{solace-quarkus}[Solace Messaging Connector]
+        *** link:{http-websocket-connector}[Reactive HTTP and WebSocket Connector]
+        *** AWS SQS Connector
+    ** low-level provider-specific integrations
+        *** link:https://quarkus.io/guides/kafka-streams[Kafka Streams Extension]
+        *** link:https://docs.quarkiverse.io/quarkus-rabbitmq-client/dev/index.html[RabbitMQ Client]
+        *** link:https://docs.quarkiverse.io/quarkus-hivemq-client/dev/index.html[HiveMQ Client]
+        *** link:https://docs.quarkiverse.io/quarkus-artemis/dev/quarkus-artemis-jms.html[Artemis Core & JMS]
+        *** link:https://docs.quarkiverse.io/quarkus-google-cloud-services/main/pubsub.html[Google Cloud Pubsub]
 
 == Quarkus Messaging Development Model
-Quarkus simplifies message-driven application development by establishing a uniform model for publishing, consuming, and processing messages, regardless of whether the underlying broker technology uses message queuing or event streaming.
-Built upon the MicroProfile Reactive Messaging specification, Quarkus Messaging extensions ensure seamless integration with these technologies.
-Importantly, proficiency in reactive programming is NOT a prerequisite for leveraging these capabilities.
-
-The Reactive Messaging specification defines a CDI-based programming model for implementing event-driven and message-driven applications.
-Using a small set of annotations, CDI beans become building blocks for implementing interactions with message brokers.
-These interactions happen through _channels_ where application components read and write messages.
-
-_Channels_ are identified by a unique name and declared using a set of annotations.
+* Quarkus Messaging Development Model
+    ** 👀== uniform model👀
+        *** -- for -- publishing + consuming + processing messages
+        *** regardless the underlying broker technology (message queuing, event streaming, ...)
+    ** 💡built | https://github.com/dancer1325/microprofile-reactive-messaging[MicroProfile Reactive Messaging specification]💡
 
 === `@Incoming` and `@Outgoing` annotations
-`@Incoming` and `@Outgoing` method annotations define _channels_ allowing to consume messages from and produce messages to the message broker:
+
+* `@Incoming` method annotations
+    ** == _channels_ / consume messages -- from the -- message broker
+* `@Outgoing` method annotations
+    ** == _channels_ / produce messages -- to the -- message broker
 
 [source, java]
 ----
