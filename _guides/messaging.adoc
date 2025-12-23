@@ -68,80 +68,20 @@ image::messaging-quarkus.png[Quarkus Messaging]
 
 * `@Incoming` method annotations
     ** == _channels_ / consume messages -- from the -- message broker
+    ** use cases
+        *** by itself | method, to consume messages
+    ** uses
+        *** by the framework
+            ****❌NOT invoked DIRECTLY -- from the -- code
 * `@Outgoing` method annotations
     ** == _channels_ / produce messages -- to the -- message broker
+    ** use cases
+        *** by itself | method, to generate messages
+    ** uses
+        *** by the framework
+            ****❌NOT invoked DIRECTLY -- from the -- code❌
 
-[source, java]
-----
-import jakarta.enterprise.context.ApplicationScoped;
-
-import org.eclipse.microprofile.reactive.messaging.Incoming;
-import org.eclipse.microprofile.reactive.messaging.Outgoing;
-
-@ApplicationScoped
-public class MessageProcessingBean {
-
-   @Incoming("source")
-   @Outgoing("sink")
-   public String process(String consumedPayload) {
-       // Process the incoming message payload and return an updated payload
-       return consumedPayload.toUpperCase();
-   }
-
-}
-----
-
-`@Outgoing` can be used by itself on a method to generate messages:
-
-[source, java]
-----
-import jakarta.enterprise.context.ApplicationScoped;
-
-import org.eclipse.microprofile.reactive.messaging.Incoming;
-import org.eclipse.microprofile.reactive.messaging.Message;
-import org.eclipse.microprofile.reactive.messaging.Outgoing;
-
-@ApplicationScoped
-public class MessageGeneratorBean {
-
-   @Outgoing("sink")
-   public Multi<String> generate() {
-       return Multi.createFrom().items("a", "b", "c");
-   }
-
-}
-----
-
-`@Incoming` can be used by itself to consume messages:
-
-[source, java]
-----
-import jakarta.enterprise.context.ApplicationScoped;
-
-import org.eclipse.microprofile.reactive.messaging.Incoming;
-import org.eclipse.microprofile.reactive.messaging.Message;
-import org.eclipse.microprofile.reactive.messaging.Outgoing;
-
-@ApplicationScoped
-public class MessageProcessingBean {
-
-   @Incoming("source")
-   public void process(String consumedPayload) {
-       // process the payload
-       consumedPayload.toUpperCase();
-   }
-
-}
-----
-
-[IMPORTANT]
-====
-Note that you should not call methods annotated with `@Incoming` and/or `@Outgoing` directly from your code.
-They are invoked by the framework.
-Having user code invoking them would not have the expected outcome.
-====
-
-You can read more on supported method signatures in the link:{rm_doc_method_signatures}[SmallRye Reactive Messaging – Supported signatures].
+* link:{rm_doc_method_signatures}[SmallRye Reactive Messaging – Supported signatures]
 
 === Emitters and `@Channel` annotation
 
