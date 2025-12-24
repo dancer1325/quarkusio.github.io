@@ -28,12 +28,46 @@ If you want to learn more about Quarkus, please visit its website: <https://quar
 * `quarkus.messaging.auto-connector-attachment=false` | [application.properties](src/main/resources/application.properties)
 * [❌run does NOT work❌](#how-to-run)
 
-## ways to receive messages -- from -- Kafka
+## ways to create consumers
+### `@Incoming("KafkaTopicName")`
 * [PriceConsumer.java](src/main/java/org/acme/PriceConsumer.java)
+### `@Channel("KafkaTopicName")`
 * [PriceResource.java](src/main/java/org/acme/PriceResource.java)
+
+## ways to receive Kafka messages
+### receive message payload DIRECTLY
+* [PriceConsumer.java](src/main/java/org/acme/PriceConsumer.java)'s @Incoming("prices")
+* [run the application](#how-to-run)
+  * check logs "Option 1 - receive message payload DIRECTLY"
+### access the incoming message metadata + handle MANUALLY the acknowledgment
+* [PriceConsumer.java](src/main/java/org/acme/PriceConsumer.java)'s @Incoming("pricesSecond")
+* [run the application](#how-to-run)
+  * check logs "Option 2 - access the incoming message metadata + handle MANUALLY the acknowledgment"
+### access the Kafka record objects DIRECTLY
+#### -- via -- `ConsumerRecord`
+* [PriceConsumer.java](src/main/java/org/acme/PriceConsumer.java)'s @Incoming("pricesThird")
+* [run the application](#how-to-run)
+  * check logs "Option 3.1 - ConsumerRecord"
+#### -- via -- `Record`
+* [PriceConsumer.java](src/main/java/org/acme/PriceConsumer.java)'s @Incoming("pricesFourth")
+* [run the application](#how-to-run)
+  * check logs "Option 3.2 - Record"
+### inject a `Multi` | your bean + `.subscribe()` to its events
+* [PriceResource.java](src/main/java/org/acme/PriceResource.java)
+  * check ALL ALLOWED types
+* [run the application](#how-to-run)
+* hit [sample.http](sample.http)
+* check logs
+
+## requirements to consume
+### `mp.messaging.incoming.kafkaTopicName.connector`
 * [application.properties](src/main/resources/application.properties)
-* [run it](#how-to-run) 
-  * check the logs
+### `@Outgoing("kafkaTopicName")` | method
+* [PriceProducer.java](src/main/java/org/acme/PriceProducer.java)
+  * comment some `@Outgoing("")` line to see that quarkus application does NOT work
+
+## Blocking processing
+
 
 ## how to run?
 

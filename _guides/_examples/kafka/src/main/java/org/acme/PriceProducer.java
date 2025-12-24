@@ -52,6 +52,7 @@ public class PriceProducer {
                 });
     }
 
+    // comment to see that it's required
     @Outgoing("pricesFourth-producer")
     public Multi<Double> generateFourth() {
         return Multi.createFrom().ticks().every(Duration.ofSeconds(7))

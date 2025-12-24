@@ -75,111 +75,78 @@ include::{includes}/devtools/extension-add.adoc[]
 
 == ways to receive messages -- from -- Kafka
 
-* Quarkus application can
+* ways to create consumers
+    ** `@Incoming("KafkaTopicName")`
+    ** `@Inject @Channel("KafkaTopicName")`
+        *** application code
+            **** is responsible -- for the -- subscription
+
+* ⚠️requirements to consume ⚠️
+    ** `mp.messaging.incoming.kafkaTopicName.connector`, OR
+    ** `@Outgoing("kafkaTopicName")` | method
+
+* ways to receive Kafka messages (valid for BOTH -- `@Incoming()` & `@Channel()`)
     ** receive message payload DIRECTLY
     ** access the incoming message metadata + handle MANUALLY the acknowledgment
         *** -- via -- `Message` type
-    ** use <<commit-strategies, DIFFERENT acknowledgment strategies>>
+        *** use <<commit-strategies, DIFFERENT acknowledgment strategies>>
     ** access the Kafka record objects DIRECTLY
         *** ways
             **** -- via -- `ConsumerRecord`
             **** -- via -- `Record`
-    ** inject a `Multi` | your bean + subscribe to its events
+    ** inject a `Multi` | your bean + `.subscribe()` to its events
+        *** ALLOWED types
+            **** `Multi<PrimitiveType>`
+                ***** it acknowledges the message AUTOMATICALLY
+                ***** support MULTIPLE subscribers
+            **** `Multi<Message<PrimitiveType>>`
+                ***** MANUALLY, you need to
+                    ****** acknowledge
+                    ****** <<broadcasting-messages-on-multiple-consumers, broadcast>>
+            **** `Publisher<PrimitiveType>`
+            **** `Publisher<Message<PrimitiveType>>`
 
 * `Record`
     ** == wrapper around incoming Kafka record's key and payload
 
-* TODO:
-
-[NOTE]
-====
-When consuming messages with `@Channel`, the application code is responsible for the subscription.
-In the example above, the Quarkus REST (formerly RESTEasy Reactive) endpoint handles that for you.
-====
-
-Following types can be injected as channels:
-
-[source, java]
-----
-@Inject @Channel("prices") Multi<Double> streamOfPayloads;
-
-@Inject @Channel("prices") Multi<Message<Double>> streamOfMessages;
-
-@Inject @Channel("prices") Publisher<Double> publisherOfPayloads;
-
-@Inject @Channel("prices") Publisher<Message<Double>> publisherOfMessages;
-----
-
-As with the previous `Message` example, if your injected channel receives payloads (`Multi<T>`), it acknowledges the message automatically, and support multiple subscribers.
-If you injected channel receives Message (`Multi<Message<T>>`), you will be responsible for the acknowledgment and broadcasting.
-We will explore sending broadcast messages in <<broadcasting-messages-on-multiple-consumers>>.
-
-[IMPORTANT]
-====
-Injecting `@Channel("prices")` or having `@Incoming("prices")` does not automatically configure the application to consume messages from Kafka.
-You need to configure an inbound connector with `mp.messaging.incoming.prices\...` or have an `@Outgoing("prices")` method somewhere in your application (in which case, `prices` will be an in-memory channel).
-====
-
 [[blocking-processing]]
 === Blocking processing
 
-Reactive Messaging invokes your method on an I/O thread.
-See the xref:quarkus-reactive-architecture.adoc[Quarkus Reactive Architecture documentation] for further details on this topic.
-But, you often need to combine Reactive Messaging with blocking processing such as database interactions.
-For this, you need to use the `@Blocking` annotation indicating that the processing is _blocking_ and should not be run on the caller thread.
+* Reactive Messaging
+    ** by default, xref:quarkus-reactive-architecture.adoc[invoke your method | I/O thread]
+        *** == ❌threads NOT blocked❌
+    ** + blocking processing (`@Blocking`)
+        *** use cases
+            **** database interactions
+        *** ❌should NOT run | caller thread❌
+    ** Kafka connector
+        *** by default, use worker threads
 
-For example, The following code illustrates how you can store incoming payloads to a database using Hibernate with Panache:
+* `@Blocking` annotations
+    ** EXISTING
+        1. `io.smallrye.reactive.messaging.annotations.Blocking`
+            *** MORE fine-grained tuning
+                **** _Examples:_
+                    ***** worker pool -- to -- use
+                    ***** worker pool / preserves the order
+        2. `io.smallrye.common.annotation.Blocking`
+            *** uses the default Quarkus pool
+            *** preserves the order processing of messages
+            *** compatible -- with -- other Quarkus reactive features
+    ** https://smallrye.io/smallrye-reactive-messaging/latest/concepts/blocking/[MORE information]
 
-[source,java]
-----
-import io.smallrye.reactive.messaging.annotations.Blocking;
-import org.eclipse.microprofile.reactive.messaging.Incoming;
+* `@RunOnVirtualThread`
+    ** allows
+        *** | Java _virtual threads_, running the blocking processing
+    ** xref:messaging-virtual-threads.adoc[MORE]
 
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.transaction.Transactional;
+* `@Transactional`
+    ** uses
+        *** | method
+    ** ALTHOUGH you do NOT use `@Blocking` -> AUTOMATICALLY _block_
 
-@ApplicationScoped
-public class PriceStorage {
-
-    @Incoming("prices")
-    @Transactional
-    public void store(int priceInUsd) {
-        Price price = new Price();
-        price.value = priceInUsd;
-        price.persist();
-    }
-
-}
-----
-
-The complete example is available in the `kafka-panache-quickstart` link:{quickstarts-tree-url}/kafka-panache-quickstart[directory].
-
-[NOTE]
-====
-There are 2 `@Blocking` annotations:
-
-1. `io.smallrye.reactive.messaging.annotations.Blocking`
-2. `io.smallrye.common.annotation.Blocking`
-
-They have the same effect.
-Thus, you can use both.
-The first one provides more fine-grained tuning such as the worker pool to use and whether it preserves the order.
-The second one, used also with other reactive features of Quarkus, uses the default worker pool and preserves the order.
-
-Detailed information on the usage of `@Blocking` annotation can be found in https://smallrye.io/smallrye-reactive-messaging/latest/concepts/blocking/[SmallRye Reactive Messaging – Handling blocking execution].
-====
-
-[TIP]
-.@RunOnVirtualThread
-====
-For running the blocking processing on Java _virtual threads_, see the xref:messaging-virtual-threads.adoc[Quarkus Virtual Thread support with Reactive Messaging documentation].
-====
-
-[TIP]
-.@Transactional
-====
-If your method is annotated with `@Transactional`, it will be considered _blocking_ automatically, even if the method is not annotated with `@Blocking`.
-====
+* _Examples:_
+    ** link:{quickstarts-tree-url}/kafka-panache-quickstart[here]
 
 === Acknowledgment Strategies
 

@@ -54,6 +54,6 @@ public class PriceConsumer {
     @Incoming("pricesFifth")
     public void consumeFifth(double price) {
         // process your price.
-        System.out.println("consumeFifth - Received price: " + price);
+        System.out.println("Option 4. - inject a `Multi` | your bean + `.subscribe()` to its events - Received price: " + price);
     }
 }
