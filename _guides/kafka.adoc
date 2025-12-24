@@ -13,11 +13,17 @@ include::_attributes.adoc[]
 :topics: messaging,kafka,reactive-messaging
 :extensions: io.quarkus:quarkus-messaging-kafka
 
-This reference guide demonstrates how your Quarkus application can utilize Quarkus Messaging to interact with Apache Kafka.
+* goal
+    ** Quarkus application can interact -- , via Quarkus Messaging, with -- Apache Kafka
+
+== Recommendations
+
+* see PREVIOUSLY xref:kafka-getting-started.adoc[Getting Started to Quarkus Messaging -- with -- Apache Kafka]
 
 == Introduction
 
-https://kafka.apache.org[Apache Kafka] is a popular open-source distributed event streaming platform.
+* https://kafka.apache.org[Apache Kafka]
+    ** TODO: is a popular open-source distributed event streaming platform.
 It is used commonly for high-performance data pipelines, streaming analytics, data integration, and mission-critical applications.
 Similar to a message queue, or an enterprise messaging platform, it lets you:
 
@@ -25,188 +31,65 @@ Similar to a message queue, or an enterprise messaging platform, it lets you:
 - *store* streams of records durably and reliably inside _topics_.
 - *process* streams of records as they occur or retrospectively.
 
-And all this functionality is provided in a distributed, highly scalable, elastic, fault-tolerant, and secure manner.
+And all this functionality is provided in a distributed, highly scalable, elastic, fault-tolerant, and secure manner
+
+* Messaging vocabulary | Kafka
+    ** *message*
+        *** == Kafka _record_
+    ** *channel*
+        *** Kafka connector maps _channels_ -- to -- Kafka _topics_
+    ** **connector**
+        *** `smallrye-kafka`
+            **** specific Kafka connector
 
 == Quarkus Extension for Apache Kafka
 
-Quarkus provides support for Apache Kafka through https://smallrye.io/smallrye-reactive-messaging/[SmallRye Reactive Messaging] framework.
-Based on Eclipse MicroProfile Reactive Messaging specification 2.0, it proposes a flexible programming model bridging CDI and event-driven.
+* link:messaging.adoc[SmallRye Reactive Messaging framework supported message backends]
 
-[NOTE]
-====
-This guide provides an in-depth look on Apache Kafka and SmallRye Reactive Messaging framework.
-For a quick start take a look at xref:kafka-getting-started.adoc[Getting Started to Quarkus Messaging with Apache Kafka].
-====
-
-You can add the `messaging-kafka` extension to your project by running the following command in your project base directory:
+* `messaging-kafka` extension
+    ** == Quarkus  extension /
+        *** 👀support -- , through https://smallrye.io/smallrye-reactive-messaging/[SmallRye Reactive Messaging framework], for -- Apache Kafka👀
+        *** includes `kafka-clients` version 3.2.1 -- as a -- transitive dependency
+        *** compatible -- with -- Kafka brokers version 2.x
 
 :add-extension-extensions: messaging-kafka
 include::{includes}/devtools/extension-add.adoc[]
 
-This will add the following to your build file:
+== how to configure SmallRye Kafka Connector?
 
-[source,xml,role="primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven"]
-.pom.xml
-----
-<dependency>
-    <groupId>io.quarkus</groupId>
-    <artifactId>quarkus-messaging-kafka</artifactId>
-</dependency>
-----
+* broker location
+    ** ways
+        *** globally -- `kafka.bootstrap.servers` OR `%profileName.kafka.bootstrap.servers` --
+            **** xref:config-reference.adoc#profiles[/ profile]
+        *** / channel -- `mp.messaging.incoming.$channel.bootstrap.servers` --
+    ** <<kafka-dev-services>> AUTOMATICALLY starts a Kafka broker
+        *** |
+            **** dev mode
+            **** run tests
+        *** by default, == localhost:9092
 
-[source,gradle,role="secondary asciidoc-tabs-target-sync-gradle"]
-.build.gradle
-----
-implementation("io.quarkus:quarkus-messaging-kafka")
-----
+* configure connector -- `mp.messaging.incoming.channelName.connector=smallrye-kafka` --
+    ** 👀if you have 1! connector | your classpath -> you can omit the configuration👀
+        *** Reason: 🧠Quarkus AUTOMATICALLY associates _orphan_ channels -- to the -- 1! connector🧠
+            **** if you want to disable it -> `quarkus.messaging.auto-connector-attachment=false`
 
-[NOTE]
-====
-The extension includes `kafka-clients` version 3.2.1 as a transitive dependency and is compatible with Kafka brokers version 2.x.
-====
+== ways to receive messages -- from -- Kafka
 
-== Configuring SmallRye Kafka Connector
+* Quarkus application can
+    ** receive message payload DIRECTLY
+    ** access the incoming message metadata + handle MANUALLY the acknowledgment
+        *** -- via -- `Message` type
+    ** use <<commit-strategies, DIFFERENT acknowledgment strategies>>
+    ** access the Kafka record objects DIRECTLY
+        *** ways
+            **** -- via -- `ConsumerRecord`
+            **** -- via -- `Record`
+    ** inject a `Multi` | your bean + subscribe to its events
 
-Because SmallRye Reactive Messaging framework supports different messaging backends like Apache Kafka, AMQP, Apache Camel, JMS, MQTT, etc., it employs a generic vocabulary:
+* `Record`
+    ** == wrapper around incoming Kafka record's key and payload
 
-- Applications send and receive *messages*. A message wraps a _payload_ and can be extended with some _metadata_. With the Kafka connector, a _message_ corresponds to a Kafka _record_.
-- Messages transit on *channels*. Application components connect to channels to publish and consume messages. The Kafka connector maps _channels_ to Kafka _topics_.
-- Channels are connected to message backends using *connectors*. Connectors are configured to map incoming messages to a specific channel (consumed by the application) and collect outgoing messages sent to a specific channel. Each connector is dedicated to a specific messaging technology. For example, the connector dealing with Kafka is named `smallrye-kafka`.
-
-A minimal configuration for the Kafka connector with an incoming channel looks like the following:
-
-[source, properties]
-----
-%prod.kafka.bootstrap.servers=kafka:9092 <1>
-mp.messaging.incoming.prices.connector=smallrye-kafka <2>
-----
-<1> Configure the broker location for the production profile. You can configure it globally or per channel using `mp.messaging.incoming.$channel.bootstrap.servers` property.
-In dev mode and when running tests, <<kafka-dev-services>> automatically starts a Kafka broker.
-When not provided this property defaults to `localhost:9092`.
-<2> Configure the connector to manage the prices channel. By default, the topic name is same as the channel name. You can configure the topic attribute to override it.
-
-NOTE: The `%prod` prefix indicates that the property is only used when the application runs in prod mode (so not in dev or test). Refer to the xref:config-reference.adoc#profiles[Profile documentation] for further details.
-
-[TIP]
-.Connector auto-attachment
-====
-If you have a single connector on your classpath, you can omit the `connector` attribute configuration.
-Quarkus automatically associates _orphan_ channels to the (unique) connector found on the classpath.
-_Orphans_ channels are outgoing channels without a downstream consumer or incoming channels without an upstream producer.
-
-This auto-attachment can be disabled using:
-
-[source, properties]
-----
-quarkus.messaging.auto-connector-attachment=false
-----
-====
-
-== Receiving messages from Kafka
-
-Continuing from the previous minimal configuration, your Quarkus application can receive message payload directly:
-
-[source, java]
-----
-import org.eclipse.microprofile.reactive.messaging.Incoming;
-
-import jakarta.enterprise.context.ApplicationScoped;
-
-@ApplicationScoped
-public class PriceConsumer {
-
-    @Incoming("prices")
-    public void consume(double price) {
-        // process your price.
-    }
-
-}
-----
-
-There are several other ways your application can consume incoming messages:
-
-.Message
-[source, java]
-----
-@Incoming("prices")
-public CompletionStage<Void> consume(Message<Double> msg) {
-    // access record metadata
-    var metadata = msg.getMetadata(IncomingKafkaRecordMetadata.class).orElseThrow();
-    // process the message payload.
-    double price = msg.getPayload();
-    // Acknowledge the incoming message (commit the offset)
-    return msg.ack();
-}
-----
-
-The `Message` type lets the consuming method access the incoming message metadata and handle the acknowledgment manually.
-We'll explore different acknowledgment strategies in <<commit-strategies>>.
-
-If you want to access the Kafka record objects directly, use:
-
-.ConsumerRecord
-[source, java]
-----
-@Incoming("prices")
-public void consume(ConsumerRecord<String, Double> record) {
-    String key = record.key(); // Can be `null` if the incoming record has no key
-    String value = record.value(); // Can be `null` if the incoming record has no value
-    String topic = record.topic();
-    int partition = record.partition();
-    // ...
-}
-----
-
-`ConsumerRecord` is provided by the underlying Kafka client and can be injected directly to the consumer method.
-Another simpler approach consists in using `Record`:
-
-.Record
-[source, java]
-----
-@Incoming("prices")
-public void consume(Record<String, Double> record) {
-    String key = record.key(); // Can be `null` if the incoming record has no key
-    String value = record.value(); // Can be `null` if the incoming record has no value
-}
-----
-
-`Record` is a simple wrapper around key and payload of the incoming Kafka record.
-
-.@Channel
-
-Alternatively, your application can inject a `Multi` in your bean and subscribe to its events as the following example:
-
-[source, java]
-----
-import io.smallrye.mutiny.Multi;
-import org.eclipse.microprofile.reactive.messaging.Channel;
-
-import jakarta.inject.Inject;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.MediaType;
-import org.jboss.resteasy.reactive.RestStreamElementType;
-
-@Path("/prices")
-public class PriceResource {
-
-    @Inject
-    @Channel("prices")
-    Multi<Double> prices;
-
-    @GET
-    @Path("/prices")
-    @RestStreamElementType(MediaType.TEXT_PLAIN)
-    public Multi<Double> stream() {
-        return prices;
-    }
-}
-----
-
-This is a good example of how to integrate a Kafka consumer with another downstream,
-in this example exposing it as a Server-Sent Events endpoint.
-
+* TODO:
 
 [NOTE]
 ====

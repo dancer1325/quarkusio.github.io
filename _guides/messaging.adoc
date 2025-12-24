@@ -57,6 +57,26 @@ image::messaging-quarkus.png[Quarkus Messaging]
         *** link:https://docs.quarkiverse.io/quarkus-artemis/dev/quarkus-artemis-jms.html[Artemis Core & JMS]
         *** link:https://docs.quarkiverse.io/quarkus-google-cloud-services/main/pubsub.html[Google Cloud Pubsub]
 
+* Messaging vocabulary
+    ** *message*
+        *** == _payload_ + _metadata_
+            **** _metadata_
+                ***** OPTIONAL
+        *** applications send and receive them
+    ** *channel*
+        *** == via | messages transit on
+        *** allows
+            **** application components can publish and consume messages
+        *** are connected -- , via connectors, to -- message backends
+        *** _Orphans_ channel
+            **** == outgoing channels WITHOUT a downstream consumer
+            **** == incoming channels WITHOUT an upstream producer
+    ** *connectors*
+        *** are configured -- to --
+            **** map incoming messages -- to a -- specific channel (consumed -- by the -- application)
+            **** collect outgoing messages sent -- to a -- specific channel
+        *** specific / EACH messaging technology
+
 == Quarkus Messaging Development Model
 * Quarkus Messaging Development Model
     ** 👀== uniform model👀

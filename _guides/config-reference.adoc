@@ -12,6 +12,8 @@ include::_attributes.adoc[]
 :sectnumlevels: 4
 :topics: configuration
 
+:imagesdir: images
+
 * goal
     ** Quarkus configuration
 * 👀Quarkus itself (core & extensions) + Quarkus application
@@ -303,15 +305,20 @@ APIs are not configuration aware and do not support the features described in th
 [[profiles]]
 == Profiles
 
-We often need to configure our application differently depending on the target _environment_. For example, the local
-development environment may be different from the production environment.
+* uses
+    ** configure DIFFERENTLY the application / target _environment_
 
-Configuration Profiles allow for multiple configurations in the same file or separate files and select between them via
-a profile name.
+* allows
+    ** MULTIPLE configurations | same file OR separate files
+    ** select BETWEEN configurations -- via a -- profile name
 
-=== Profile in the property name
-To be able to set properties with the same name, each property needs to be prefixed with a percentage sign `%` followed
-by the profile name and a dot `.` in the syntax `%{profile-name}.config.name`:
+=== Profile | property name
+
+* allows
+    ** set properties / same name
+
+* syntax |
+    ** "*.properties" -- `%{profile-name}.propertyName` --
 
 .application.properties
 [source,properties]
@@ -322,7 +329,7 @@ quarkus.http.port=9090
 
 The Quarkus HTTP port will be 9090. If the `dev` profile is active it will be 8181.
 
-Profiles in the `.env` file follow the syntax `_{PROFILE}_CONFIG_KEY=value`:
+** `.env` file -- `_{PROFILE}_CONFIG_KEY=value` --
 
 ..env
 [source, properties]
