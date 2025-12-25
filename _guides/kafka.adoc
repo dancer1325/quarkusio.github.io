@@ -150,35 +150,26 @@ include::{includes}/devtools/extension-add.adoc[]
 
 === Acknowledgment Strategies
 
-All messages received by a consumer must be acknowledged.
-In the absence of acknowledgment, the processing is considered in error.
-If the consumer method receives a `Record` or a payload, the message will be acked on method return, also known as `Strategy.POST_PROCESSING`.
-If the consumer method returns another reactive stream or `CompletionStage`, the message will be acked when the downstream message is acked.
-You can override the default behavior to ack the message on arrival (`Strategy.PRE_PROCESSING`),
-or do not ack the message at all (`Strategy.NONE`) on the consumer method as in the following example:
-
-[source, java]
-----
-@Incoming("prices")
-@Acknowledgment(Acknowledgment.Strategy.PRE_PROCESSING)
-public void process(double price) {
-    // process price
-}
-----
-
-If the consumer method receives a `Message`, the acknowledgment strategy is `Strategy.MANUAL`
-and the consumer method is in charge of ack/nack the message.
-
-[source, java]
-----
-@Incoming("prices")
-public CompletionStage<Void> process(Message<Double> msg) {
-    // process price
-    return msg.ack();
-}
-----
-
-As mentioned above, the method can also override the acknowledgment strategy to `PRE_PROCESSING` or `NONE`.
+* ALL messages / received by a consumer
+    ** ⚠️requirements⚠️
+        *** acknowledge
+            **** ❌OTHERWISE, the processing == error❌
+* Strategies
+    ** `Strategy.POST_PROCESSING`
+        *** default one
+        *** if the consumer method
+            **** receives a `Record` OR payload -> the message will be acked | method return
+                ***** ⚠️if the message fails -> Kafka retries -> NOT lose the message⚠️
+            **** returns another reactive stream OR `CompletionStage` -> the message will be acked | ack the downstream message
+                ***** ⚠️if the message fails -> Kafka retries -> NOT lose the message⚠️
+    ** `Strategy.PRE_PROCESSING`
+        *** ack the message | arrival
+            **** == ⚠️if the message fails -> Kafka does NOT retry -> lose the message⚠️
+    ** `Strategy.NONE`
+        *** ❌NOT ack the message❌
+            **** ⚠️if you want to ack -> you need to ack MANUALLY⚠️
+    ** `Strategy.MANUAL`
+        *** ⚠️you need to handle ack/nack the message⚠️
 
 [[commit-strategies]]
 === Commit Strategies

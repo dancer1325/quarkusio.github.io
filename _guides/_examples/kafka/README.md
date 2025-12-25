@@ -66,8 +66,36 @@ If you want to learn more about Quarkus, please visit its website: <https://quar
 * [PriceProducer.java](src/main/java/org/acme/PriceProducer.java)
   * comment some `@Outgoing("")` line to see that quarkus application does NOT work
 
-## Blocking processing
-
+## Acknowledgment Strategies
+### `Strategy.POST_PROCESSING`
+#### default one
+* [AckStrategyExamples.java](src/main/java/org/acme/AckStrategyExamples.java)'s `postProcessingDefault()`
+* [run](#how-to-run)
+* look for logs "POST_PROCESSING: Price too high! "
+  * 💡chek that exception number is retried == appears MORE times💡
+#### if the message fails -> Kafka retries -> NOT lose the message
+* [AckStrategyExamples.java](src/main/java/org/acme/AckStrategyExamples.java)'s `postProcessingPayload()`
+* [run](#how-to-run)
+* look for logs "POST_PROCESSING: Price too high! "
+  * 💡chek that exception number is retried == appears MORE times💡
+### `Strategy.PRE_PROCESSING`
+#### if the message fails -> Kafka does NOT retry -> lose the message
+* [AckStrategyExamples.java](src/main/java/org/acme/AckStrategyExamples.java)'s `preProcessing()`
+* [run](#how-to-run)
+* look for logs "PRE_PROCESSING: Price too high! "
+  * 💡chek that exception number is NOT retried == NOT appear MORE💡
+### `Strategy.NONE`
+#### NOT ack the message
+* [AckStrategyExamples.java](src/main/java/org/acme/AckStrategyExamples.java)'s `noneStrategy()` 
+* [run](#how-to-run)
+* look for logs "NONE: Manually "
+  * 💡chek that acking is manual💡
+### `Strategy.MANUAL`
+#### you need to handle ack/nack the message
+* [AckStrategyExamples.java](src/main/java/org/acme/AckStrategyExamples.java)'s `manualStrategy()`
+* [run](#how-to-run)
+* look for logs "MANUAL: Manually "
+  * 💡chek that acking is manual💡
 
 ## how to run?
 
@@ -75,6 +103,11 @@ If you want to learn more about Quarkus, please visit its website: <https://quar
   * `docker compose up -d`
 * | here
   * `./mvnw quarkus:dev`
+    * Problems:
+      * Problem1: "2025-12-25 09:58:57,143 ERROR [io.sma.rea.mes.kafka] (smallrye-kafka-consumer-thread-23) SRMSG18249: Unable to recover from the deserialization failure (topic: prices), configure a DeserializationFailureHandler to recover from errors.: org.apache.kafka.common.errors.SerializationException: Size of data received by Deserializer is not 8"
+        * Solution: TODO:
+      * Problem2: "SRMSG18212: Message .. Retries exhausted : 0 attempts against 1766659128207/1766658532843 expiration"
+        * Solution: TODO:
 
 
 
