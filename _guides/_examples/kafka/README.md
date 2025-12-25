@@ -97,6 +97,10 @@ If you want to learn more about Quarkus, please visit its website: <https://quar
 * look for logs "MANUAL: Manually "
   * 💡chek that acking is manual💡
 
+## Commit Strategies
+
+* TODO: 
+
 ## how to run?
 
 * | [infra](infra)

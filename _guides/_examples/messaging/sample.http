@@ -1,0 +1,25 @@
+# 1. Emitters (`Emitter`) + `@Channel`
+## 1.1 allows, | imperative code, send messages -- to a -- specific channel
+###
+POST localhost:8080/send
+Content-Type: application/json
+
+42.5
+
+###
+POST localhost:8080/sendmutiny
+Content-Type: application/json
+
+22.5
+
+### 1.2 `Emitter`
+### 1.2.1 allows: buffering (== if there are NO consumers -> keep the messages) messages / sent to the channel
+#### 1.2.1.1 send 1!
+POST localhost:8080/buffer/send
+Content-Type: text/plain
+
+"Message 1"
+
+#### 1.2.1.1 send MULTIPLE
+POST localhost:8080/buffer/sendMultiple
+Content-Type: text/plain

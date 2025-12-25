@@ -154,6 +154,7 @@ include::{includes}/devtools/extension-add.adoc[]
     ** ⚠️requirements⚠️
         *** acknowledge
             **** ❌OTHERWISE, the processing == error❌
+
 * Strategies
     ** `Strategy.POST_PROCESSING`
         *** default one
@@ -174,18 +175,24 @@ include::{includes}/devtools/extension-add.adoc[]
 [[commit-strategies]]
 === Commit Strategies
 
-When a message produced from a Kafka record is acknowledged, the connector invokes a commit strategy.
-These strategies decide when the consumer offset for a specific topic/partition is committed.
-Committing an offset indicates that all previous records have been processed.
-It is also the position where the application would restart the processing after a crash recovery or a restart.
+* | ack a message / produced -- from a -- Kafka record,
+    ** Kafka connector invokes a commit strategy
 
-Committing every offset has performance penalties as Kafka offset management can be slow.
-However, not committing the offset often enough may lead to message duplication if the application crashes between two commits.
+* Commit strategies
+    ** responsible for
+        *** commit the consumer offset / specific topic/partition is
 
-The Kafka connector supports three strategies:
+* Commit an offset
+    ** == ALL previous records have been processed
+    ** position |
+        *** after a crash recovery OR restart, application would restart the processing
+    ** has performance penalties
+        *** Reason:🧠Kafka offset management can be slow🧠
+    ** ⚠️if the application crashes BETWEEN 2 commits & NOT commit the offset OFTENLY -> may lead to message duplication⚠️
 
-- `throttled` keeps track of received messages and commits an offset of the latest acked message in sequence (meaning, all previous messages were also acked).
-This strategy guarantees at-least-once delivery even if the channel performs asynchronous processing.
+* Kafka connector supported strategies
+    - `throttled` keeps track of received messages and commits an offset of the latest acked message in sequence (meaning, all previous messages were also acked).
+This strategy guarantees at-least-once delivery even if the channel performs asynchronous processing
 The connector tracks the received records and periodically (period specified by `auto.commit.interval.ms`, default: 5000 ms) commits the highest consecutive offset.
 The connector will be marked as unhealthy if a message associated with a record is not acknowledged in `throttled.unprocessed-record-max-age.ms` (default: 60000 ms).
 Indeed, this strategy cannot commit the offset as soon as a single record processing fails.
@@ -193,7 +200,7 @@ If `throttled.unprocessed-record-max-age.ms` is set to less than or equal to `0`
 Such a setting might lead to running out of memory if there are "poison pill" messages (that are never acked).
 This strategy is the default if `enable.auto.commit` is not explicitly set to true.
 
-- `checkpoint` allows persisting consumer offsets on a **state store**, instead of committing them back to the Kafka broker.
+    - `checkpoint` allows persisting consumer offsets on a **state store**, instead of committing them back to the Kafka broker.
 Using the `CheckpointMetadata` API, consumer code can persist a _processing state_ with the record offset to mark the progress of a consumer.
 When the processing continues from a previously persisted offset, it seeks the Kafka consumer to that offset and also restores the persisted state, continuing the stateful processing from where it left off.
 The checkpoint strategy holds locally the processing state associated with the latest offset, and persists it periodically to the state store (period specified by `auto.commit.interval.ms` (default: 5000)).
@@ -201,13 +208,13 @@ The connector will be marked as unhealthy if no processing state is persisted to
 If `checkpoint.unsynced-state-max-age.ms` is set to less than or equal to 0, it does not perform any health check verification.
 For more information, see <<stateful-processing-checkpointing>>
 
-- `latest` commits the record offset received by the Kafka consumer as soon as the associated message is acknowledged (if the offset is higher than the previously committed offset).
+    - `latest` commits the record offset received by the Kafka consumer as soon as the associated message is acknowledged (if the offset is higher than the previously committed offset).
 This strategy provides at-least-once delivery if the channel processes the message without performing any asynchronous processing. Specifically, the offset of the most recent acknowledged 
 message will always be committed, even if older messages have not finished being processed. In case of an incident such as a crash, processing would restart after the last commit, leading 
 to older messages never being successfully and fully processed, which would appear as message loss.
 This strategy should not be used in high load environment, as offset commit is expensive. However, it reduces the risk of duplicates.
 
-- `ignore` performs no commit. This strategy is the default strategy when the consumer is explicitly configured with `enable.auto.commit` to true.
+    - `ignore` performs no commit. This strategy is the default strategy when the consumer is explicitly configured with `enable.auto.commit` to true.
 It delegates the offset commit to the underlying Kafka client.
 When `enable.auto.commit` is `true` this strategy **DOES NOT** guarantee at-least-once delivery.
 SmallRye Reactive Messaging processes records asynchronously, so offsets may be committed for records that have been polled but not yet processed.
@@ -215,7 +222,8 @@ In case of a failure, only records that were not committed yet will be re-proces
 
 [IMPORTANT]
 ====
-The Kafka connector disables the Kafka auto commit when it is not explicitly enabled. This behavior differs from the traditional Kafka consumer.
+The Kafka connector disables the Kafka auto commit when it is not explicitly enabled
+This behavior differs from the traditional Kafka consumer.
 If high throughput is important for you, and you are not limited by the downstream, we recommend to either:
 
 - use the `throttled` policy,

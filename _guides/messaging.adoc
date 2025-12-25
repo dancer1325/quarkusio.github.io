@@ -103,86 +103,37 @@ image::messaging-quarkus.png[Quarkus Messaging]
 
 * link:{rm_doc_method_signatures}[SmallRye Reactive Messaging – Supported signatures]
 
-=== Emitters and `@Channel` annotation
+=== Emitters (`Emitter`) + `@Channel`
 
-An application often needs to combine messaging with other parts of the application, ex. produce messages from HTTP endpoints, or stream consumed messages as a response.
+* allows
+    ** | imperative code,
+        *** send messages -- to a -- specific channel
+* use case
+    ** application / message + other parts of the application
+        *** _Example:_ | HTTP endpoints, produce messages
 
-To send messages from imperative code to a specific channel, you need to inject an `Emitter` object identified by the `@Channel` annotation:
+* `@Channel`
+    ** == channel |
+        *** send your payloads OR messages
+        *** inject the stream of messages
 
-[source, java]
-----
-import org.eclipse.microprofile.reactive.messaging.Channel;
-import org.eclipse.microprofile.reactive.messaging.Emitter;
+* `Emitter`
+    ** allows
+        *** buffering (== if there are NO consumers -> keep the messages) messages / sent to the channel
+    ** vs
+        *** link:{mutiny}[Mutiny APIs]
+            **** Mutiny has MORE control
+            **** `MutinyEmitter`
 
-@ApplicationScoped
-@Path("/")
-public class MyImperativeBean {
+* TODO:
+When consuming messages with `@Channel`,
+the application code is responsible for subscribing to the stream.
+In the example above, the Quarkus REST
+(formerly RESTEasy Reactive) endpoint handles that for you.
 
-   @Channel("prices")
-   Emitter<Double> emitter;
-
-   @GET
-   @Path("/send")
-   public CompletionStage<Void> send(double d) {
-       return emitter.send(d);
-   }
-}
-----
-
-The `@Channel` annotation lets you indicate to which channel you will send your payloads or messages.
-The `Emitter` allows buffering messages sent to the channel.
-
-For more control, using link:{mutiny}[Mutiny] APIs, you can use the `MutinyEmitter` emitter interface:
-
-[source, java]
-----
-import io.smallrye.mutiny.Multi;
-import org.eclipse.microprofile.reactive.messaging.Channel;
-import org.eclipse.microprofile.reactive.messaging.MutinyEmitter;
-
-@ApplicationScoped
-@Path("/")
-public class MyImperativeBean {
-
-   @Channel("prices")
-   MutinyEmitter<Double> emitter;
-
-   @GET
-   @Path("/send")
-   public void send(double d) {
-       emitter.sendAndAwait(d);
-   }
-
-}
-----
-
-The `@Channel` annotation can also be used to inject the stream of messages from an incoming channel:
-
-[source, java]
-----
-import org.eclipse.microprofile.reactive.messaging.Channel;
-
-@ApplicationScoped
-@Path("/")
-public class SseResource {
-
-    @Channel("prices")
-    Multi<Double> prices;
-
-    @GET
-    @Path("/prices")
-    @RestStreamElementType(MediaType.TEXT_PLAIN)
-    public Multi<Double> stream() {
-        return prices;
-    }
-
-}
-----
-
-When consuming messages with `@Channel`, the application code is responsible for subscribing to the stream.
-In the example above, the Quarkus REST (formerly RESTEasy Reactive) endpoint handles that for you.
-
-You can read more on the emitters and channels in the link:{rm_doc_emitter}[SmallRye Reactive Messaging – Emitter and Channels] documentation.
+You can read more on the emitters and channels in the
+link:{rm_doc_emitter}[SmallRye Reactive Messaging – Emitter and Channels]
+documentation.
 
 === Messages and Metadata
 A `Message` is an envelope around a payload.
