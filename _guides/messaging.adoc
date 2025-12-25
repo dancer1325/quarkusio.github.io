@@ -123,6 +123,8 @@ image::messaging-quarkus.png[Quarkus Messaging]
     ** vs
         *** link:{mutiny}[Mutiny APIs]
             **** Mutiny has MORE control
+                ***** sync
+                ***** async
             **** `MutinyEmitter`
 
 * TODO:

@@ -34,7 +34,10 @@ If you want to learn more about Quarkus, please visit its website: https://quark
 * check logs that it consume ALL
 #### vs Mutiny APIs
 ##### Mutiny has MORE control
-* TODO: 
+* [MutinyControlDemo.java](src/main/java/MutinyControlDemo.java) & [ControlConsumer.java](src/main/java/ControlConsumer.java)
+  * check code
+* hit [sample.http](sample.http)
+* check logs
 
 ## how to run | dev?
 * `./mvnw quarkus:dev`

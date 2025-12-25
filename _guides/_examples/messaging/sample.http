@@ -23,3 +23,20 @@ Content-Type: text/plain
 #### 1.2.1.1 send MULTIPLE
 POST localhost:8080/buffer/sendMultiple
 Content-Type: text/plain
+
+### 1.2.2 vs Mutiny APIs: Mutiny has MORE control
+#### 1.2.2.1 Emitter
+POST localhost:8080/control/regular?msg=regularAlfred
+
+#### 1.2.2.2 MutinyEmitter
+#### 1.2.2.2.1 MORE control
+#### 1.2.2.2.1.1 async
+#### 1.2.2.2.1.1.1 valid
+POST localhost:8080/control/mutiny-async?msg=multiAsyncAlfred
+#### 1.2.2.2.1.1.2 invalid
+POST localhost:8080/control/mutiny-async?msg=fail
+#### 1.2.2.2.1.2 sync
+#### 1.2.2.2.1.2.1 valid
+POST localhost:8080/control/mutiny-blocking?msg=multiSyncAlfred
+#### 1.2.2.2.1.2.2 invalid
+POST localhost:8080/control/mutiny-blocking?msg=fail
