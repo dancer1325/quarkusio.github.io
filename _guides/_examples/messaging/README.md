@@ -18,13 +18,23 @@ If you want to learn more about Quarkus, please visit its website: https://quark
 #### application / message + other parts of the application
 * [MyImperativeBean.java](src/main/java/MyImperativeBean.java)
   * == | HTTP endpoints, produce messages
-### `@Channel` == channel | 
-#### send your payloads OR
+### `@Channel`  
+#### == channel |
+##### send your payloads OR
 * [MyImperativeBean.java](src/main/java/MyImperativeBean.java)'s `.sendPayload()`
 * hit [sample.http](sample.http)
-#### send your messages
+##### send your messages
 * [MyImperativeBean.java](src/main/java/MyImperativeBean.java)'s `.sendMessage()`
   * TODO: it does NOT work
+#### | consume messages / sent -- via -- `@Channel`
+##### -> application code is responsible for subscribing | stream
+###### == MANUAL subscription
+* [run](#how-to-run--dev)
+  * check logs and NOT find "MANUAL (@Channel):"
+* hit [sample.http](sample.http)
+###### != `@Incoming` (== AUTOMATIC)
+* [run](#how-to-run--dev)
+* check logs and find "AUTOMATIC (@Incoming):"
 #### inject the stream of messages
 * [SseResource](src/main/java/SseResource.java)
 ### `Emitter`

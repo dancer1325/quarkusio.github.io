@@ -116,6 +116,11 @@ image::messaging-quarkus.png[Quarkus Messaging]
     ** == channel |
         *** send your payloads OR messages
         *** inject the stream of messages
+    ** | consume messages / sent -- via -- `@Channel`
+        *** -> ⚠️application code is responsible for subscribing | stream⚠️
+            **** == MANUAL subscription
+                ***** _Examples:_ programmatically, via REST
+            **** ❌!= `@Incoming` (== AUTOMATIC)❌
 
 * `Emitter`
     ** allows
@@ -127,15 +132,7 @@ image::messaging-quarkus.png[Quarkus Messaging]
                 ***** async
             **** `MutinyEmitter`
 
-* TODO:
-When consuming messages with `@Channel`,
-the application code is responsible for subscribing to the stream.
-In the example above, the Quarkus REST
-(formerly RESTEasy Reactive) endpoint handles that for you.
-
-You can read more on the emitters and channels in the
-link:{rm_doc_emitter}[SmallRye Reactive Messaging – Emitter and Channels]
-documentation.
+* link:{rm_doc_emitter}[MORE]
 
 === Messages and Metadata
 A `Message` is an envelope around a payload.
