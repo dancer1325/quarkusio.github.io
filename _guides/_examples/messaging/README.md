@@ -7,47 +7,62 @@ If you want to learn more about Quarkus, please visit its website: https://quark
 ## how has it been created?
 `quarkus create -P io.quarkus.platform:quarkus-bom:3.22.3 kafka --extension=quarkus-resteasy-reactive, quarkus-resteasy-reactive-jackson`
 
-## Emitters (`Emitter`) + `@Channel`
-### allows
-#### | imperative code, send messages -- to a -- specific channel
+## Quarkus Messaging Development Model
+
+### Emitters (`Emitter`) + `@Channel`
+#### allows
+##### | imperative code, send messages -- to a -- specific channel
 * [MyImperativeBean.java](src/main/java/MyImperativeBean.java)
 * hit [sample.http](sample.http)
 * | logs, look for ""imperatives " & "imperativesMutiny"
   * == sent -- to -- specific channel
-### use case
-#### application / message + other parts of the application
+#### use case
+##### application / message + other parts of the application
 * [MyImperativeBean.java](src/main/java/MyImperativeBean.java)
   * == | HTTP endpoints, produce messages
-### `@Channel`  
+#### `@Channel`  
 #### == channel |
-##### send your payloads OR
+###### send your payloads OR
 * [MyImperativeBean.java](src/main/java/MyImperativeBean.java)'s `.sendPayload()`
 * hit [sample.http](sample.http)
-##### send your messages
+###### send your messages
 * [MyImperativeBean.java](src/main/java/MyImperativeBean.java)'s `.sendMessage()`
   * TODO: it does NOT work
-#### | consume messages / sent -- via -- `@Channel`
-##### -> application code is responsible for subscribing | stream
-###### == MANUAL subscription
+##### | consume messages / sent -- via -- `@Channel`
+###### -> application code is responsible for subscribing | stream
+####### == MANUAL subscription
 * [run](#how-to-run--dev)
   * check logs and NOT find "MANUAL (@Channel):"
 * hit [sample.http](sample.http)
 ###### != `@Incoming` (== AUTOMATIC)
 * [run](#how-to-run--dev)
 * check logs and find "AUTOMATIC (@Incoming):"
-#### inject the stream of messages
+##### inject the stream of messages
 * [SseResource](src/main/java/SseResource.java)
-### `Emitter`
-#### allows: buffering (== if there are NO consumers OR MULTIPLE -> keep the messages) messages / sent to the channel
+#### `Emitter`
+##### allows: buffering (== if there are NO consumers OR MULTIPLE -> keep the messages) messages / sent to the channel
 * [run](#how-to-run--dev)
 * hit [1.2.1.1](sample.http)
 * check logs that it consume ALL
-#### vs Mutiny APIs
-##### Mutiny has MORE control
+##### vs Mutiny APIs
+###### Mutiny has MORE control
 * [MutinyControlDemo.java](src/main/java/MutinyControlDemo.java) & [ControlConsumer.java](src/main/java/ControlConsumer.java)
   * check code
 * hit [sample.http](sample.http)
 * check logs
+
+### Messages and Metadata
+#### `Message`
+##### wrap the payload
+* [MessageProcessor.java](src/main/java/MessageProcessor.java)
+###### built-in `Metadata`
+* [MessageProcessor.java](src/main/java/MessageProcessor.java)
+###### `<T>` can be arbitrary objects
+* [MessageProcessor.java](src/main/java/MessageProcessor.java)
+###### built-in async actions -- for -- acknowledgement (ack) + negative acknowledgement (nack)
+* [MessageProcessor.java](src/main/java/MessageProcessor.java)
+##### exist / EACH payload
+* [MessageProducer.java](src/main/java/MessageProducer.java)
 
 ## how to run | dev?
 * `./mvnw quarkus:dev`

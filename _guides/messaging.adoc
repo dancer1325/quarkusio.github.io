@@ -135,35 +135,28 @@ image::messaging-quarkus.png[Quarkus Messaging]
 * link:{rm_doc_emitter}[MORE]
 
 === Messages and Metadata
-A `Message` is an envelope around a payload.
-In the examples above only payloads were used, but every payload is wrapped around a `Message` internally in Quarkus Messaging.
 
-The `Message<T>` interface associates a payload of type `<T>` with `Metadata`,
-a set of arbitrary objects and asynchronous actions for acknowledgement (ack) and negative acknowledgement (nack).
+* `Message`
+    ** == 💡wrap the payload💡
+        *** `Message<T>` / payload of type `<T>`
+            **** built-in `Metadata`
+            **** `<T>` can be arbitrary objects
+            **** built-in async actions -- for --
+                ***** acknowledgement (`.ack()`) &
+                ***** negative acknowledgement (`.nack()`)
+    ** ⚠️exist / EACH payload⚠️
 
-[source, java]
-----
-import org.eclipse.microprofile.reactive.messaging.Message;
-
-@Incoming("source")
-@Outgoing("sink")
-public Message<String> process(Message<String> consumed) {
-    // Access the metadata
-    MyMetadata my = consumed.getMetadata(MyMetadata.class).get();
-    // Process the incoming message and return an updated message
-    return consumed.withPayload(consumed.getPayload().toUpperCase());
-}
-----
-
-A message is acknowledged back to the broker when its processing or reception has been successful.
+* TODO: A message is acknowledged back to the broker when its processing or reception has been successful.
 Acknowledgements between messages are chained, meaning that when processing a message,
 the acknowledgement of an outgoing message triggers the acknowledgement of incoming message(s).
-In most cases, acks and nacks are managed for you and connectors allow you to configure different strategies per channel.
+In most cases, acks and nacks are managed for you and connectors allow you to configure
+different strategies per channel.
 So, you usually don't need to interact with the `Message` interface directly.
 Only advanced use cases require dealing with the Message directly.
 
 Accessing the `Metadata`, on the other hand, can be practical in many cases.
-Connectors add specific metadata objects to the message to give access to the message headers, properties, and other connector-specific information.
+Connectors add specific metadata objects to the message to give access to the message headers, properties,
+and other connector-specific information.
 You do not need to interact with the `Message` interface to access connector-specific metadata.
 You can simply inject the metadata object as a method parameter after the payload parameter:
 
@@ -181,7 +174,8 @@ public String process(String payload, MyMetadata my) {
 ----
 
 Depending on the connector, payload types available to consume in processing methods differ.
-You can implement a custom `MessageConverter` to transform the payload to a type that is accepted by your application.
+You can implement a custom `MessageConverter` to transform the payload to a type that
+is accepted by your application.
 
 === Channel configuration
 
